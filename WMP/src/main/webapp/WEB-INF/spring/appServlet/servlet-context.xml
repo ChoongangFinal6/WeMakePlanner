@@ -23,6 +23,10 @@
 	
 	<context:component-scan base-package="controller,dao,service" />
 	
+	<!-- javascript/jquery -->
+	<resources mapping="/resources/**" location="/resources/" />
+  	<resources mapping="/js/**"  location="/resources/js/" />
+	
 	
 	
 </beans:beans>

@@ -44,7 +44,7 @@ CREATE TABLE todo (
 	duration INTEGER       NULL,     -- 기간
 	endTime  DATE          NOT NULL, -- 마감시간
 	location VARCHAR2(100) NULL,     -- 장소
-	finish   VARCHAR2(1)      NULL,     -- 완료
+	finish   VARCHAR2(1)   NOT NULL DEFAULT 0,     -- 완료
 	repeat   INTEGER       NULL      -- 반복
 );
 

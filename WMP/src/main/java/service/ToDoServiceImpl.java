@@ -1,6 +1,7 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import model.ToDo;
@@ -15,12 +16,12 @@ public class ToDoServiceImpl implements ToDoService {
 	private ToDoDao td;
 	
 	@Override
-	public HashMap<Integer, ArrayList<ToDo>> startTotal() {
-		return td.startTotal();
+	public HashMap<Integer, ArrayList<ToDo>> startTotal(Calendar fDay) {
+		return td.startTotal(fDay);
 	}
 	@Override
-	public HashMap<Integer, ArrayList<ToDo>> endTotal() {
-		return td.endTotal();
+	public HashMap<Integer, ArrayList<ToDo>> endTotal(Calendar fDay) {
+		return td.endTotal(fDay);
 	}
 	
 }

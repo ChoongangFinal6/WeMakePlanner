@@ -95,8 +95,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script src="${root}/js/jquery.js"></script>
-<script src="${root}/js/jquery-ui.js"></script>
 <script type="text/javascript">
 	$(function() {
 		var id = "";
@@ -222,6 +220,7 @@ div.todoS {
 </style>
 </head>
 <body>
+${root} 
 	<table>
 		<caption style="height: 20px;">
 
@@ -320,6 +319,6 @@ div.todoS {
 		%>
 	</table>
 	<div id='detail'></div>
-	<div id='draggable'>aa</div>
+	${aa}<br>${bb}
 </body>
 </html>

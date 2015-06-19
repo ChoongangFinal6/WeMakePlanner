@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 public class ToDo {
 	private int no;					// 일련번호         
@@ -11,6 +12,8 @@ public class ToDo {
 	private Boolean finish;         // 장소           
 	private int repeat;             // 완료
 	private Timestamp startTime;	// 시작시간 , DB컬럼 x , 마감시간-duration 으로 계산용도
+	
+	private Calendar startDate, EndDate;	//sql검색중 필요 변수, 1일추가 용의한 calendar 사용
 	public int getNo() {
 		return no;
 	}
@@ -64,6 +67,18 @@ public class ToDo {
 	}
 	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
+	}
+	public Calendar getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Calendar startDate) {
+		this.startDate = startDate;
+	}
+	public Calendar getEndDate() {
+		return EndDate;
+	}
+	public void setEndDate(Calendar endDate) {
+		EndDate = endDate;
 	}
 	 
 }
