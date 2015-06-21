@@ -1,9 +1,9 @@
-<%@page import="java.util.*"%>
+<%@page import="java.util.*,model.*"%>
 <%@ include file="aa.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%!//일정 입력을 위한카운트
-	class ToDo {
+/* 	class ToDo {
 		String title;
 		Boolean finish;
 		int pKey;
@@ -11,10 +11,17 @@
 		Date startTime;
 		int duration; //일단위
 
-	}%>
+	} */
+	%>
 <%
-	request.setCharacterEncoding("utf-8");
-
+HashMap<Integer, List<ToDo>> todo = (HashMap<Integer, List<ToDo>>)request.getAttribute("todo");
+HashMap<Integer, List<ToDo>> todoS = (HashMap<Integer, List<ToDo>>)request.getAttribute("todoS");
+Calendar cal = (Calendar)request.getAttribute("cal");
+int w = (int)request.getAttribute("w");
+/* 	request.setCharacterEncoding("utf-8");
+*/ 
+Calendar day = cal;
+/*
 	Calendar cal = Calendar.getInstance(); //현재 시스템이 가지고 있는 날짜 데이터 가지고 오기
 
 	int y = cal.get(Calendar.YEAR);
@@ -85,11 +92,11 @@
 	d20150613.add(t3);
 	todo.put(20150611, d20150611);
 	todo.put(20150613, d20150613);
-	todoS.put(20150610, s20150610);
+	todoS.put(20150610, s20150610); */
 %>
-<c:set var="ys" value="<%=y%>"></c:set>
-<c:set var="ms" value="<%=m%>"></c:set>
-<c:set var="ws" value="<%=w%>"></c:set>
+<c:set var="ys" value="${y }"></c:set>
+<c:set var="ms" value="${m }"></c:set>
+<c:set var="ws" value="${w }"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,7 +117,6 @@
 			},
 			stop : function(event, ui) {
 			}
-			
 		});
 		$(".day").droppable({
 		    drop: function (ev, ui) {
@@ -168,56 +174,7 @@
 </script>
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<style type="text/css">
-body {
-	
-}
 
-table {
-	text-align: left;
-	width: 700px;
-	background-color: #ff22cc;
-}
-
-td.day {
-	height: 100px;
-	vertical-align: top;
-	padding: 0px;
-	margin: 0px;
-}
-
-div.day {
-	position: relative;
-	left: 0px;
-	top: 0px;
-	margin: 0px;
-	padding: 2px;
-	width: 50px;
-}
-
-div.todo, div.todoS {
-	margin: 0px;
-	padding: 0px;
-	width: 95px;
-	border-radius: 2px;
-	border: 1px solid black;
-	width: 95px;
-}
-
-div.todo {
-	background-color: #ee0000;
-}
-
-div.todoS {
-	background-color: #00ee00;
-}
-
-#draggable {
-	border: 1px red solid;
-	width: 100px;
-	height: 100px;
-}
-</style>
 </head>
 <body>
 ${root} 
@@ -289,20 +246,20 @@ ${root}
 				if (todo.containsKey(ymd)) {
 					for (int i = 0; i < todo.get(ymd).size(); i++) {
 						out.print("<div class='d_" + ymd + "_" + i
-								+ ", todo', id='" + todo.get(ymd).get(i).pKey
+								+ ", todo', id='" + todo.get(ymd).get(i).getNo()
 								+ "'>");
-						out.println(todo.get(ymd).get(i).title);
-						System.out.print(todo.get(ymd).get(i).title);
+						out.println(todo.get(ymd).get(i).getTitle());
+						System.out.print(todo.get(ymd).get(i).getTitle());
 						out.print("</div>");
 					}
 				}
 				if (todoS.containsKey(ymd)) {
 					for (int i = 0; i < todoS.get(ymd).size(); i++) {
 						out.print("<div class='s_" + ymd + "_" + i
-								+ ", todoS', id='" + todoS.get(ymd).get(i).pKey
+								+ ", todoS', id='" + todoS.get(ymd).get(i).getNo()
 								+ "'>");
-						out.println(todoS.get(ymd).get(i).title);
-						System.out.print(todoS.get(ymd).get(i).title);
+						out.println(todoS.get(ymd).get(i).getTitle());
+						System.out.print(todoS.get(ymd).get(i).getTitle());
 						out.print("</div>");
 					}
 				}

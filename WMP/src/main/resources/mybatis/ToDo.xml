@@ -12,18 +12,15 @@
     <result property="location" column="location"/>
     <result property="finish" column="finish"/>
     <result property="repeat" column="repeat"/>
+    <result property="startTime" column="startTime"/>
   </resultMap>
   <!-- Select with no parameters using the result map for Account class. -->
   <select id="startAll" parameterType="ToDo" resultMap="ToDoResult">
-    select * from todo where email=#{email} and 
-    	<where>
-    		<if test="search=='title'"> 
-    			title like '%'||#{keyword}||'%'	</if>
-    		<if test="search=='writer'"> 
-    			writer like '%'||#{keyword}||'%' </if>
-    		<if test="search=='content'"> 
-    			content like '%'||#{keyword}||'%' </if>
-    	</where>
-   	 order by id desc 
+    select * from todo where email=#{email} and where (TO_DATE(endTime,"YYYY-MM-DD")-duration) = #{startDate} 
+ 	 order by no asc 
+  </select>
+  <select id="endAll" parameterType="ToDo" resultMap="ToDoResult">
+    select * from todo where email=#{email} and where (TO_DATE(endTime,"YYYY-MM-DD")) == #{endDate}
+ 	 order by no asc 
   </select>
 </mapper>

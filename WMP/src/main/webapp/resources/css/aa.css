@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+body {
+	
+}
+
+table {
+	text-align: left;
+	width: 700px;
+	background-color: #ff22cc;
+}
+
+td.day {
+	height: 100px;
+	vertical-align: top;
+	padding: 0px;
+	margin: 0px;
+}
+
+div.day {
+	position: relative;
+	left: 0px;
+	top: 0px;
+	margin: 0px;
+	padding: 2px;
+	width: 50px;
+}
+
+div.todo, div.todoS {
+	margin: 0px;
+	padding: 0px;
+	width: 95px;
+	border-radius: 2px;
+	border: 1px solid black;
+	width: 95px;
+}
+
+div.todo {
+	background-color: #ee0000;
+}
+
+div.todoS {
+	background-color: #00ee00;
+}
+
+#draggable {
+	border: 1px red solid;
+	width: 100px;
+	height: 100px;
+}

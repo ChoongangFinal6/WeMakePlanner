@@ -13,7 +13,7 @@ public class ToDo {
 	private int repeat;             // 완료
 	private Timestamp startTime;	// 시작시간 , DB컬럼 x , 마감시간-duration 으로 계산용도
 	
-	private Calendar startDate, EndDate;	//sql검색중 필요 변수, 1일추가 용의한 calendar 사용
+	private Calendar startDate, endDate;	//sql검색중 필요 변수, 1일추가 용의한 calendar 사용
 	public int getNo() {
 		return no;
 	}
@@ -75,10 +75,29 @@ public class ToDo {
 		this.startDate = startDate;
 	}
 	public Calendar getEndDate() {
-		return EndDate;
+		return endDate;
 	}
 	public void setEndDate(Calendar endDate) {
-		EndDate = endDate;
+		this.endDate = endDate;
+	}
+	public ToDo() {
+		super();
+	}
+	public ToDo(int no, String title, String email, int duration,
+			Timestamp endTime, String location, Boolean finish, int repeat,
+			Timestamp startTime, Calendar startDate, Calendar endDate) {
+		super();
+		this.no = no;
+		this.title = title;
+		this.email = email;
+		this.duration = duration;
+		this.endTime = endTime;
+		this.location = location;
+		this.finish = finish;
+		this.repeat = repeat;
+		this.startTime = startTime;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 	 
 }
