@@ -41,7 +41,7 @@ public class ToDoController {
 		return "todo/calendar";
 	}
 	@RequestMapping(value="create", method = RequestMethod.GET)
-	public String create(String date, Model model) {
+	public String createForm(String date, Model model) {
 		Date dt = new Date();
 		Calendar cal = Calendar.getInstance();
 		dt.setTime(cal.getTimeInMillis());
@@ -49,6 +49,11 @@ public class ToDoController {
 				Integer.parseInt(date.substring(4, 6)),
 				Integer.parseInt(date.substring(6)));
 		model.addAttribute("cal",dt.toString());
+		return "todo/create";
+	}
+	@RequestMapping(value="create", method = RequestMethod.POST)
+	public String createDo(ToDo todo, Model model) {
+		td.insert(todo);
 		return "todo/create";
 	}
 }

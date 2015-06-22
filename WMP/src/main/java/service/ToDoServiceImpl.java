@@ -23,5 +23,9 @@ public class ToDoServiceImpl implements ToDoService {
 	public HashMap<Integer, List<ToDo>> endTotal(Calendar fDay) {
 		return td.endTotal(fDay);
 	}
+	@Override
+	public int insert(ToDo todo) {
+		return td.insert(todo);
+	}
 	
 }

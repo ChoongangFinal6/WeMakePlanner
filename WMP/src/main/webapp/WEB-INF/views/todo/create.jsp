@@ -10,10 +10,10 @@
 	새 일정
 	<%
 	String date = request.getParameter("date");
-%>
+	%>
 	<%=date%>
 
-	<form>
+	<form action="create.do" method="post">
 		<table class='tocr_table'>
 			<tr>
 				<th>제목</th>

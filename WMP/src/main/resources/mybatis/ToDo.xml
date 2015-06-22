@@ -20,4 +20,7 @@
   <select id="endAll" parameterType="ToDo" resultMap="ToDoResult">
     select * from todo where email=#{email} and TRUNC(endTime) = #{endDate }
   </select>
+  <insert id="endAll" parameterType="ToDo">
+   	insert into board1 values (toto_no.nextval, #{title}, #{}, #content#, 0, sysdate) 
+  </insert>
 </mapper>

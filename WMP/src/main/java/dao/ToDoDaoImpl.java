@@ -13,12 +13,14 @@ import model.ToDo;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ibatis.common.resources.Resources;
 
 @Repository("td")
 public class ToDoDaoImpl implements ToDoDao {
+	@Autowired
 	private SqlSession getSession() throws IOException {
 		String src = "mybatis/configuration.xml";
 		Reader reader = Resources.getResourceAsReader(src);
@@ -136,6 +138,20 @@ public class ToDoDaoImpl implements ToDoDao {
 		}
 		
 		return hme;
+	}
+
+	@Override
+	public int insert(ToDo todo) {
+		SqlSession session = null;
+		int result = 0;
+		try {
+			session = getSession();
+			result = session.insert("create", todo);
+			System.out.println(result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 }
