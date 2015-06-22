@@ -2,97 +2,16 @@
 <%@ include file="aa.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%!//일정 입력을 위한카운트
-/* 	class ToDo {
-		String title;
-		Boolean finish;
-		int pKey;
-		Date endTime;
-		Date startTime;
-		int duration; //일단위
 
-	} */
-	%>
 <%
 HashMap<Integer, List<ToDo>> todo = (HashMap<Integer, List<ToDo>>)request.getAttribute("todo");
 HashMap<Integer, List<ToDo>> todoS = (HashMap<Integer, List<ToDo>>)request.getAttribute("todoS");
 Calendar cal = (Calendar)request.getAttribute("cal");
 int w = (int)request.getAttribute("w");
-/* 	request.setCharacterEncoding("utf-8");
-*/ 
-Calendar day = cal;
-/*
-	Calendar cal = Calendar.getInstance(); //현재 시스템이 가지고 있는 날짜 데이터 가지고 오기
 
-	int y = cal.get(Calendar.YEAR);
-	int m = cal.get(Calendar.MONTH) + 1;
-	int d = cal.get(Calendar.DATE);
-	
+Calendar day = Calendar.getInstance(); 
+day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 
-	if (request.getParameter("y") != null)
-		y = Integer.parseInt(request.getParameter("y"));
-	if (request.getParameter("m") != null)
-		m = Integer.parseInt(request.getParameter("m"));
-
-	//y년 m월 1일의 요일
-	cal.set(y, m - 1, 1);
-	Calendar day = Calendar.getInstance();
-	day.set(y,m-1,1);
-	
-	// y=cal.get(Calendar.YEAR);
-	// m=cal.get(Calendar.MONTH)+1;
-	int w = cal.get(Calendar.DAY_OF_WEEK); //1(일)~7(토) => 일요일일때 w에 1. 메소드를 외우면 된다.
-	
-	HashMap<Integer, ArrayList<ToDo>> todo = new HashMap<Integer, ArrayList<ToDo>>();
-	HashMap<Integer, ArrayList<ToDo>> todoS = new HashMap<Integer, ArrayList<ToDo>>();
-	
-	ArrayList<ToDo> d20150611 = new ArrayList<ToDo>();
-	ToDo t1 = new ToDo();
-	t1.duration = 0;
-	t1.endTime = new Date(2015,6,11,13,10,0);
-	Calendar ca1 = Calendar.getInstance();
-	ca1.setTime(t1.endTime);
-	ca1.add(Calendar.DATE, t1.duration*(-1));
-	t1.startTime = new Date(ca1.getTimeInMillis());
-	t1.pKey = 1;
-	t1.finish = true;
-	t1.title = "150611";
-	d20150611.add(t1);
-
-	ToDo t2 = new ToDo();
-	t2.duration = 1;
-	t2.endTime = new Date(2015,6,12,13,10,0);
-	
-	Calendar ca2 = Calendar.getInstance();
-	ca2.setTime(t2.endTime);
-	ca2.add(Calendar.DATE, t2.duration*(-1));
-	t2.startTime = new Date(ca2.getTimeInMillis());
-
-	t2.pKey = 2;
-	t2.finish = false;
-	t2.title = "150611-2";
-	d20150611.add(t2);
-	
-	ArrayList<ToDo> d20150613 = new ArrayList<ToDo>();
-	ArrayList<ToDo> s20150610 = new ArrayList<ToDo>();
-	ToDo t3 = new ToDo();
-	t3.title = "150613";
-	t3.pKey = 3;
-	t3.finish = true;
-	t3.duration = 0;
-	t3.endTime = new Date(2015,6,13,16,10,0);
-	
-	s20150610.add(t3);
-	s20150610.add(t1);
-	Calendar ca3 = Calendar.getInstance();
-	ca3.setTime(t3.endTime);
-	ca3.add(Calendar.DATE, t3.duration*(-1));
-	t3.startTime = new Date(ca3.getTimeInMillis());
-	
-	d20150613.add(t3);
-	todo.put(20150611, d20150611);
-	todo.put(20150613, d20150613);
-	todoS.put(20150610, s20150610); */
 %>
 <c:set var="ys" value="${y }"></c:set>
 <c:set var="ms" value="${m }"></c:set>
@@ -110,12 +29,15 @@ Calendar day = cal;
 		$('.todo,.todoS').draggable({
 			cursor : "move",
 			snap : "td",
+			containment: "table",
 			start : function() {
 				//var id= $(this).attr('id');
+				$(this).css("opacity","0.3")
 			},
 			drag : function() {
 			},
 			stop : function(event, ui) {
+				$(this).css("opacity","1")
 			}
 		});
 		$(".day").droppable({
@@ -140,7 +62,7 @@ Calendar day = cal;
 		$('td').bind('click', function() {
 			var date = $(this).attr('id');
 			$.ajax({
-				url : './new.jsp',
+				url : './create.do',
 				dataType : "html",
 				data : "date=" + date,
 				success : function(data) {
@@ -152,7 +74,7 @@ Calendar day = cal;
 		$('.todo').bind('click', function() {
 			var id = $(this).attr('id');
 			$.ajax({
-				url : './detail.jsp',
+				url : './detail.do',
 				dataType : "html",
 				data : "id=" + id,
 				success : function(data) {
@@ -168,10 +90,11 @@ Calendar day = cal;
 	function changeDate() {
 		var y = document.getElementById("y").value;
 		var m = document.getElementById("m").value;
-		var url = "calendar.html?y=" + y + "&m=" + m;
+		var url = "calendar.do?y=" + y + "&m=" + m;
 		location.href = url; //url이 가지고 있는 값으로 이동
 	}
 </script>
+<link href="<c:url value="/resources/css/aa.css" />" rel="stylesheet">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
@@ -183,21 +106,21 @@ ${root}
 
 			<select id="y" onchange="changeDate();">
 
-				<c:forEach var="i" begin='${ys-5}' end='${ys+5 }'>
-					<c:if test="${ys==i}">
+				<c:forEach begin="${y-5 }" end="${y+5 }" var="i">
+					<c:if test="${y==i}">
 						<option value="${i}" selected="selected">${i }년</option>
 					</c:if>
-					<c:if test="${ys!=i}">
+					<c:if test="${y!=i}">
 						<option value="${i}">${i }년</option>
 					</c:if>
 				</c:forEach>
 
 			</select> <select id="m" onchange="changeDate();">
 				<c:forEach var="i" begin='1' end='12'>
-					<c:if test="${ms==i}">
+					<c:if test="${m+1==i}">
 						<option value="${i}" selected="selected">${i }월</option>
 					</c:if>
-					<c:if test="${ms!=i}">
+					<c:if test="${m+1!=i}">
 						<option value="${i}">${i }월</option>
 					</c:if>
 				</c:forEach>
@@ -231,7 +154,6 @@ ${root}
 				ymd = Integer.parseInt(String.format("%04d", dYear)
 						+ String.format("%02d", dMonth)
 						+ String.format("%02d", dDate));
-				System.out.println(ymd);
 				String wc;
 				wc = dDayW % 7 == 1 ? "red" : (dDayW % 7 == 0 ? "blue"
 						: "black");
@@ -244,12 +166,16 @@ ${root}
 				out.print(dMonth + "-" + dDay);
 				out.print("</div>");
 				if (todo.containsKey(ymd)) {
+					List<ToDo> list = todo.get(ymd);
 					for (int i = 0; i < todo.get(ymd).size(); i++) {
 						out.print("<div class='d_" + ymd + "_" + i
 								+ ", todo', id='" + todo.get(ymd).get(i).getNo()
 								+ "'>");
+						if (list.get(i).getFinish() == true) 
+							out.println("<input type='checkbox' name='finish' checked='checked'>");
+							else out.println("<input type='checkbox' name='finish'>");
 						out.println(todo.get(ymd).get(i).getTitle());
-						System.out.print(todo.get(ymd).get(i).getTitle());
+						//System.out.print(todo.get(ymd).get(i).getTitle());
 						out.print("</div>");
 					}
 				}
@@ -259,7 +185,7 @@ ${root}
 								+ ", todoS', id='" + todoS.get(ymd).get(i).getNo()
 								+ "'>");
 						out.println(todoS.get(ymd).get(i).getTitle());
-						System.out.print(todoS.get(ymd).get(i).getTitle());
+						//System.out.print(todoS.get(ymd).get(i).getTitle());
 						out.print("</div>");
 					}
 				}

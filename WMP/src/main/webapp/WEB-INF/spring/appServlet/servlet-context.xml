@@ -26,6 +26,7 @@
 	<!-- javascript/jquery -->
 	<resources mapping="/resources/**" location="/resources/" />
   	<resources mapping="/js/**"  location="/resources/js/" />
+  	<resources mapping="/css/**"  location="/resources/css/" />
 	
 	
 	

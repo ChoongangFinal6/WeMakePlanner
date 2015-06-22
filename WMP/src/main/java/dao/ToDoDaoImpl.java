@@ -2,6 +2,7 @@ package dao;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -39,26 +40,32 @@ public class ToDoDaoImpl implements ToDoDao {
 		HashMap<Integer, List<ToDo>> hms = new HashMap<Integer, List<ToDo>>();
 		ToDo todo = new ToDo();
 		SqlSession session = null;
-		List<ToDo> dayStart = new ArrayList<ToDo>();
+		
+		
 		
 		//시작주 일요일
-//		Calendar fSun = Calendar.getInstance();
-//		fSun.set(fDay.get(Calendar.YEAR),fDay.get(Calendar.MONTH),fDay.get(Calendar.DATE));
-		Calendar fSun = fDay;
-		System.out.println(fSun.get(Calendar.YEAR)+"/"+fSun.get(Calendar.MONTH)+"/"+fSun.get(Calendar.DATE));
+		Calendar fSun = Calendar.getInstance();
+		fSun.set(fDay.get(Calendar.YEAR),fDay.get(Calendar.MONTH),fDay.get(Calendar.DATE));
 		fSun.add(Calendar.DATE, +1 - fSun.get(Calendar.DAY_OF_WEEK));
 		
 		//마지막주 토요일 //임시로 말일
-		Calendar lSat = fDay;
-		lSat.set(lSat.get(Calendar.YEAR),lSat.get(Calendar.MONTH),lSat.get(Calendar.DATE));
+		Calendar lSat = Calendar.getInstance();
+		lSat.set(fDay.get(Calendar.YEAR),fDay.get(Calendar.MONTH),fDay.getActualMaximum(Calendar.DATE));
 		
-		todo.setStartDate(fSun);
-		todo.setStartTime(todo.getStartTime());
+		
 		todo.setEmail("kheeuk@gmail.com");
-	
 		int ymd;
 		wt: while (true) {
-			dayStart = session.selectList("startAll",todo);
+			List<ToDo> dayStart = new ArrayList<ToDo>();
+			todo.setStartDateFromCal(fSun);
+			todo.setStartTime(new Timestamp(fSun.getTimeInMillis()));
+			try {
+				session = getSession();
+				dayStart = session.selectList("startAll",todo);
+			} catch (Exception e) {
+			} finally {
+				session.close();
+			}
 			
 //			dYear = fSun.get(Calendar.YEAR);
 //			dDate = fSun.get(Calendar.DATE);
@@ -68,10 +75,12 @@ public class ToDoDaoImpl implements ToDoDao {
 			ymd = Integer.parseInt(String.format("%04d", fSun.get(Calendar.YEAR))
 					+ String.format("%02d", fSun.get(Calendar.MONTH) + 1)
 					+ String.format("%02d", fSun.get(Calendar.DATE)));
-			hms.put(ymd, dayStart);
+//System.out.println(dayStart.size()+ "ymd : "+ymd);
+			if (dayStart.size()>0) {
+				hms.put(ymd, dayStart);
+			}
 			fSun.add(Calendar.DATE, +1);
-			todo.setStartDate(fSun);
-			if (fSun.after(lSat)) break;
+			if (fSun.after(lSat)) break wt;
 		}
 		
 		
@@ -89,33 +98,41 @@ public class ToDoDaoImpl implements ToDoDao {
 	@Override
 	public HashMap<Integer, List<ToDo>> endTotal(Calendar fDay) {
 		HashMap<Integer, List<ToDo>> hme = new HashMap<Integer, List<ToDo>>();
-		ToDo todo = null;
+		ToDo todo = new ToDo();
 		SqlSession session = null;
-		List<ToDo> dayEnd = new ArrayList<ToDo>();
 		
 		//시작주 일요일
 		Calendar fSun = Calendar.getInstance();
-		fSun.set(fDay.YEAR,fDay.MONTH,fDay.DATE);
+		fSun.set(fDay.get(Calendar.YEAR),fDay.get(Calendar.MONTH),fDay.get(Calendar.DATE));
 		fSun.add(Calendar.DATE, +1 - fSun.get(Calendar.DAY_OF_WEEK));
 		
 		//마지막주 토요일 //임시로 말일
 		Calendar lSat = Calendar.getInstance();
-		lSat.set(lSat.YEAR,lSat.MONTH,lSat.getActualMaximum(Calendar.DATE));
+		lSat.set(fDay.get(Calendar.YEAR),fDay.get(Calendar.MONTH),fDay.getActualMaximum(Calendar.DATE));
 		
-		todo.setEndDate(fSun);
-		todo.setEndTime(todo.getEndTime());
+		//todo.setEndTime(todo.getEndDate());
 		todo.setEmail("kheeuk@gmail.com");
 	
 		int ymd;
 		wt: while (true) {
-			dayEnd = session.selectList("endAll",todo);
+			List<ToDo> dayEnd = new ArrayList<ToDo>();
+			todo.setEndDateFromCal(fSun);
+			todo.setEndTime(new Timestamp(fSun.getTimeInMillis()));
+			try {
+				session = getSession();
+				dayEnd = session.selectList("endAll",todo);
+			} catch (Exception e) {
+			}finally {
+				session.close();
+			}
 			ymd = Integer.parseInt(String.format("%04d", fSun.get(Calendar.YEAR))
 					+ String.format("%02d", fSun.get(Calendar.MONTH) + 1)
 					+ String.format("%02d", fSun.get(Calendar.DATE)));
-			hme.put(ymd, dayEnd);
+			if (dayEnd.size()>0) {
+				hme.put(ymd, dayEnd);
+			}
 			fSun.add(Calendar.DATE, +1);
-			todo.setEndDate(fSun);
-			if (fSun.after(lSat)) break;
+			if (fSun.after(lSat)) break wt;
 		}
 		
 		return hme;

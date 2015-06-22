@@ -1,19 +1,20 @@
 package model;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ToDo {
 	private int no;					// 일련번호         
-	private String title, email;    // 제목           
-	private int duration;           // 이메일/아이디      
-	private Timestamp endTime;      // 기간           
-	private String location;        // 마감시간         
-	private Boolean finish;         // 장소           
-	private int repeat;             // 완료
+	private String title, email;    // 제목, 이메일         
+	private int duration;           // 기간     
+	private Timestamp endTime;      // 마감시간        
+	private String location;        // 장소      
+	private Boolean finish;         //  완료      
+	private int repeat;             // 반복
 	private Timestamp startTime;	// 시작시간 , DB컬럼 x , 마감시간-duration 으로 계산용도
 	
-	private Calendar startDate, endDate;	//sql검색중 필요 변수, 1일추가 용의한 calendar 사용
+	private String startDate, endDate;	//sql검색중 필요 변수, 1일추가 용의한 calendar 사용
 	public int getNo() {
 		return no;
 	}
@@ -68,24 +69,31 @@ public class ToDo {
 	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
 	}
-	public Calendar getStartDate() {
+
+	public String getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Calendar startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-	public Calendar getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Calendar endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+	//Calendar형에서 직접 set
+	public void setStartDateFromCal(Calendar startDate) {
+		this.startDate = new SimpleDateFormat("yyyy-MM-dd").format(startDate.getTime());
+	}
+	public void setEndDateFromCal(Calendar endDate) {
+		this.endDate = new SimpleDateFormat("yyyy-MM-dd").format(endDate.getTime());
 	}
 	public ToDo() {
 		super();
 	}
-	public ToDo(int no, String title, String email, int duration,
-			Timestamp endTime, String location, Boolean finish, int repeat,
-			Timestamp startTime, Calendar startDate, Calendar endDate) {
+	public ToDo(int no, String title, String email, int duration, Timestamp endTime, String location,
+			Boolean finish, int repeat, Timestamp startTime, String startDate, String endDate) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -99,5 +107,6 @@ public class ToDo {
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
+
 	 
 }

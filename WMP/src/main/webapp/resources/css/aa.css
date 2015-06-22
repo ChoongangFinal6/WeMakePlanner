@@ -6,7 +6,9 @@ body {
 table {
 	text-align: left;
 	width: 700px;
-	background-color: #ff22cc;
+	background-color: #0080c0;
+	margin: 0px auto;
+	padding: 0px;
 }
 
 td.day {
@@ -21,8 +23,8 @@ div.day {
 	left: 0px;
 	top: 0px;
 	margin: 0px;
-	padding: 2px;
-	width: 50px;
+	padding: 0px;
+	width: 95px;
 }
 
 div.todo, div.todoS {
@@ -31,7 +33,6 @@ div.todo, div.todoS {
 	width: 95px;
 	border-radius: 2px;
 	border: 1px solid black;
-	width: 95px;
 }
 
 div.todo {
