@@ -119,7 +119,7 @@ public class ToDoDaoImpl implements ToDoDao {
 		wt: while (true) {
 			List<ToDo> dayEnd = new ArrayList<ToDo>();
 			todo.setEndDateFromCal(fSun);
-			todo.setEndTime(new Timestamp(fSun.getTimeInMillis()));
+			//todo.setEndTime(new Timestamp(fSun.getTimeInMillis()));
 			try {
 				session = getSession();
 				dayEnd = session.selectList("endAll",todo);

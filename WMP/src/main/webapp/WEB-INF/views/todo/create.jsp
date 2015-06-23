@@ -21,7 +21,7 @@
 		<input type="hidden" name="email" value="kheeuk@gmail.com" />
 		<input type="hidden" name="finish" value="0" />
 		<input type="hidden" name="duration" value="0" />
-		<table class='tocr_table'>
+		<table class='todo_table'>
 			<tr>
 				<th>제목</th>
 				<td><input type="text" name="title" required="required" /></td>

@@ -21,6 +21,6 @@
     select * from todo where email=#{email} and TRUNC(endTime) = #{endDate }
   </select>
   <insert id="create" parameterType="ToDo">
-   	insert into todo values (todo_no.nextval, #{title}, #{email}, #{duration}, to_date(replace(#{endTime, jdbcType=DATE},'T',' '),'yyyy-MM-dd hh24:mi'), #{location}, #{finish}, #{repeat}); 
+   	insert into todo values (todo_no.nextval, #{title}, #{email}, #{duration}, to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi'), #{location}, #{finish}, #{repeat}); 
   </insert>
 </mapper>

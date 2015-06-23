@@ -46,9 +46,9 @@ public class ToDoController {
 	}
 	
 	@RequestMapping(value = "aaaa", method = RequestMethod.POST)
-	public String createDo(@ModelAttribute("todo") ToDo todo, @RequestParam("endDate") String endDateStr, BindingResult result, Model model) {
-		
-		System.out.println(todo.toString());
+	public String createDo(@ModelAttribute("todo") ToDo todo, BindingResult result, @RequestParam("endTime") String endTime, Model model) {
+		todo.setEndTime(endTime);
+		System.out.println(endTime);
 		int re = ts.insert(todo);
 		
 		return "forward:calendar";
