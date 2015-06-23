@@ -149,7 +149,7 @@ public class ToDoDaoImpl implements ToDoDao {
 			result = session.insert("create", todo);
 			System.out.println(result);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("insert Error : "+e.getMessage());
 		}
 		return result;
 	}

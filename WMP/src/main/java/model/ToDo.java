@@ -3,12 +3,13 @@ package model;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ToDo {
 	private int no;					// 일련번호         
 	private String title, email;    // 제목, 이메일         
 	private int duration;           // 기간     
-	private Timestamp endTime;      // 마감시간        
+	private String endTime;      // 마감시간        
 	private String location;        // 장소      
 	private Boolean finish;         //  완료      
 	private int repeat;             // 반복
@@ -39,10 +40,12 @@ public class ToDo {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-	public Timestamp getEndTime() {
+
+
+	public String getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 	public String getLocation() {
@@ -92,7 +95,7 @@ public class ToDo {
 	public ToDo() {
 		super();
 	}
-	public ToDo(int no, String title, String email, int duration, Timestamp endTime, String location,
+	public ToDo(int no, String title, String email, int duration, String endTime, String location,
 			Boolean finish, int repeat, Timestamp startTime, String startDate, String endDate) {
 		super();
 		this.no = no;
@@ -106,6 +109,13 @@ public class ToDo {
 		this.startTime = startTime;
 		this.startDate = startDate;
 		this.endDate = endDate;
+	}
+	@Override
+	public String toString() {
+		return "ToDo [no=" + no + ", title=" + title + ", email=" + email + ", duration=" + duration
+				+ ", endTime=" + endTime + ", location=" + location + ", finish=" + finish + ", repeat="
+				+ repeat + ", startTime=" + startTime + ", startDate=" + startDate + ", endDate=" + endDate
+				+ "]";
 	}
 
 	 

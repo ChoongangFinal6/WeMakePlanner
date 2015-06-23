@@ -20,7 +20,7 @@
   <select id="endAll" parameterType="ToDo" resultMap="ToDoResult">
     select * from todo where email=#{email} and TRUNC(endTime) = #{endDate }
   </select>
-  <insert id="endAll" parameterType="ToDo">
-   	insert into board1 values (toto_no.nextval, #{title}, #{}, #content#, 0, sysdate) 
+  <insert id="create" parameterType="ToDo">
+   	insert into todo values (todo_no.nextval, #{title}, #{email}, #{duration}, to_date(replace(#{endTime, jdbcType=DATE},'T',' '),'yyyy-MM-dd hh24:mi'), #{location}, #{finish}, #{repeat}); 
   </insert>
 </mapper>
