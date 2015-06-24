@@ -6,13 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
-	<%
-		String id = request.getParameter("id");
-	%>
-	<%=id%>
-
+<h3>${todo.title}</h3>
 	<table class='todo_table'>
 		<tr>
 			<th>제목</th>
@@ -20,9 +19,9 @@
 		</tr>
 		<tr>
 			<th>완료</th>
-			<td><c:if test="${todo.finish==1 ||todo.finish == true }">
+			<td><c:if test="${todo.finish == 'Y' }">
 					<span class="text"><input type="checkbox" checked="checked" onchange="finish('${todo.no}')"></span>
-				</c:if> <c:if test="${todo.finish=1 ||todo.finish == false }">
+				</c:if> <c:if test="${todo.finish == 'N' }">
 					<span class="text"><input type="checkbox" onchange="finish('${todo.no}')"></span>
 				</c:if></td>
 		</tr>

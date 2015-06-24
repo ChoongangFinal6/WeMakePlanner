@@ -5,13 +5,18 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * no : int형식 일련번호, 안에서 사용의 편의를 위해 string를 쓸 땐 id로 사용
+ * @author 402-d1
+ *	
+ */
 public class ToDo {
 	private int no;					// 일련번호         
 	private String title, email;    // 제목, 이메일         
 	private int duration;           // 기간     
 	private String endTime;      // 마감시간        
 	private String location;        // 장소      
-	private Boolean finish;         //  완료      
+	private String finish;         //  완료      
 	private int repeat;             // 반복
 	private Timestamp startTime;	// 시작시간 , DB컬럼 x , 마감시간-duration 으로 계산용도
 	
@@ -54,10 +59,11 @@ public class ToDo {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public Boolean getFinish() {
+
+	public String getFinish() {
 		return finish;
 	}
-	public void setFinish(Boolean finish) {
+	public void setFinish(String finish) {
 		this.finish = finish;
 	}
 	public int getRepeat() {
@@ -96,7 +102,7 @@ public class ToDo {
 		super();
 	}
 	public ToDo(int no, String title, String email, int duration, String endTime, String location,
-			Boolean finish, int repeat, Timestamp startTime, String startDate, String endDate) {
+			String finish, int repeat, Timestamp startTime, String startDate, String endDate) {
 		super();
 		this.no = no;
 		this.title = title;

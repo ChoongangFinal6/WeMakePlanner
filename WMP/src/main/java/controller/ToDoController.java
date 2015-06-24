@@ -45,23 +45,45 @@ public class ToDoController {
 		return "todo/calendar";
 	}
 	
-	@RequestMapping(value = "aaaa", method = RequestMethod.POST)
-	public String createDo(@ModelAttribute("todo") ToDo todo, BindingResult result, @RequestParam("endTime") String endTime, Model model) {
-		todo.setEndTime(endTime);
-		System.out.println(endTime);
-		int re = ts.insert(todo);
-		
-		return "forward:calendar";
-	}
-
-	@RequestMapping(value = "create")
+	@RequestMapping(value = "create", method = RequestMethod.GET)
 	public String createForm(@ModelAttribute("todo") ToDo todo, BindingResult result, String date, Model model) {
 		Date dt = new Date();
 		Calendar cal = Calendar.getInstance();
-		dt.setTime(cal.getTimeInMillis());
-		cal.set(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(4, 6)),
-				Integer.parseInt(date.substring(6)));
-		model.addAttribute("cal", dt);
+		String str = date.substring(0, 4)+"-"+ date.substring(4, 6)+"-"+date.substring(6)+"T"+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":"+cal.get(Calendar.SECOND);
+		model.addAttribute("cal", str);
 		return "todo/create";
+	}
+	@RequestMapping(value = "create", method = RequestMethod.POST)
+	public String createDo(@ModelAttribute("todo") ToDo todo, BindingResult result, @RequestParam("endTime") String endTime, Model model) {
+		System.out.println(endTime);
+		todo.setEndTime(endTime);
+		int re = ts.insert(todo);
+		return "redirect:calendar.html";
+	}
+
+	@RequestMapping(value = "detail")
+	public String detail(@RequestParam("id") String id, Model model) {
+		ToDo todo = ts.detail(id);
+		model.addAttribute("todo", todo);
+		return "todo/detail";
+	}
+	@RequestMapping(value = "modify", method = RequestMethod.GET)
+	public String modifyForm(@RequestParam("id") String id, Model model) {
+		ToDo todo = ts.detail(id);
+		todo.setEndTime(todo.getEndTime().replaceAll(" ", "T"));
+		model.addAttribute("todo", todo);
+		return "todo/modify";
+	}
+	@RequestMapping(value = "modify", method = RequestMethod.POST)
+	public String modify(@ModelAttribute("todo") ToDo todo, BindingResult result, @RequestParam("endTime") String endTime, Model model) {
+		todo.setEndTime(endTime);
+		System.out.println(todo.toString());
+		int re = ts.update(todo);
+		return "redirect:calendar.html";
+	}
+	@RequestMapping(value = "delete")
+	public String createForm(@RequestParam("id") String id, Model model) {
+		int result = ts.del(id);
+		return "redirect:calendar.html";
 	}
 }

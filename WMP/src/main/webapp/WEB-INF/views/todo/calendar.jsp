@@ -1,7 +1,6 @@
 <%@page import="java.util.*,model.*"%>
 <%@ include file="aa.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%
 	HashMap<Integer, List<ToDo>> todo = (HashMap<Integer, List<ToDo>>)request.getAttribute("todo");
 HashMap<Integer, List<ToDo>> todoS = (HashMap<Integer, List<ToDo>>)request.getAttribute("todoS");
@@ -26,19 +25,17 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 		$('#draggable').draggable();
 		$('.todo,.todoS').draggable({
 			cursor : "move",
-			snap : "td",
-			containment : "table",
 			start : function() {
-				//var id= $(this).attr('id');
 				$(this).css("opacity", "0.3")
 			},
 			drag : function() {
 			},
 			stop : function(event, ui) {
-				$(this).css("opacity", "1")
+				$(this).css("opacity", "1");
 			}
 		});
 		$(".day").droppable({
+			accept: '#draggable,.todo,.todoS',
 			drop : function(ev, ui) {
 				//to get the id
 				//ui.draggable.attr('id') or ui.draggable.get(0).id or ui.draggable[0].id
@@ -59,11 +56,10 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 				});
 			}
 		});
-
 		$('td').bind('click', function() {
 			var date = $(this).attr('id');
 			$.ajax({
-				url : './create.do',
+				url : './create.html',
 				dataType : "html",
 				type : 'get',
 				async : false,
@@ -74,14 +70,13 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 			});
 			return false;
 		});
-		$('.todo').bind('click', function() {
-			var id = $(this).attr('id');
+		$('.todo,.todoS').bind('click', function() {
+			var no = $(this).attr('id');
 			$.ajax({
-				url : './detail.do',
+				url : './detail.html',
 				dataType : "html",
-				data : {
-					"id" : id
-				},
+				data : "id="+no,
+				async : false,
 				success : function(data) {
 					$('#detail').html(data);
 				}
@@ -89,20 +84,38 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 			return false;
 		});
 	});
-	function create() {
-		var formData = $('#detail').find('#createForm').serialize();
-		alert(formData);
-		$('#detail').find('#createForm').ajaxSubmit({url: 'create.do', type: 'post'})
+	function cancel() {
+		$('#detail').html("");
+	}
+	function modify(id) {
+		$('#detail').html("");
 	}
 </script>
 <script type="text/javascript">
+	function del(id) {
+		if(confirm("삭제하시겠습니까")) {
+			location.href="delete.html?id="+id;
+		}
+	}
 
 	function changeDate() {
 		var y = document.getElementById("y").value;
 		var m = document.getElementById("m").value;
-		var url = "calendar.do?y=" + y + "&m=" + m;
+		var url = "calendar.html?y=" + y + "&m=" + m;
 		location.href = url; //url이 가지고 있는 값으로 이동
 	}
+	function modify(id) {
+		$.ajax({
+			url : './modify.html',
+			dataType : "html",
+			data : "id="+id,
+			async : false,
+			success : function(data) {
+				$('#detail').html(data);
+			}
+		});
+	}
+
 </script>
 <link href="<c:url value="/resources/css/aa.css" />" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -173,9 +186,9 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 				if (todo.containsKey(ymd)) {
 					List<ToDo> list = todo.get(ymd);
 					for (int i = 0; i < todo.get(ymd).size(); i++) {
-						out.print("<div class='d_" + ymd + "_" + i + ", todo', id='"
+						out.print("<div class='d_" + ymd + "_" + i + " todo' id='"
 								+ todo.get(ymd).get(i).getNo() + "'>");
-						if (list.get(i).getFinish() == true)
+						if (list.get(i).getFinish() == "Y")
 							out.println("<input type='checkbox' name='finish' checked='checked'>");
 						else
 							out.println("<input type='checkbox' name='finish'>");
@@ -186,7 +199,7 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 				}
 				if (todoS.containsKey(ymd)) {
 					for (int i = 0; i < todoS.get(ymd).size(); i++) {
-						out.print("<div class='s_" + ymd + "_" + i + ", todoS', id='"
+						out.print("<div class='s_" + ymd + "_" + i + " todoS' id='"
 								+ todoS.get(ymd).get(i).getNo() + "'>");
 						out.println(todoS.get(ymd).get(i).getTitle());
 						//System.out.print(todoS.get(ymd).get(i).getTitle());
@@ -207,5 +220,6 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 	<div id='detail'></div>
 	${aa}
 	<br>${bb}
+	<img alt="" src="<c:url value="/resources/img/aa.jpg"/>">
 </body>
 </html>

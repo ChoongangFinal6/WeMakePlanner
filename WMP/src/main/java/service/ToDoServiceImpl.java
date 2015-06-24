@@ -27,5 +27,18 @@ public class ToDoServiceImpl implements ToDoService {
 	public int insert(ToDo todo) {
 		return td.insert(todo);
 	}
+	@Override
+	public ToDo detail(String id) {
+		return td.detail(id);
+	}
+	@Override
+	public int del(String id) {
+		return td.del(id);
+	}
+	@Override
+	public int update(ToDo todo) {
+		// TODO Auto-generated method stub
+		return td.modify(todo);
+	}
 	
 }

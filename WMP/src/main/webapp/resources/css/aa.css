@@ -1,6 +1,5 @@
 @CHARSET "UTF-8";
 body {
-	
 }
 
 table {
@@ -31,15 +30,20 @@ div.todo, div.todoS {
 	margin: 0px;
 	padding: 0px;
 	width: 95px;
+	vertical-align:top;
+	font-size: 0.75em;
 	border-radius: 2px;
 	border: 1px solid black;
+	font-weight: bold;
 }
 
 div.todo {
 	background-color: #ee0000;
+	color: black;
 }
 
 div.todoS {
+	color: black;
 	background-color: #00ee00;
 }
 

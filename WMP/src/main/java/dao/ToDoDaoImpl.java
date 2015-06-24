@@ -150,6 +150,53 @@ public class ToDoDaoImpl implements ToDoDao {
 			System.out.println(result);
 		} catch (IOException e) {
 			System.out.println("insert Error : "+e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
+	@Override
+	public ToDo detail(String id) {
+		SqlSession session = null;
+		ToDo todo = null;
+		try {
+			session = getSession();
+			todo = session.selectOne("detail",id);
+		} catch (IOException e) {
+			System.out.println("detail Error : "+e.getMessage());
+		} finally {
+			session.close();
+		}
+		return todo;
+	}
+
+	@Override
+	public int del(String id) {
+		SqlSession session = null;
+		int result = 0;
+		try {
+			session = getSession();
+			result = session.delete("delete",id);
+		} catch (IOException e) {
+			System.out.println("detail Error : "+e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
+	@Override
+	public int modify(ToDo todo) {
+		SqlSession session = null;
+		int result = 0;
+		try {
+			session = getSession();
+			result = session.update("update", todo);
+		} catch (IOException e) {
+			System.out.println("update Error : "+e.getMessage());
+		} finally {
+			session.close();
 		}
 		return result;
 	}
