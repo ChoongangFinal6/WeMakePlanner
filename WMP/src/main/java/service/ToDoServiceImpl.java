@@ -40,5 +40,10 @@ public class ToDoServiceImpl implements ToDoService {
 		// TODO Auto-generated method stub
 		return td.modify(todo);
 	}
+	@Override
+	public int toggle(String id) {
+		// TODO Auto-generated method stub
+		return td.toggle(id);
+	}
 	
 }

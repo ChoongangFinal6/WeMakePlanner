@@ -2,34 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ToDo">
-  <!-- Use type aliases to avoid typing the full classname every time. -->
-  <resultMap id="ToDoResult" type="ToDo">
-    <result property="no" column="no" />
-    <result property="title" column="title"/>
-    <result property="email" column="email"/>
-    <result property="duration" column="duration"/>
-    <result property="endTime" column="endTime"/>
-    <result property="location" column="location"/>
-    <result property="finish" column="finish"/>
-    <result property="repeat" column="repeat"/>
-  </resultMap>
-  <!-- Select with no parameters using the result map for Account class. -->
-  <select id="startAll" parameterType="ToDo" resultMap="ToDoResult">
-    select * from todo where email=#{email} and TRUNC(endTime-duration) = #{startDate} and duration > 0
-  </select>
-  <select id="endAll" parameterType="ToDo" resultMap="ToDoResult">
-    select * from todo where email=#{email} and TRUNC(endTime) = #{endDate }
-  </select>
-  <insert id="create" parameterType="ToDo">
-   	insert into todo values (todo_no.nextval, #{title}, #{email}, #{duration}, to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi'), #{location}, #{finish }, #{repeat}) 
-  </insert>
-  <select id="detail" parameterType="String" resultType="ToDo">
-   	select * from todo where no = #{id, jdbcType=INTEGER} 
-  </select>
-  <delete id="delete" parameterType="String">
-  	delete from todo where no = #{id, jdbcType=INTEGER}
-  </delete>
-  <update id="update" parameterType="ToDo">
-  	update todo set title=#{title}, duration=#{duration}, endTime=to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi'), location=#{location}, finish=${finish}, repeat=${repeat} where no=#{no}
-  </update>
+	<!-- Use type aliases to avoid typing the full classname every time. -->
+	<resultMap id="ToDoResult" type="ToDo">
+		<result property="no" column="no" />
+		<result property="title" column="title" />
+		<result property="email" column="email" />
+		<result property="duration" column="duration" />
+		<result property="endTime" column="endTime" />
+		<result property="location" column="location" />
+		<result property="finish" column="finish" />
+		<result property="repeat" column="repeat" />
+	</resultMap>
+	<!-- Select with no parameters using the result map for Account class. -->
+	<select id="startAll" parameterType="ToDo" resultMap="ToDoResult">
+		select * from todo where email=#{email} and TRUNC(endTime-duration) =
+		#{startDate} and duration > 0
+	</select>
+	<select id="endAll" parameterType="ToDo" resultMap="ToDoResult">
+		select * from todo where email=#{email} and TRUNC(endTime) = #{endDate }
+	</select>
+	<insert id="create" parameterType="ToDo">
+		insert into todo values (todo_no.nextval, #{title}, #{email}, #{duration},
+		to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi'),
+		#{location}, #{finish }, #{repeat})
+	</insert>
+	<select id="detail" parameterType="String" resultType="ToDo">
+		select * from todo where no = #{id, jdbcType=INTEGER}
+	</select>
+	<delete id="delete" parameterType="String">
+		delete from todo where no = #{id, jdbcType=INTEGER}
+	</delete>
+	<update id="update" parameterType="ToDo">
+		update todo set title=#{title}, duration=#{duration},
+		endTime=to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi'),
+		location=#{location}, repeat=${repeat} where no=#{no}
+	</update>
+	<update id="toggle" parameterType="String">
+		<selectKey resultType="String" keyProperty="finishKey" order="BEFORE" >
+			select finish as "finishKey" from todo where no = #{id, jdbcType=INTEGER} </selectKey>
+		update todo set
+			<if test="finishKey == 'Y'">
+			finish = 'N'
+			</if>
+			<if test="finishKey == 'N'">
+			finish = 'Y'
+			</if>
+	</update>
 </mapper>

@@ -200,5 +200,20 @@ public class ToDoDaoImpl implements ToDoDao {
 		}
 		return result;
 	}
+
+	@Override
+	public int toggle(String id) {
+		SqlSession session = null;
+		int result = 0;
+		try {
+			session = getSession();
+			result = session.update("toggle", id);
+		} catch (IOException e) {
+			System.out.println("update Error : "+e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
 	
 }

@@ -49,7 +49,7 @@ public class ToDoController {
 	public String createForm(@ModelAttribute("todo") ToDo todo, BindingResult result, String date, Model model) {
 		Date dt = new Date();
 		Calendar cal = Calendar.getInstance();
-		String str = date.substring(0, 4)+"-"+ date.substring(4, 6)+"-"+date.substring(6)+"T"+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":"+cal.get(Calendar.SECOND);
+		String str = date.substring(0, 4)+"-"+ date.substring(4, 6)+"-"+date.substring(6)+"T"+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE);
 		model.addAttribute("cal", str);
 		return "todo/create";
 	}
@@ -84,6 +84,11 @@ public class ToDoController {
 	@RequestMapping(value = "delete")
 	public String createForm(@RequestParam("id") String id, Model model) {
 		int result = ts.del(id);
+		return "redirect:calendar.html";
+	}
+	@RequestMapping(value = "tgl")
+	public String toggle(@RequestParam("id") String id, Model model) {
+		int result = ts.toggle(id);
 		return "redirect:calendar.html";
 	}
 }

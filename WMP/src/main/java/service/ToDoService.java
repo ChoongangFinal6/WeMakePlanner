@@ -13,4 +13,5 @@ public interface ToDoService {
 	ToDo detail(String id);
 	int del(String id);
 	int update(ToDo todo);
+	int toggle(String id);
 }

@@ -1,6 +1,5 @@
 <%@ include file="aa.jsp"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +10,7 @@
 </script>
 </head>
 <body>
-<h3>${todo.title}</h3>
+	<h3>${todo.title}</h3>
 	<table class='todo_table'>
 		<tr>
 			<th>제목</th>
@@ -20,9 +19,9 @@
 		<tr>
 			<th>완료</th>
 			<td><c:if test="${todo.finish == 'Y' }">
-					<span class="text"><input type="checkbox" checked="checked" onchange="finish('${todo.no}')"></span>
+					<span class="text"><input type="checkbox" checked="checked" onchange="tgl('${todo.no}')"></span>
 				</c:if> <c:if test="${todo.finish == 'N' }">
-					<span class="text"><input type="checkbox" onchange="finish('${todo.no}')"></span>
+					<span class="text"><input type="checkbox" onchange="tgl('${todo.no}')"></span>
 				</c:if></td>
 		</tr>
 		<tr>
@@ -38,8 +37,7 @@
 			<td><span class="text">${todo.repeat}</span>일</td>
 		</tr>
 		<tr>
-			<td><input type="button" value="수정"
-				onclick="modify('${todo.no}')"></td>
+			<td><input type="button" value="수정" onclick="modify('${todo.no}')"></td>
 			<td><input type="button" value="삭제" onclick="del('${todo.no}')"></td>
 		</tr>
 	</table>

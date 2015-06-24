@@ -18,14 +18,6 @@
 			<td><input type="text" name="title" required="required" value="${todo.title}"/></td>
 		</tr>
 		<tr>
-			<th>완료</th>
-			<td><c:if test="${todo.finish == 'Y' }">
-					<span class="text"><input type="checkbox" checked="checked" name='finish' onchange="finish('${todo.no}')" "></span>
-				</c:if> <c:if test="${todo.finish == 'N' }">
-					<span class="text"><input type="checkbox" name='finish' onchange="finish('${todo.no}')"></span>
-				</c:if></td>
-		</tr>
-		<tr>
 			<th>마감시간</th>
 			<td><input type="datetime-local" name="endTime"
 				required="required" value="${todo.endTime }"><input type="checkbox"></td>

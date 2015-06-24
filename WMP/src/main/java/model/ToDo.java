@@ -21,6 +21,7 @@ public class ToDo {
 	private Timestamp startTime;	// 시작시간 , DB컬럼 x , 마감시간-duration 으로 계산용도
 	
 	private String startDate, endDate;	//sql검색중 필요 변수, 1일추가 용의한 calendar 사용
+	private String finishKey;		// sql에서 토글 기능에 사용
 	public int getNo() {
 		return no;
 	}
@@ -97,6 +98,13 @@ public class ToDo {
 	}
 	public void setEndDateFromCal(Calendar endDate) {
 		this.endDate = new SimpleDateFormat("yyyy-MM-dd").format(endDate.getTime());
+	}
+	
+	public String getFinishKey() {
+		return finishKey;
+	}
+	public void setFinishKey(String finishKey) {
+		this.finishKey = finishKey;
 	}
 	public ToDo() {
 		super();

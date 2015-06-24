@@ -62,7 +62,7 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 				url : './create.html',
 				dataType : "html",
 				type : 'get',
-				async : false,
+				async : true,
 				data : "date=" + date,
 				success : function(data) {
 					$('#detail').html(data);
@@ -76,13 +76,14 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 				url : './detail.html',
 				dataType : "html",
 				data : "id="+no,
-				async : false,
+				async : true,
 				success : function(data) {
 					$('#detail').html(data);
 				}
 			});
 			return false;
 		});
+
 	});
 	function cancel() {
 		$('#detail').html("");
@@ -97,7 +98,18 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 			location.href="delete.html?id="+id;
 		}
 	}
-
+	function tgl(id) {
+		$.ajax({
+			url : './tgl.html',
+			dataType : "html",
+			data : "id="+id,
+			async : true,
+			success : function(data) {
+				$('#detail').html(data);
+			}
+		});
+		return false;
+	}
 	function changeDate() {
 		var y = document.getElementById("y").value;
 		var m = document.getElementById("m").value;
@@ -189,9 +201,9 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 						out.print("<div class='d_" + ymd + "_" + i + " todo' id='"
 								+ todo.get(ymd).get(i).getNo() + "'>");
 						if (list.get(i).getFinish() == "Y")
-							out.println("<input type='checkbox' name='finish' checked='checked'>");
+							out.println("<input type='checkbox' name='finish' checked='checked' onclick='tgl("+list.get(i).getNo()+")'>");
 						else
-							out.println("<input type='checkbox' name='finish'>");
+							out.println("<input type='checkbox' name='finish' onclick='tgl("+list.get(i).getNo()+")'>");
 						out.println(todo.get(ymd).get(i).getTitle());
 						//System.out.print(todo.get(ymd).get(i).getTitle());
 						out.print("</div>");
