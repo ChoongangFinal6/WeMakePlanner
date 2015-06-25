@@ -77,7 +77,6 @@ public class ToDoController {
 	@RequestMapping(value = "modify", method = RequestMethod.POST)
 	public String modify(@ModelAttribute("todo") ToDo todo, BindingResult result, @RequestParam("endTime") String endTime, Model model) {
 		todo.setEndTime(endTime);
-		System.out.println(todo.toString());
 		int re = ts.update(todo);
 		return "redirect:calendar.html";
 	}
@@ -89,6 +88,29 @@ public class ToDoController {
 	@RequestMapping(value = "tgl")
 	public String toggle(@RequestParam("id") String id, Model model) {
 		int result = ts.toggle(id);
+		return "redirect:calendar.html";
+	}
+	@RequestMapping(value = "updateEndTime")
+	public String updateET(@RequestParam("id") String id, @RequestParam("date") String date ,Model model) {
+		int result = 0;
+		ToDo todo = ts.detail(id);
+		String str = date.substring(0, 4)+"-"+ date.substring(4, 6)+"-"+date.substring(6);
+		str = str+"T"+todo.getEndTime().substring(11, 19);
+		
+		todo.setEndTime(str);
+		result = ts.updateEndTime(todo);
+		return "redirect:calendar.html";
+	}
+	@RequestMapping(value = "updateDuration")
+	public String updateD(@RequestParam("id") String id, @RequestParam("date") String date ,Model model) {
+		int result = 0;
+		ToDo todo = ts.detail(id);
+		String str = date.substring(0, 4)+"-"+ date.substring(4, 6)+"-"+date.substring(6);
+		str = str+"T"+todo.getEndTime().substring(11, 19);
+		System.out.println(str);
+		System.out.println(todo.getNo());
+		todo.setEndTime(str);
+		result = ts.updateDuration(todo);
 		return "redirect:calendar.html";
 	}
 }

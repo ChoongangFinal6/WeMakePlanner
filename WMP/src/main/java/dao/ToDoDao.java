@@ -14,4 +14,6 @@ public interface ToDoDao {
 	int del(String id);
 	int modify(ToDo todo);
 	int toggle(String id);
+	int updateEndTime(ToDo todo);
+	int updateDuration(ToDo todo);
 }

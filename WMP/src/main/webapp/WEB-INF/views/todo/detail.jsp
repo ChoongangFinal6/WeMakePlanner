@@ -5,11 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
+<link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
 <script type="text/javascript">
 
 </script>
 </head>
-<body>
+<body class="popup">
 	<h3>${todo.title}</h3>
 	<table class='todo_table'>
 		<tr>

@@ -45,5 +45,15 @@ public class ToDoServiceImpl implements ToDoService {
 		// TODO Auto-generated method stub
 		return td.toggle(id);
 	}
+	@Override
+	public int updateEndTime(ToDo todo) {
+		// TODO Auto-generated method stub
+		return td.updateEndTime(todo);
+	}
+	@Override
+	public int updateDuration(ToDo todo) {
+		// TODO Auto-generated method stub
+		return td.updateDuration(todo);
+	}
 	
 }

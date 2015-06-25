@@ -58,4 +58,12 @@
 	<update id="toggleN" parameterType="String">
 		update todo set finish = 'N' where no = #{id, jdbcType=INTEGER}
 	</update>	
+	<update id="updateE" parameterType="ToDo">
+		update todo set endTime=to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss') where no=#{no}
+	</update>
+	<update id="updateD" parameterType="ToDo">
+		<selectKey resultType="Integer" keyProperty="duration" order="BEFORE" >
+			select endtime-to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss') as "duration" from todo where no = #{no} </selectKey>
+		update todo set duration=#{duration} where no=#{no}
+	</update>
 </mapper>

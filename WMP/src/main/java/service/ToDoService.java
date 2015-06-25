@@ -14,4 +14,6 @@ public interface ToDoService {
 	int del(String id);
 	int update(ToDo todo);
 	int toggle(String id);
+	int updateEndTime(ToDo todo);
+	int updateDuration(ToDo todo);
 }

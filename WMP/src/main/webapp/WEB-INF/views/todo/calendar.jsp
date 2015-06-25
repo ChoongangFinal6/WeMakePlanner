@@ -21,14 +21,12 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 <script type="text/javascript" src="<c:url value="/resources/js/aa.js"/>"></script>
 <link href="<c:url value="/resources/css/aa.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/styleChk.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 </head>
-<body>
-	${root}
-	<table>
-		<caption style="height: 20px;">
-
+<body class='center'>
+<div class='center'>
 			<select id="y" onchange="changeDate();">
 
 				<c:forEach begin="${y-5 }" end="${y+5 }" var="i">
@@ -51,9 +49,8 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 				</c:forEach>
 
 			</select>
-
-		</caption>
-
+</div>
+	<table class='center cal'>
 		<tr height="25">
 			<th><font color="red">일</font></th>
 			<th>월</th>

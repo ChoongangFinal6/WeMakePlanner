@@ -5,12 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script type="text/javascript">
 	
 </script>
 </head>
-<body>
+<body class="popup">
 	<h3>새 일정</h3>
 
 	<form action="create.html" method="POST">
