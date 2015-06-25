@@ -4,21 +4,28 @@ body {
 	text-align: center;
 	background-color: #FFFFFF;
 }
+
 div {
+	margin : 0 auto;
 	background-color: #FFFFFF;
+	z-index: 1;
 }
+
 table {
 	text-align: left;
 	margin: 0px auto;
 	padding: 0px;
 	background-color: #0080c0;
 }
+
 table.cal {
 	width: 710px;
 }
+
 td {
 	background-color: #FFFFFF;
 }
+
 td.day {
 	height: 130px;
 	width: 100px;
@@ -29,12 +36,11 @@ td.day {
 
 div.day {
 	position: relative;
-	text-align :left;
+	text-align: left;
 	left: 0px;
 	top: 0px;
 	margin: 0px;
 	padding: 0px;
-	
 }
 
 div.todo, div.todoS {
@@ -57,26 +63,48 @@ div.todoS {
 	color: black;
 	background-color: #00ee00;
 }
+/* 리스트에 드래그 빈 영역스타일 */
+.todoPlaceholder {
+	margin: 0px;
+	padding: 0px;
+	width: 95px;
+	border-radius: 2px;
+	border: 1px solid black;
+}
+
 
 #draggable {
 	border: 1px red solid;
 	width: 100px;
 	height: 100px;
 }
-#detail{
+
+#detail {
 	width: 400px;
-	height: 600px;
 	position: absolute;
 	border: 2px double blue;
 	display: none;
+	z-index: 10;
+	 
 }
+
 .strike {
 	text-decoration: line-through;
 }
 
-.center{
-	text-align: left; /* 문자들의 가운데 정렬을 해제 */
-	width: 800px;
+.dayUl {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	max-height: 130px;
+	min-height: 130px;
+}
+
+div#todoM {
+	text-align: center;
+}
+div.center {
+	width: 960px;
 	margin: 0 auto;
 }
 td:hover {

@@ -49,7 +49,7 @@ public class ToDoController {
 	public String createForm(@ModelAttribute("todo") ToDo todo, BindingResult result, String date, Model model) {
 		Date dt = new Date();
 		Calendar cal = Calendar.getInstance();
-		String str = date.substring(0, 4)+"-"+ date.substring(4, 6)+"-"+date.substring(6)+"T"+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE);
+		String str = date.substring(0, 4)+"-"+ date.substring(4, 6)+"-"+date.substring(6)+"T"+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":"+cal.get(Calendar.SECOND);
 		model.addAttribute("cal", str);
 		return "todo/create";
 	}

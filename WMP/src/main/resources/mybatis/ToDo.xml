@@ -23,7 +23,7 @@
 	</select>
 	<insert id="create" parameterType="ToDo">
 		insert into todo values (todo_no.nextval, #{title}, #{email}, #{duration},
-		to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi'),
+		to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss'),
 		#{location}, #{finish }, #{repeat})
 	</insert>
 	<select id="detail" parameterType="String" resultType="ToDo">
@@ -34,7 +34,7 @@
 	</delete>
 	<update id="update" parameterType="ToDo">
 		update todo set title=#{title}, duration=#{duration},
-		endTime=to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi'),
+		endTime=to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss'),
 		location=#{location}, repeat=${repeat} where no=#{no}
 	</update>
 	<update id="toggle" parameterType="String">

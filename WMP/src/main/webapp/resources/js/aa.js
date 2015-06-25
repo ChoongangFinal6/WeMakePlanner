@@ -24,15 +24,39 @@ $(function() {
 $(function() {
 	var id = "";
 	var date = "";
-	$('#draggable').draggable();
-	$('.todo,.todoS').sortable({
-		connectWith : ".day"
-	});
-	$('.todo,.todoS').disableSelection();
-	$('.todo,.todoS').draggable({
+	$('.dayUl').sortable({
+		connectWith : ".dayUl",
+		receive : function(ev, ui) {
+			var id = ui.item.attr("id");
+			var date = $(this).attr("id");
+			if (ui.item.hasClass('todoLi')) {
+				$.ajax({
+					url : './updateEndTime.html',
+					dataType : "html",
+					async : true,
+					data : {
+						"id" : id,
+						"date" : date
+					}
+				});
+			} else if (ui.item.hasClass('todoSLi')) {
+				$.ajax({
+					url : './updateDuration.html',
+					dataType : "html",
+					async : true,
+					data : {
+						"id" : id,
+						"date" : date
+					}
+				});
+			}
+		}
+	}).disableSelection();
+	$('.todoLi,.todoSLi').draggable({
 		cursor : "move",
-		connectToSortable : ".day",
+		connectToSortable : ".dayUl",
 		containment : 'table',
+		revert : "invalid",
 		start : function() {
 			$(this).css("opacity", "0.3")
 		},
@@ -42,46 +66,7 @@ $(function() {
 			$(this).css("opacity", "1");
 		}
 	});
-	$(".day").droppable({
-		accept : '#draggable,.todo,.todoS',
-		drop : function(ev, ui) {
-			// to get the id
-			// ui.draggable.attr('id') or ui.draggable.get(0).id or
-			// ui.draggable[0].id
-			var id = ui.draggable.attr("id");
-			var date = $(this).attr("id");
-			// Alert draggable elment id and dropable element Id
-			// alert("draggable Element Id" + draggableId + " dropableId " +
-			// droppableId);
-			if (ui.draggable.hasClass('todo')) {
-				$.ajax({
-					url : './updateEndTime.html',
-					dataType : "html",
-					async : true,
-					data : {
-						"id" : id,
-						"date" : date
-					},
-					success : function() {
-						setTimeout("history.go(0);", 2);
-					}
-				});
-			} else if (ui.draggable.hasClass('todoS')) {
-				$.ajax({
-					url : './updateDuration.html',
-					dataType : "html",
-					async : true,
-					data : {
-						"id" : id,
-						"date" : date
-					},
-					success : function() {
-						setTimeout("history.go(0);", 2);
-					}
-				});
-			}
-		}
-	});
+
 	$('td').bind('click', function() {
 		var date = $(this).attr('id');
 		$.ajax({
@@ -97,7 +82,7 @@ $(function() {
 			}
 		});
 	});
-	$('.todo,.todoS').bind('click', function() {
+	$('.todoLi,.todoSLi').not('.chk').bind('click', function() {
 		var no = $(this).attr('id');
 		$.ajax({
 			url : './detail.html',
@@ -111,13 +96,13 @@ $(function() {
 			}
 		});
 	});
-	$('body').bind('click', function() {
+	$.not('table').bind('click', function() {
 		cancel();
 		return false;
 	});
 });
 function cancel() {
-	$('#detail').html("");
+	alert("cancel");
 	disablePopup();
 }
 function modify(id) {
@@ -150,17 +135,28 @@ function modify(id) {
  * set popup position
  */
 var popupStatus = 0;
+var _x = 0;
+var _y = 0;
+$(function() {
+	$(document).mousemove(function(event) {
+		alert(event.pageX);
+		_x = event.pageX;
+		_y = event.pageY;
+	});
+});
 function setPopupPosition() {
 	var windowWidth = document.documentElement.clientWidth;
 	var windowHeight = document.documentElement.scrollHeight; // clientHeight;
 	var popupHeight = $("#detail").height();
 	var popupWidth = $("#detail").width();
+	alert(_x);
 
 	// centering
 	$("#detail").css({
 		"position" : "absolute",
-		"top" : 100, // windowHeight/2-popupHeight/2,
-		"left" : 200
+		"hover" : "true",
+		"top" : _y, // windowHeight/2-popupHeight/2,
+		"left" : _x
 	// windowWidth/2-popupWidth/2
 	});
 	// only need force for IE6
@@ -169,6 +165,7 @@ function setPopupPosition() {
 	});
 
 }
+
 function loadPopup() {
 	// loads popup only if it is disabled
 	if (popupStatus == 0) {
