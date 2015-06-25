@@ -207,7 +207,12 @@ public class ToDoDaoImpl implements ToDoDao {
 		int result = 0;
 		try {
 			session = getSession();
-			result = session.update("toggle", id);
+			String yn = (String)session.selectOne("toggleS", id);
+			if (yn.equals("N")) {
+				result = session.update("toggleY", id);
+			} else {
+				result = session.update("toggleN", id);
+			}
 		} catch (IOException e) {
 			System.out.println("update Error : "+e.getMessage());
 		} finally {

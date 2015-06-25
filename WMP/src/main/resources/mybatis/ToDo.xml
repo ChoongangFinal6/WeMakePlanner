@@ -47,5 +47,15 @@
 			<if test="finishKey == 'N'">
 			finish = 'Y'
 			</if>
+			where no = #{id, jdbcType=INTEGER}
 	</update>
+	<select id="toggleS" parameterType="String" resultType="String">
+		select finish from todo where no = #{id, jdbcType=INTEGER}
+	</select>
+	<update id="toggleY" parameterType="String">
+		update todo set finish = 'Y' where no = #{id, jdbcType=INTEGER}
+	</update>	
+	<update id="toggleN" parameterType="String">
+		update todo set finish = 'N' where no = #{id, jdbcType=INTEGER}
+	</update>	
 </mapper>

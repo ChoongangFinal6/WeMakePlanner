@@ -17,119 +17,10 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript">
-	$(function() {
-		var id = "";
-		var date = "";
-		$('#draggable').draggable();
-		$('.todo,.todoS').draggable({
-			cursor : "move",
-			start : function() {
-				$(this).css("opacity", "0.3")
-			},
-			drag : function() {
-			},
-			stop : function(event, ui) {
-				$(this).css("opacity", "1");
-			}
-		});
-		$(".day").droppable({
-			accept: '#draggable,.todo,.todoS',
-			drop : function(ev, ui) {
-				//to get the id
-				//ui.draggable.attr('id') or ui.draggable.get(0).id or ui.draggable[0].id
-				var id = ui.draggable.attr("id");
-				var date = $(this).attr("id");
-				// Alert draggable elment id and dropable element Id
-				//alert("draggable Element Id" + draggableId + " dropableId  " + droppableId);
-				$.post({
-					url : './update.jsp',
-					dataType : "html",
-					data : {
-						"id" : id,
-						"date" : date
-					},
-					success : function(data) {
-						$('#detail').html(data);
-					}
-				});
-			}
-		});
-		$('td').bind('click', function() {
-			var date = $(this).attr('id');
-			$.ajax({
-				url : './create.html',
-				dataType : "html",
-				type : 'get',
-				async : true,
-				data : "date=" + date,
-				success : function(data) {
-					$('#detail').html(data);
-				}
-			});
-			return false;
-		});
-		$('.todo,.todoS').bind('click', function() {
-			var no = $(this).attr('id');
-			$.ajax({
-				url : './detail.html',
-				dataType : "html",
-				data : "id="+no,
-				async : true,
-				success : function(data) {
-					$('#detail').html(data);
-				}
-			});
-			return false;
-		});
-
-	});
-	function cancel() {
-		$('#detail').html("");
-	}
-	function modify(id) {
-		$('#detail').html("");
-	}
-</script>
-<script type="text/javascript">
-	function del(id) {
-		if(confirm("삭제하시겠습니까")) {
-			location.href="delete.html?id="+id;
-		}
-	}
-	function tgl(id) {
-		$.ajax({
-			url : './tgl.html',
-			dataType : "html",
-			data : "id="+id,
-			async : true,
-			success : function(data) {
-				$('#detail').html(data);
-			}
-		});
-		return false;
-	}
-	function changeDate() {
-		var y = document.getElementById("y").value;
-		var m = document.getElementById("m").value;
-		var url = "calendar.html?y=" + y + "&m=" + m;
-		location.href = url; //url이 가지고 있는 값으로 이동
-	}
-	function modify(id) {
-		$.ajax({
-			url : './modify.html',
-			dataType : "html",
-			data : "id="+id,
-			async : false,
-			success : function(data) {
-				$('#detail').html(data);
-			}
-		});
-	}
-
-</script>
+<title>To-Do List</title>
+<script type="text/javascript" src="<c:url value="/resources/js/aa.js"/>"></script>
 <link href="<c:url value="/resources/css/aa.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/styleChk.css" />" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 </head>
@@ -198,12 +89,18 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 				if (todo.containsKey(ymd)) {
 					List<ToDo> list = todo.get(ymd);
 					for (int i = 0; i < todo.get(ymd).size(); i++) {
-						out.print("<div class='d_" + ymd + "_" + i + " todo' id='"
-								+ todo.get(ymd).get(i).getNo() + "'>");
-						if (list.get(i).getFinish() == "Y")
-							out.println("<input type='checkbox' name='finish' checked='checked' onclick='tgl("+list.get(i).getNo()+")'>");
-						else
-							out.println("<input type='checkbox' name='finish' onclick='tgl("+list.get(i).getNo()+")'>");
+						int no = todo.get(ymd).get(i).getNo();
+						if (list.get(i).getFinish().equals("Y")) {
+							out.print("<div class='d_" + ymd + "_" + i + " todo strike' id='"
+								+ no + "'>");
+							out.println("<input type='checkbox' id='chk_"+no+"' name='finish' class='chk css-checkbox' checked='checked'>");
+							out.println("<label for='chk_"+no+"' class='css-label lite-cyan-check'></label>");
+						} else{ 
+							out.print("<div class='d_" + ymd + "_" + i + " todo' id='"
+								+ no + "'>");
+							out.println("<input type='checkbox' name='finish' class='chk css-checkbox'>");
+							out.println("<label for='chk_"+no+"' class='css-label lite-cyan-check'></label>");
+						}
 						out.println(todo.get(ymd).get(i).getTitle());
 						//System.out.print(todo.get(ymd).get(i).getTitle());
 						out.print("</div>");
@@ -230,8 +127,5 @@ day.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE));
 		%>
 	</table>
 	<div id='detail'></div>
-	${aa}
-	<br>${bb}
-	<img alt="" src="<c:url value="/resources/img/aa.jpg"/>">
 </body>
 </html>

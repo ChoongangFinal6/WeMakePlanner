@@ -1,5 +1,7 @@
 @CHARSET "UTF-8";
+
 body {
+	
 }
 
 table {
@@ -30,7 +32,7 @@ div.todo, div.todoS {
 	margin: 0px;
 	padding: 0px;
 	width: 95px;
-	vertical-align:top;
+	vertical-align: top;
 	font-size: 0.75em;
 	border-radius: 2px;
 	border: 1px solid black;
@@ -52,3 +54,8 @@ div.todoS {
 	width: 100px;
 	height: 100px;
 }
+
+.strike {
+	text-decoration: line-through;
+}
+
