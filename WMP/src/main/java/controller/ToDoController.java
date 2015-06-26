@@ -112,4 +112,10 @@ public class ToDoController {
 		result = ts.updateDuration(todo);
 		return "redirect:calendar.html";
 	}
+	@RequestMapping(value = "map")
+	public String map(String locX, String locY, Model model) {
+		model.addAttribute("locX", locX);
+		model.addAttribute("locY", locY);
+		return "todo/map";
+	}
 }

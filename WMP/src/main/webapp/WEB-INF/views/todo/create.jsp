@@ -33,8 +33,9 @@
 			</tr>
 			<tr>
 				<th>장소</th>
-				<td><input type="button" value="찾기"><span id="loc"></span> <input type="hidden"
-					name="location" value="0"></td>
+				<td><input type="button" value="찾기" id='searchLoc'>
+				<span id="loc"></span> 
+				<input type="hidden" name="location" value="0"></td>
 			</tr>
 			<tr>
 				<th>반복</th>

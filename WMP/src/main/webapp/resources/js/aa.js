@@ -52,7 +52,10 @@ $(function() {
 				});
 			});
 	$('#xButton').bind('click', function() {
-			disablePopup();
+		disablePopup();
+	});
+	$('#searchLoc').bind('click', function() {
+		window.open("./map.html", "위치찾기", "width=650, height=400");
 	});
 });
 $(function() {
@@ -100,8 +103,16 @@ $(function() {
 			$(this).css("opacity", "1");
 		}
 	});
-
 });
+$(function() {
+	$('#year,#month').change(function() {
+		var y = document.getElementById("year").value;
+		var m = document.getElementById("month").value;
+		var url = "calendar.html?y=" + y + "&m=" + m;
+		location.href = url;
+	});
+});
+
 function cancel() {
 	disablePopup();
 }
@@ -114,10 +125,6 @@ function del(id) {
 	}
 }
 function changeDate() {
-	var y = document.getElementById("y").value;
-	var m = document.getElementById("m").value;
-	var url = "calendar.html?y=" + y + "&m=" + m;
-	location.href = url; // url이 가지고 있는 값으로 이동
 }
 function modify(id) {
 	$.ajax({
@@ -152,9 +159,9 @@ $(function() {
 });
 function setPopupPosition() {
 	var windowWidth = document.documentElement.clientWidth; // clientWidth,
-															// scrollWidth
+	// scrollWidth
 	var windowHeight = document.documentElement.clientHeight; // clientHeight,
-																// scrollHeight
+	// scrollHeight
 	var popupHeight = $("#detail").height();
 	var popupWidth = $("#detail").width();
 	if (popupWidth + _x > windowWidth) {

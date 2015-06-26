@@ -24,33 +24,9 @@
 <body>
 	<div id='todoM'>
 		<div class='center'>
-<span id="before"><</span>
-<span id="yearMonth">${}</span>
-<span id="after">></span>
+			<span id="before" class="bigDate"><</span> <input type="text" id="year" name="y" class="bigDate"  value="${y}" ><span class="bigDate" >-</span><input type="text" id="month" name="m" value="${m+1 }" class="bigDate">  <span id="after" class="bigDate">></span>
 		</div>
-		<div class='center'>
-			<select id="y" onchange="changeDate();">
-
-				<c:forEach begin="${y-5 }" end="${y+5 }" var="i">
-					<c:if test="${y==i}">
-						<option value="${i}" selected="selected">${i }년</option>
-					</c:if>
-					<c:if test="${y!=i}">
-						<option value="${i}">${i }년</option>
-					</c:if>
-				</c:forEach>
-
-			</select> <select id="m" onchange="changeDate();">
-				<c:forEach var="i" begin='1' end='12'>
-					<c:if test="${m+1==i}">
-						<option value="${i}" selected="selected">${i }월</option>
-					</c:if>
-					<c:if test="${m+1!=i}">
-						<option value="${i}">${i }월</option>
-					</c:if>
-				</c:forEach>
-			</select>
-		</div>
+		
 		<table class='center cal'>
 			<tr height="25">
 				<th><font color="red">일</font></th>

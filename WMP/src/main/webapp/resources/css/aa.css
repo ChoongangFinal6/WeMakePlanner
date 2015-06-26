@@ -5,8 +5,24 @@ body {
 	background-color: #FFFFFF;
 }
 
+.bigDate {
+	font-size: 2em;
+}
+
+input.bigDate {
+	border: none;
+	text-align: center;
+}
+#year{
+	width: 120px;
+}
+#month{
+	width: 30px;
+}
+
+
 div {
-	margin : 0 auto;
+	margin: 0 auto;
 	background-color: #FFFFFF;
 	z-index: 1;
 }
@@ -17,9 +33,11 @@ table {
 	padding: 0px;
 	background-color: #0080c0;
 }
-table.todo_table{
-	width:380px;
+
+table.todo_table {
+	width: 380px;
 }
+
 table.cal {
 	width: 710px;
 }
@@ -75,7 +93,6 @@ div.todoS {
 	border: 1px solid black;
 }
 
-
 #draggable {
 	border: 1px red solid;
 	width: 100px;
@@ -88,8 +105,7 @@ div.todoS {
 	border: 5px double #aaddaa;
 	display: none;
 	z-index: 10;
-	border-radius : 10px;
-	 
+	border-radius: 10px;
 }
 
 .strike {
@@ -107,26 +123,29 @@ div.todoS {
 div#todoM {
 	text-align: center;
 }
+
 div.center {
 	width: 960px;
 	margin: 0 auto;
 }
+
 td:hover {
 	background-color: #ddddff;
 }
+
 span#xButton {
-	border : 1px solid red;
+	border: 1px solid red;
 	color: red;
 	font-size: 0.7em;
 	font-weight: 900;
-	border-radius : 3px;
-	width:15px;
-	height:15px;
+	border-radius: 3px;
+	width: 15px;
+	height: 15px;
 	margin: 0px;
 	padding: 0px;
 	position: absolute;
 	right: 10px;
-	vertical-align : super;
-	top:10px;
+	vertical-align: super;
+	top: 10px;
 	cursor: pointer;
 }

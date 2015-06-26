@@ -9,8 +9,8 @@
 <link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
 </head>
 <body class="popup">
-	${todo.title}
-	<Form action="modify.html" method="post">
+	<h3>${todo.title}</h3>
+	<form action="modify.html" method="post">
 	<input type="hidden" name="email" value="kheeuk@gmail.com" />
 	<input type="hidden" name="no" value="${todo.no }" />
 	<table class='todo_table'>
@@ -29,7 +29,7 @@
 		</tr>
 		<tr>
 			<th>장소</th>
-			<td><input type="button" value="찾기"><span id="loc">${todo.location }</span>
+			<td><input type="button" value="찾기" id='searchLoc'><span id="loc">${todo.location }</span>
 				<input type="hidden" name="location" value="${todo.location}"></td>
 		</tr>
 		<tr>
