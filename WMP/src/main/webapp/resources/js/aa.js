@@ -2,30 +2,64 @@
  * 
  */
 $(function() {
-	$(".chk").bind('click', (function() {
-		var id = $(this).parent().attr('id');
+	$(".chk").bind('click', (function(event) {
+		event.stopPropagation();
+		var id = $(this).parent().parent().attr('id');
+		$(this).parent().toggleClass('strike');
+		$(this).next().toggle(function() {
+			$(this).attr('checked', 'checked');
+		}, function() {
+			$(this).css('display', '');
+			$(this).prop('checked', false);
+		});
 		$.ajax({
 			url : './tgl.html',
 			dataType : "html",
 			data : "id=" + id,
 			async : true
 		});
-		/* $(this).toggle(this.checked); */
-		/* $(this).prop("checked",!$(this).prop("checked")); */
-		$(this).parent().toggleClass('strike');
-		$(this).toggle(function() {
-			$(this).attr('checked', 'checked');
-		}, function() {
-			$(this).css('display', '');
-			$(this).prop('checked', false);
-		});
 	}));
+	$('.todoLi,.todoSLi').not('.chk').bind('click', function(event) {
+		event.stopPropagation();
+		var no = $(this).attr('id');
+		$.ajax({
+			url : './detail.html',
+			dataType : "html",
+			data : "id=" + no,
+			async : true,
+			success : function(data) {
+				$('#detailI').html(data);
+				setPopupPosition();
+				loadPopup();
+			}
+		});
+	});
+	$('td,ul').not('.chk,.todoLi,.todoSli,#todoM').bind('click',
+			function(event) {
+				event.stopPropagation();
+				var date = $(this).attr('id');
+				$.ajax({
+					url : './create.html',
+					dataType : "html",
+					type : 'get',
+					async : true,
+					data : "date=" + date,
+					success : function(data) {
+						$('#detailI').html(data);
+						setPopupPosition();
+						loadPopup();
+					}
+				});
+			});
+	$('#xButton').bind('click', function() {
+			disablePopup();
+	});
 });
 $(function() {
 	var id = "";
 	var date = "";
-	$('.dayUl').sortable({
-		connectWith : ".dayUl",
+	$('.todoUl').sortable({
+		connectWith : ".todoUl",
 		receive : function(ev, ui) {
 			var id = ui.item.attr("id");
 			var date = $(this).attr("id");
@@ -54,7 +88,7 @@ $(function() {
 	}).disableSelection();
 	$('.todoLi,.todoSLi').draggable({
 		cursor : "move",
-		connectToSortable : ".dayUl",
+		connectToSortable : ".todoUl",
 		containment : 'table',
 		revert : "invalid",
 		start : function() {
@@ -67,42 +101,8 @@ $(function() {
 		}
 	});
 
-	$('td').bind('click', function() {
-		var date = $(this).attr('id');
-		$.ajax({
-			url : './create.html',
-			dataType : "html",
-			type : 'get',
-			async : true,
-			data : "date=" + date,
-			success : function(data) {
-				$('#detail').html(data);
-				setPopupPosition();
-				loadPopup();
-			}
-		});
-	});
-	$('.todoLi,.todoSLi').not('.chk').bind('click', function() {
-		var no = $(this).attr('id');
-		$.ajax({
-			url : './detail.html',
-			dataType : "html",
-			data : "id=" + no,
-			async : true,
-			success : function(data) {
-				$('#detail').html(data);
-				setPopupPosition();
-				loadPopup();
-			}
-		});
-	});
-	$.not('table').bind('click', function() {
-		cancel();
-		return false;
-	});
 });
 function cancel() {
-	alert("cancel");
 	disablePopup();
 }
 function modify(id) {
@@ -126,11 +126,18 @@ function modify(id) {
 		data : "id=" + id,
 		async : false,
 		success : function(data) {
-			$('#detail').html(data);
+			$('#detailI').html(data);
 		}
 	});
 }
-
+function tgl(no) {
+	$.ajax({
+		url : './tgl.html',
+		dataType : "html",
+		data : "id=" + no,
+		async : true
+	});
+}
 /**
  * set popup position
  */
@@ -139,25 +146,30 @@ var _x = 0;
 var _y = 0;
 $(function() {
 	$(document).mousemove(function(event) {
-		alert(event.pageX);
 		_x = event.pageX;
 		_y = event.pageY;
 	});
 });
 function setPopupPosition() {
-	var windowWidth = document.documentElement.clientWidth;
-	var windowHeight = document.documentElement.scrollHeight; // clientHeight;
+	var windowWidth = document.documentElement.clientWidth; // clientWidth,
+															// scrollWidth
+	var windowHeight = document.documentElement.clientHeight; // clientHeight,
+																// scrollHeight
 	var popupHeight = $("#detail").height();
 	var popupWidth = $("#detail").width();
-	alert(_x);
+	if (popupWidth + _x > windowWidth) {
+		_x = _x - popupWidth;
+	}
+	if (popupHeight + _y > windowHeight) {
+		_y = _y - popupHeight;
+	}
 
 	// centering
 	$("#detail").css({
 		"position" : "absolute",
 		"hover" : "true",
-		"top" : _y, // windowHeight/2-popupHeight/2,
+		"top" : _y,
 		"left" : _x
-	// windowWidth/2-popupWidth/2
 	});
 	// only need force for IE6
 	$("#backgroundPopup").css({
@@ -170,7 +182,7 @@ function loadPopup() {
 	// loads popup only if it is disabled
 	if (popupStatus == 0) {
 		$("#backgroundPopup").css({
-			"opacity" : "0.9"
+			"opacity" : "1"
 		});
 		$("#backgroundPopup").fadeIn("slow");
 		$("#detail").fadeIn("slow");

@@ -15,19 +15,24 @@
 	</resultMap>
 	<!-- Select with no parameters using the result map for Account class. -->
 	<select id="startAll" parameterType="ToDo" resultMap="ToDoResult">
-		select * from todo where email=#{email} and TRUNC(endTime-duration) =
+		select * from todo where email=#{email} and
+		TRUNC(endTime-duration) =
 		#{startDate} and duration > 0
 	</select>
 	<select id="endAll" parameterType="ToDo" resultMap="ToDoResult">
-		select * from todo where email=#{email} and TRUNC(endTime) = #{endDate }
+		select * from todo where email=#{email} and
+		TRUNC(endTime) = #{endDate }
 	</select>
 	<insert id="create" parameterType="ToDo">
-		insert into todo values (todo_no.nextval, #{title}, #{email}, #{duration},
+		insert into todo values (todo_no.nextval, #{title}, #{email},
+		#{duration},
 		to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss'),
-		#{location}, #{finish }, #{repeat})
+		#{location}, #{finish },
+		#{repeat})
 	</insert>
 	<select id="detail" parameterType="String" resultType="ToDo">
-		select * from todo where no = #{id, jdbcType=INTEGER}
+		select * from todo where no = #{id,
+		jdbcType=INTEGER}
 	</select>
 	<delete id="delete" parameterType="String">
 		delete from todo where no = #{id, jdbcType=INTEGER}
@@ -35,35 +40,50 @@
 	<update id="update" parameterType="ToDo">
 		update todo set title=#{title}, duration=#{duration},
 		endTime=to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss'),
-		location=#{location}, repeat=${repeat} where no=#{no}
+		location=#{location}, repeat=${repeat}
+		where no=#{no}
 	</update>
 	<update id="toggle" parameterType="String">
-		<selectKey resultType="String" keyProperty="finishKey" order="BEFORE" >
-			select finish as "finishKey" from todo where no = #{id, jdbcType=INTEGER} </selectKey>
+		<selectKey resultType="String" keyProperty="finishKey" order="BEFORE">
+			select finish as "finishKey"
+			from todo where no = #{id, jdbcType=INTEGER}
+		</selectKey>
 		update todo set
-			<if test="finishKey == 'Y'">
+		<if test="finishKey == 'Y'">
 			finish = 'N'
-			</if>
-			<if test="finishKey == 'N'">
+		</if>
+		<if test="finishKey == 'N'">
 			finish = 'Y'
-			</if>
-			where no = #{id, jdbcType=INTEGER}
+		</if>
+		where no = #{id, jdbcType=INTEGER}
 	</update>
 	<select id="toggleS" parameterType="String" resultType="String">
-		select finish from todo where no = #{id, jdbcType=INTEGER}
+		select finish from todo where no = #{id,
+		jdbcType=INTEGER}
 	</select>
 	<update id="toggleY" parameterType="String">
 		update todo set finish = 'Y' where no = #{id, jdbcType=INTEGER}
-	</update>	
+	</update>
 	<update id="toggleN" parameterType="String">
 		update todo set finish = 'N' where no = #{id, jdbcType=INTEGER}
-	</update>	
+	</update>
 	<update id="updateE" parameterType="ToDo">
-		update todo set endTime=to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss') where no=#{no}
+		update todo set endTime=to_date(replace(#{endTime },'T','
+		'),'yyyy-MM-dd hh24:mi:ss') where no=#{no}
 	</update>
 	<update id="updateD" parameterType="ToDo">
-		<selectKey resultType="Integer" keyProperty="duration" order="BEFORE" >
-			select endtime-to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss') as "duration" from todo where no = #{no} </selectKey>
+		<selectKey resultType="Integer" keyProperty="duration" order="BEFORE">
+			select
+			endtime-to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss') as "duration" from todo where no =
+			#{no}
+		</selectKey>
 		update todo set duration=#{duration} where no=#{no}
 	</update>
+	<insert id="repeat" parameterType="ToDo">
+		insert into todo values (todo_no.nextval, #{title}, #{email},
+		#{duration},
+		to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss')+#{repeat},
+		#{location,
+		jdbcType=VARCHAR}, #{finish }, #{repeat})
+	</insert>
 </mapper>

@@ -45,9 +45,10 @@ public class ToDoDaoImpl implements ToDoDao {
 		Calendar fSun = Calendar.getInstance();
 		fSun.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.get(Calendar.DATE));
 		fSun.add(Calendar.DATE, +1 - fSun.get(Calendar.DAY_OF_WEEK));
-		// 마지막주 토요일 //임시로 말일
+		// 마지막주 토요일 : 말일을 구하고 말일의 요일을 이용하여 더함
 		Calendar lSat = Calendar.getInstance();
 		lSat.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.getActualMaximum(Calendar.DATE));
+		lSat.add(Calendar.DATE, 6-lSat.get(Calendar.DAY_OF_WEEK));
 		todo.setEmail("kheeuk@gmail.com");
 		int ymd;
 		wt: while (true) {
@@ -96,9 +97,10 @@ public class ToDoDaoImpl implements ToDoDao {
 		Calendar fSun = Calendar.getInstance();
 		fSun.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.get(Calendar.DATE));
 		fSun.add(Calendar.DATE, +1 - fSun.get(Calendar.DAY_OF_WEEK));
-		// 마지막주 토요일 //임시로 말일
+		// 마지막주 토요일 : 말일을 구하고 말일의 요일을 이용하여 더함
 		Calendar lSat = Calendar.getInstance();
 		lSat.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.getActualMaximum(Calendar.DATE));
+		lSat.add(Calendar.DATE, 6-lSat.get(Calendar.DAY_OF_WEEK));
 		// todo.setEndTime(todo.getEndDate());
 		todo.setEmail("kheeuk@gmail.com");
 		int ymd;
@@ -195,7 +197,12 @@ public class ToDoDaoImpl implements ToDoDao {
 			session = getSession();
 			String yn = (String)session.selectOne("toggleS", id);
 			if (yn.equals("N")) {
-				result = session.update("toggleY", id);
+				result += session.update("toggleY", id);
+				ToDo todo = session.selectOne("detail", id);
+				if (todo.getRepeat()>0) {
+					todo.setFinish("N");
+					result += session.insert("repeat", todo);
+				}
 			} else {
 				result = session.update("toggleN", id);
 			}

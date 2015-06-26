@@ -8,7 +8,7 @@
 </head>
 <body>
 <script type="text/javascript">
-location.href="calendar.do";
+location.href="calendar.html";
 </script>
 <a href="calendar.do">calendar.do</a>
 </body>

@@ -13,7 +13,7 @@
 </head>
 <body class="popup">
 	<h3>새 일정</h3>
-
+	${cal}
 	<form action="create.html" method="POST">
 		<input type="hidden" name="email" value="kheeuk@gmail.com" /> 
 		<input type="hidden" name="finish" value="N" />
@@ -46,7 +46,6 @@
 			</tr>
 		</table>
 	</form>
-
 </body>
 </html>
 <!-- 새 일정 눌렀을때 시간문제 -->

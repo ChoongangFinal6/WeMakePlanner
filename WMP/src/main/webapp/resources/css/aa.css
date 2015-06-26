@@ -17,7 +17,9 @@ table {
 	padding: 0px;
 	background-color: #0080c0;
 }
-
+table.todo_table{
+	width:380px;
+}
 table.cal {
 	width: 710px;
 }
@@ -41,6 +43,7 @@ div.day {
 	top: 0px;
 	margin: 0px;
 	padding: 0px;
+	background-color: transparent;
 }
 
 div.todo, div.todoS {
@@ -82,9 +85,10 @@ div.todoS {
 #detail {
 	width: 400px;
 	position: absolute;
-	border: 2px double blue;
+	border: 5px double #aaddaa;
 	display: none;
 	z-index: 10;
+	border-radius : 10px;
 	 
 }
 
@@ -92,7 +96,7 @@ div.todoS {
 	text-decoration: line-through;
 }
 
-.dayUl {
+.todoUl {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
@@ -109,4 +113,20 @@ div.center {
 }
 td:hover {
 	background-color: #ddddff;
+}
+span#xButton {
+	border : 1px solid red;
+	color: red;
+	font-size: 0.7em;
+	font-weight: 900;
+	border-radius : 3px;
+	width:15px;
+	height:15px;
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+	right: 10px;
+	vertical-align : super;
+	top:10px;
+	cursor: pointer;
 }

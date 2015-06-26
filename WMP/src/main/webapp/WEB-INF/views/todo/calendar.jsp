@@ -9,9 +9,6 @@
 	Calendar day = Calendar.getInstance();
 	day.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
 %>
-<c:set var="ys" value="${y }"></c:set>
-<c:set var="ms" value="${m }"></c:set>
-<c:set var="ws" value="${w }"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +23,11 @@
 </head>
 <body>
 	<div id='todoM'>
+		<div class='center'>
+<span id="before"><</span>
+<span id="yearMonth">${}</span>
+<span id="after">></span>
+		</div>
 		<div class='center'>
 			<select id="y" onchange="changeDate();">
 
@@ -47,7 +49,6 @@
 						<option value="${i}">${i }월</option>
 					</c:if>
 				</c:forEach>
-
 			</select>
 		</div>
 		<table class='center cal'>
@@ -83,7 +84,7 @@
 					out.print("<div class='day'>");
 					out.print(dMonth + "-" + dDay);
 					out.println("</div>");
-					out.print("<ul class='dayUl' id='" + ymd + "'>");
+					out.print("<ul class='todoUl' id='" + ymd + "'>");
 					if (todoS.containsKey(ymd)) {
 						for (int i = 0; i < todoS.get(ymd).size(); i++) {
 							out.print("<li class='todoSLi' id='" + todoS.get(ymd).get(i).getNo()
@@ -107,7 +108,8 @@
 							} else {
 								out.print("<li class='todoLi' id='" + no + "'><div class='d_" + ymd + "_" + i
 										+ " todo'>");
-								out.println("<input type='checkbox' name='finish' class='chk css-checkbox'>");
+								out.println("<input type='checkbox' id='chk_" + no
+										+ "' name='finish' class='chk css-checkbox'>");
 								out.println("<label for='chk_" + no
 										+ "' class='css-label lite-cyan-check'></label>");
 							}
@@ -128,7 +130,10 @@
 				;
 			%>
 		</table>
-	<div id='detail'></div>
+		<div id='detail'>
+			<div id='detailI'></div>
+			<span id="xButton">X</span>
+		</div>
 	</div>
 </body>
 </html>
