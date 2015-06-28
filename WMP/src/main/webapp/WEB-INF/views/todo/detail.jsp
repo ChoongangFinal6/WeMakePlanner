@@ -1,16 +1,10 @@
 <%@ include file="aa.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title>
 <link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
 <script type="text/javascript">
 	
 </script>
-</head>
-<body class="popup">
+<div class="popup">
 	<div>
 		<h3>${todo.title}</h3>
 		<table class='todo_table'>
@@ -43,7 +37,6 @@
 				<td><input type="button" value="삭제" onclick="del('${todo.no}')"></td>
 			</tr>
 		</table>
-		
+
 	</div>
-</body>
-</html>
+</div>

@@ -54,9 +54,6 @@ $(function() {
 	$('#xButton').bind('click', function() {
 		disablePopup();
 	});
-	$('#searchLoc').bind('click', function() {
-		window.open("./map.html", "위치찾기", "width=650, height=400");
-	});
 });
 $(function() {
 	var id = "";
@@ -204,3 +201,4 @@ function disablePopup() {
 		popupStatus = 0;
 	}
 }
+

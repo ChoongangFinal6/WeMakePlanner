@@ -1,14 +1,16 @@
 <%@ include file="aa.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
-</head>
-<body class="popup">
+<script type="text/javascript">
+$('#searchLoc').bind('click', function() {
+	alert($('#location').val());
+	window.open("./map.html?loc="+$('#location').val(), "위치찾기", "width=650, height=400");
+});
+function inputLoc(returnValue) {
+	$('#location').val(returnValue);
+}
+</script>
+<div class="popup">
 	<h3>${todo.title}</h3>
 	<form action="modify.html" method="post">
 	<input type="hidden" name="email" value="kheeuk@gmail.com" />
@@ -29,8 +31,8 @@
 		</tr>
 		<tr>
 			<th>장소</th>
-			<td><input type="button" value="찾기" id='searchLoc'><span id="loc">${todo.location }</span>
-				<input type="hidden" name="location" value="${todo.location}"></td>
+			<td><input type="button" value="찾기" id='searchLoc' ><span id="loc">${todo.location }</span>
+				<input type="hidden" name="location" id="location" value="${todo.location}"></td>
 		</tr>
 		<tr>
 			<th>반복</th>
@@ -42,5 +44,4 @@
 		</tr>
 	</table>
 	</Form>
-</body>
-</html>
+</div>

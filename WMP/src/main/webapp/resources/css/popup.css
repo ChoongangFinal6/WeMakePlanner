@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 
-body.popup {
+div.popup {
 width: 400 px;
 height: 600 px;	
 }

@@ -1,17 +1,17 @@
 <%@ include file="aa.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script type="text/javascript">
-	
+$('#searchLoc').bind('click', function() {
+	var loc = $('#location').val();
+	window.open("./map.html?loc="+loc, "위치찾기", "width=650, height=400");
+});
+function inputLoc(locX,locY) {
+	$('#location').val(locX+","+locY);
+}
 </script>
-</head>
-<body class="popup">
+<div class="popup">
 	<h3>새 일정</h3>
 	${cal}
 	<form action="create.html" method="POST">
@@ -35,7 +35,7 @@
 				<th>장소</th>
 				<td><input type="button" value="찾기" id='searchLoc'>
 				<span id="loc"></span> 
-				<input type="hidden" name="location" value="0"></td>
+				<input type="hidden" name="location" value="," id="location"></td>
 			</tr>
 			<tr>
 				<th>반복</th>
@@ -47,8 +47,7 @@
 			</tr>
 		</table>
 	</form>
-</body>
-</html>
+</div>
 <!-- 새 일정 눌렀을때 시간문제 -->
 
 <!-- 	private int no;					// 일련번호         
