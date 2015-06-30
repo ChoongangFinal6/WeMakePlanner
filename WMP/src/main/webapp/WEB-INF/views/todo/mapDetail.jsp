@@ -8,8 +8,8 @@
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=90890f0c035d0a05ca5915f1e0ca7195"></script>
 <script type="text/javascript">
 	$(function() {
- 		var locX = $("#locX").val();
-		var locY = $("#locY").val(); 
+		var locX = $("#locX").val();
+		var locY = $("#locY").val();
 		if (locX == "" || locY == "" || locX == 0 || locY == 0) {
 			locX = 37.49586416184341;
 			locY = 127.02920943791224;
@@ -46,53 +46,20 @@
 		// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
 		var resultDiv = document.getElementById('clickLatlng');
 		daum.maps.event.addListener(map, 'click', function(mouseEvent) {
-			// 클릭한 위도, 경도 정보를 가져옵니다 
-			var latlng = mouseEvent.latLng;
 
-			// 마커 위치를 클릭한 위치로 옮깁니다
-			marker.setPosition(latlng);
-			marker.setVisible(true);
-			marker.setMap(map);
-			locX = latlng.getLat();
-			locY = latlng.getLng();
-			var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-			message += '경도는 ' + latlng.getLng() + ' 입니다';
-			$("#locX").val(latlng.getLat());
-			$("#locY").val(latlng.getLng());
-
-			resultDiv.innerHTML = message;
-
-			infowindow.open(map, marker);
 
 		});
-		daum.maps.event.addListener(map, 'rightclick', function(mouseEvent) {
-			marker.setVisible(false);
-			infowindow.close();
-
-			var latlng = new daum.maps.LatLng(0, 0);
-			locX = latlng.getLat();
-			locY = latlng.getLng();
-			var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-			message += '경도는 ' + latlng.getLng() + ' 입니다' + latlng.toString();
-			var resultDiv = document.getElementById('clickLatlng');
-			resultDiv.innerHTML = message;
-
-		});
-		$('#locInput').bind('click', function() {
-			window.opener.inputLoc(locX,locY);
+		daum.maps.event.addListener(map, 'dblclick', function(mouseEvent) {
 			window.close();
 		});
 	});
 </script>
 </head>
 <body>
-	<input type="text" value="${loc}" id="loc" />
-	<div id="map" style="width: 600px; height: 300px;"></div>
-	<input type="text" value="${locX}" id="locX" />
-	<input type="text" value="${locY}" id="locY" />
-	<div id="clickLatlng"></div>
-	<input type="button" value="입력" id="locInput">
-	<input type="button" value="지우기" id="locDelete">
-
+	<div class="mapDetailMain">
+		<div id="map" style="width: 800px; height: 600px;"></div>
+		<input type="hidden" value="${locX}" id="locX" /> <input type="hidden" value="${locY}" id="locY" />
+		<div id="msg"></div>
+	</div>
 </body>
 </html>

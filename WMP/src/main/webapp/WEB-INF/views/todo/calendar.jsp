@@ -19,23 +19,27 @@
 <link href="<c:url value="/resources/css/styleChk.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=90890f0c035d0a05ca5915f1e0ca7195"></script>
 
 </head>
 <body>
 	<div id='todoM'>
 		<div class='center'>
-			<span id="before" class="bigDate"><</span> <input type="text" id="year" name="y" class="bigDate"  value="${y}" ><span class="bigDate" >-</span><input type="text" id="month" name="m" value="${m+1 }" class="bigDate">  <span id="after" class="bigDate">></span>
+			<span id="before" class="bigDate"><</span> <input type="text" id="year" name="y" class="bigDate"
+				value="${y}"><span class="bigDate">-</span><input type="text" id="month" name="m"
+				value="${m+1 }" class="bigDate"> <span id="after" class="bigDate">></span>
 		</div>
-		
+
 		<table class='center cal'>
 			<tr height="25">
-				<th><font color="red">일</font></th>
-				<th>월</th>
-				<th>화</th>
-				<th>수</th>
-				<th>목</th>
-				<th>금</th>
-				<th><font color="blue">토</font></th>
+				<th><font color="red">SUN</font></th>
+				<th>MON</th>
+				<th>TUE</th>
+				<th>WED</th>
+				<th>THU</th>
+				<th>FRI</th>
+				<th><font color="blue">SAT</font></th>
 			</tr>
 			<%
 				day.add(Calendar.DATE, +1 - w);
@@ -65,6 +69,7 @@
 						for (int i = 0; i < todoS.get(ymd).size(); i++) {
 							out.print("<li class='todoSLi' id='" + todoS.get(ymd).get(i).getNo()
 									+ "'><div class='s_" + ymd + "_" + i + " todoS'>");
+							out.println("<span class='dday'>d-"+todoS.get(ymd).get(i).getDuration()+"</span>");
 							out.println(todoS.get(ymd).get(i).getTitle());
 							//System.out.print(todoS.get(ymd).get(i).getTitle());
 							out.print("</div></li>");

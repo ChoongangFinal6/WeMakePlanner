@@ -3,11 +3,12 @@
 	pageEncoding="UTF-8"%>
 <script type="text/javascript">
 $('#searchLoc').bind('click', function() {
-	alert($('#location').val());
-	window.open("./map.html?loc="+$('#location').val(), "위치찾기", "width=650, height=400");
+	var loc = $('#location').val();
+	var locArray = loc.split(",");
+	window.open("./map.html?locX="+locArray[0]+"&locY="+locArray[1], "위치찾기", "width=650, height=400");
 });
-function inputLoc(returnValue) {
-	$('#location').val(returnValue);
+function inputLoc(locX,locY) {
+	$('#location').val(locX+","+locY);
 }
 </script>
 <div class="popup">
@@ -40,7 +41,7 @@ function inputLoc(returnValue) {
 		</tr>
 		<tr>
 			<td><input type="submit" value="수정"></td>
-			<td><input type="button" value="취소" onclick='cancle()'></td>
+			<td><input type="button" value="취소" onclick="cancelModify('${todo.no }')"></td>
 		</tr>
 	</table>
 	</Form>

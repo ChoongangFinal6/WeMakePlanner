@@ -5,6 +5,9 @@ body {
 	background-color: #FFFFFF;
 }
 
+div#todoM {
+	text-align: center;
+}
 .bigDate {
 	font-size: 2em;
 }
@@ -19,7 +22,6 @@ input.bigDate {
 #month{
 	width: 30px;
 }
-
 
 div {
 	margin: 0 auto;
@@ -40,14 +42,24 @@ table.todo_table {
 
 table.cal {
 	width: 710px;
+	height : 80%;
 }
+table.cal th {
+	text-align: right;
+	font-size: 20px;
+	font-family: "FIXEDSYS";
+	
 
+	text-shadow: 0 0 2px #fff;
+	-moz-text-shadow: 0 0 2px #fff;
+	-webkit-text-shadow: 0 0 2px #fff;
+
+}
 td {
 	background-color: #FFFFFF;
 }
 
 td.day {
-	height: 130px;
 	width: 100px;
 	vertical-align: top;
 	padding: 0px;
@@ -60,7 +72,8 @@ div.day {
 	left: 0px;
 	top: 0px;
 	margin: 0px;
-	padding: 0px;
+	padding: 2px 0px 3px 8px;
+	
 	background-color: transparent;
 }
 
@@ -82,7 +95,7 @@ div.todo {
 
 div.todoS {
 	color: black;
-	background-color: #00ee00;
+	background-color: #00bb00;
 }
 /* 리스트에 드래그 빈 영역스타일 */
 .todoPlaceholder {
@@ -98,7 +111,9 @@ div.todoS {
 	width: 100px;
 	height: 100px;
 }
-
+span.dday {
+	background-color: #99ffffff;
+}
 #detail {
 	width: 400px;
 	position: absolute;
@@ -118,10 +133,6 @@ div.todoS {
 	list-style-type: none;
 	max-height: 130px;
 	min-height: 130px;
-}
-
-div#todoM {
-	text-align: center;
 }
 
 div.center {

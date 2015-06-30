@@ -5,7 +5,8 @@
 <script type="text/javascript">
 $('#searchLoc').bind('click', function() {
 	var loc = $('#location').val();
-	window.open("./map.html?loc="+loc, "위치찾기", "width=650, height=400");
+	var locArray = loc.split(",");
+	window.open("./map.html?locX="+locArray[0]+"&locY="+locArray[1], "위치찾기", "width=650, height=500");
 });
 function inputLoc(locX,locY) {
 	$('#location').val(locX+","+locY);

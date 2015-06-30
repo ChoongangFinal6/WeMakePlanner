@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
@@ -24,8 +24,6 @@
 	<context:component-scan base-package="controller,dao,service" />
 	
 	<!-- javascript/jquery -->
-	<resources mapping="/resources/**" location="/resources/" />
-	
 	
 	
 </beans:beans>

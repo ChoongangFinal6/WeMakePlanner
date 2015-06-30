@@ -44,16 +44,21 @@ public class ToDoController {
 		model.addAttribute("w", cal.get(Calendar.DAY_OF_WEEK));
 		return "todo/calendar";
 	}
-	
+
 	@RequestMapping(value = "create", method = RequestMethod.GET)
 	public String createForm(@ModelAttribute("todo") ToDo todo, BindingResult result, String date, Model model) {
 		Calendar cal = Calendar.getInstance();
-		String str = date.substring(0, 4)+"-"+ date.substring(4, 6)+"-"+date.substring(6)+"T"+String.format("%02d",cal.get(Calendar.HOUR_OF_DAY))+":"+String.format("%02d",cal.get(Calendar.MINUTE))+":"+String.format("%02d",cal.get(Calendar.SECOND));
+		String str = date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6) + "T"
+				+ String.format("%02d", cal.get(Calendar.HOUR_OF_DAY)) + ":"
+				+ String.format("%02d", cal.get(Calendar.MINUTE)) + ":"
+				+ String.format("%02d", cal.get(Calendar.SECOND));
 		model.addAttribute("cal", str);
 		return "todo/create";
 	}
+
 	@RequestMapping(value = "create", method = RequestMethod.POST)
-	public String createDo(@ModelAttribute("todo") ToDo todo, BindingResult result, @RequestParam("endTime") String endTime, Model model) {
+	public String createDo(@ModelAttribute("todo") ToDo todo, BindingResult result,
+			@RequestParam("endTime") String endTime, Model model) {
 		System.out.println(endTime);
 		todo.setEndTime(endTime);
 		int re = ts.insert(todo);
@@ -63,9 +68,19 @@ public class ToDoController {
 	@RequestMapping(value = "detail")
 	public String detail(@RequestParam("id") String id, Model model) {
 		ToDo todo = ts.detail(id);
+		String[] loc = {};
+		System.out.println(todo.getLocation());
+		if (todo.getLocation() != null && todo.getLocation().contains(",")) {
+			loc = todo.getLocation().split(",");
+		}
 		model.addAttribute("todo", todo);
+		if (loc.length == 2 && todo.getLocation().length() > 10) {
+			model.addAttribute("locX", loc[0].toString());
+			model.addAttribute("locY", loc[1].toString());
+		}
 		return "todo/detail";
 	}
+
 	@RequestMapping(value = "modify", method = RequestMethod.GET)
 	public String modifyForm(@RequestParam("id") String id, Model model) {
 		ToDo todo = ts.detail(id);
@@ -73,39 +88,44 @@ public class ToDoController {
 		model.addAttribute("todo", todo);
 		return "todo/modify";
 	}
+
 	@RequestMapping(value = "modify", method = RequestMethod.POST)
-	public String modify(@ModelAttribute("todo") ToDo todo, BindingResult result, @RequestParam("endTime") String endTime, Model model) {
+	public String modify(@ModelAttribute("todo") ToDo todo, BindingResult result,
+			@RequestParam("endTime") String endTime, Model model) {
 		todo.setEndTime(endTime);
 		int re = ts.update(todo);
 		return "redirect:calendar.html";
 	}
+
 	@RequestMapping(value = "delete")
 	public String createForm(@RequestParam("id") String id, Model model) {
 		int result = ts.del(id);
 		return "redirect:calendar.html";
 	}
+
 	@RequestMapping(value = "tgl")
 	public String toggle(@RequestParam("id") String id, Model model) {
 		int result = ts.toggle(id);
 		return "redirect:calendar.html";
 	}
+
 	@RequestMapping(value = "updateEndTime")
-	public String updateET(@RequestParam("id") String id, @RequestParam("date") String date ,Model model) {
+	public String updateET(@RequestParam("id") String id, @RequestParam("date") String date, Model model) {
 		int result = 0;
 		ToDo todo = ts.detail(id);
-		String str = date.substring(0, 4)+"-"+ date.substring(4, 6)+"-"+date.substring(6);
-		str = str+"T"+todo.getEndTime().substring(11, 19);
-		
+		String str = date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6);
+		str = str + "T" + todo.getEndTime().substring(11, 19);
 		todo.setEndTime(str);
 		result = ts.updateEndTime(todo);
 		return "redirect:calendar.html";
 	}
+
 	@RequestMapping(value = "updateDuration")
-	public String updateD(@RequestParam("id") String id, @RequestParam("date") String date ,Model model) {
+	public String updateD(@RequestParam("id") String id, @RequestParam("date") String date, Model model) {
 		int result = 0;
 		ToDo todo = ts.detail(id);
-		String str = date.substring(0, 4)+"-"+ date.substring(4, 6)+"-"+date.substring(6);
-		str = str+"T"+todo.getEndTime().substring(11, 19);
+		String str = date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6);
+		str = str + "T" + todo.getEndTime().substring(11, 19);
 		System.out.println(str);
 		System.out.println(todo.getNo());
 		todo.setEndTime(str);
@@ -117,5 +137,11 @@ public class ToDoController {
 		model.addAttribute("locX", locX);
 		model.addAttribute("locY", locY);
 		return "todo/map";
+	}
+	@RequestMapping(value = "mapDetail")
+	public String mapDetail(String locX, String locY, Model model) {
+		model.addAttribute("locX", locX);
+		model.addAttribute("locY", locY);
+		return "todo/mapDetail";
 	}
 }

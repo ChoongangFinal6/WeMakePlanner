@@ -10,6 +10,6 @@
 <script type="text/javascript">
 location.href="calendar.html";
 </script>
-<a href="calendar.do">calendar.do</a>
+<a href="calendar.html">calendar.do</a>
 </body>
 </html>

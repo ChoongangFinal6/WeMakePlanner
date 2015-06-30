@@ -2,6 +2,16 @@
  * 
  */
 $(function() {
+	$('#map').bind(
+			'click',
+			function() {
+				alert("11");
+				var loc = $('#location').val();
+				var locArray = loc.split(",");
+				window.open("./mapDetail.html?locX=" + locArray[0] + "&locY="
+						+ locArray[1], "상세위치", "width=1000, height=800");
+				return false;
+			});
 	$(".chk").bind('click', (function(event) {
 		event.stopPropagation();
 		var id = $(this).parent().parent().attr('id');
@@ -19,6 +29,7 @@ $(function() {
 			async : true
 		});
 	}));
+	var detailI = document.getElementById("detailI");
 	$('.todoLi,.todoSLi').not('.chk').bind('click', function(event) {
 		event.stopPropagation();
 		var no = $(this).attr('id');
@@ -28,7 +39,8 @@ $(function() {
 			data : "id=" + no,
 			async : true,
 			success : function(data) {
-				$('#detailI').html(data);
+				// $('#detailI').html(data);
+				detailI.innerHTML = data;
 				setPopupPosition();
 				loadPopup();
 			}
@@ -54,6 +66,7 @@ $(function() {
 	$('#xButton').bind('click', function() {
 		disablePopup();
 	});
+
 });
 $(function() {
 	var id = "";
@@ -99,6 +112,7 @@ $(function() {
 		stop : function(event, ui) {
 			$(this).css("opacity", "1");
 		}
+
 	});
 });
 $(function() {
@@ -128,7 +142,18 @@ function modify(id) {
 		url : './modify.html',
 		dataType : "html",
 		data : "id=" + id,
-		async : false,
+		async : true,
+		success : function(data) {
+			$('#detailI').html(data);
+		}
+	});
+}
+function cancelModify(id) {
+	$.ajax({
+		url : './detail.html',
+		dataType : "html",
+		data : "id=" + id,
+		async : true,
 		success : function(data) {
 			$('#detailI').html(data);
 		}
@@ -139,7 +164,10 @@ function tgl(no) {
 		url : './tgl.html',
 		dataType : "html",
 		data : "id=" + no,
-		async : true
+		async : true,
+		success : function() {
+			location.reload();
+		}
 	});
 }
 /**
@@ -192,7 +220,51 @@ function loadPopup() {
 		$("#detail").fadeIn("slow");
 		popupStatus = 1;
 	}
+
+	var container = document.getElementById('map'); // 지도를 담을 영역의 DOM 레퍼런스
+
+	var locX = $("#locX").val();
+	var locY = $("#locY").val();
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+	mapOption = {
+		center : new daum.maps.LatLng(locX, locY), // 지도의 중심좌표
+		level : 4
+	// 지도의 확대 레벨
+	};
+	
+
+	// 지도를 표시할 div와 지도 옵션으로 지도를 생성합니다
+	var map = new daum.maps.Map(mapContainer, mapOption);
+	
+	// 지도를 클릭한 위치에 표출할 마커입니다
+	var marker = new daum.maps.Marker({ 
+	    // 지도 중심좌표에 마커를 생성합니다 
+	    position: map.getCenter() 
+	}); 
+	// 지도에 마커를 표시합니다
+	marker.setMap(map);
+	map.setZoomable(false);
+	
+	function panTo() {
+	    // 이동할 위도 경도 위치를 생성합니다 
+	    var moveLatLon = new daum.maps.LatLng($("#locX").val(), $("#locY").val());
+	    
+	    // 지도 중심을 부드럽게 이동시킵니다
+	    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+	    map.panTo(moveLatLon);            
+	}
+	
+	daum.maps.event.addListener(map, 'click', function(mouseEvent) {
+		var loc = $('#location').val();
+		var locArray = loc.split(",");
+		window.open("./mapDetail.html?locX=" + locArray[0] + "&locY="
+				+ locArray[1], "상세위치(더블클릭하면 닫힙니다)", "width=850, height=700");
+	});
+	daum.maps.event.addListener(map, 'rightclick', function(mouseEvent) {
+		panTo();
+	});
 }
+
 function disablePopup() {
 	// disables popup only if it is enabled
 	if (popupStatus == 1) {
@@ -201,4 +273,3 @@ function disablePopup() {
 		popupStatus = 0;
 	}
 }
-
