@@ -26,9 +26,9 @@
 <body>
 	<div id='todoM'>
 		<div class='center'>
-			<span id="before" class="bigDate"><</span> <input type="text" id="year" name="y" class="bigDate"
-				value="${y}"><span class="bigDate">-</span><input type="text" id="month" name="m"
-				value="${m+1 }" class="bigDate"> <span id="after" class="bigDate">></span>
+			<span id="before" class="bigDate" onclick="changeMonth(-1)"><</span> <input type="text" id="year" name="y"
+				class="bigDate" value="${y}"><span class="bigDate">-</span><input type="text" id="month" name="m"
+				value="${m+1 }" class="bigDate"> <span id="after" class="bigDate" onclick="changeMonth(1)">></span>
 		</div>
 
 		<table class='center cal'>
@@ -61,16 +61,18 @@
 					if (dDayW == 1)
 						out.println("<tr>");
 					out.print("<td id='" + ymd + "' class='day' bgcolor='#ffffff' style='color:" + wc + ";'>");
-					out.print("<div class='day'>");
-					out.print(dMonth + "-" + dDay);
+					out.print("<div class='day'><span class='Month'>");
+					out.print(dMonth + "/</span><span class='Day'>" + dDay + "</span>");
 					out.println("</div>");
 					out.print("<ul class='todoUl' id='" + ymd + "'>");
 					if (todoS.containsKey(ymd)) {
 						for (int i = 0; i < todoS.get(ymd).size(); i++) {
 							out.print("<li class='todoSLi' id='" + todoS.get(ymd).get(i).getNo()
 									+ "'><div class='s_" + ymd + "_" + i + " todoS'>");
-							out.println("<span class='dday'>d-"+todoS.get(ymd).get(i).getDuration()+"</span>");
+							out.println("<span class='dday'>d-" + todoS.get(ymd).get(i).getDuration() + "</span>");
+							out.println("<span class='block aaaa'>");
 							out.println(todoS.get(ymd).get(i).getTitle());
+							out.println("</span class='block aaaa'>");
 							//System.out.print(todoS.get(ymd).get(i).getTitle());
 							out.print("</div></li>");
 						}
@@ -81,20 +83,34 @@
 							int no = todo.get(ymd).get(i).getNo();
 							if (list.get(i).getFinish().equals("Y")) {
 								out.print("<li class='todoLi' id='" + no + "'><div class='d_" + ymd + "_" + i
-										+ " todo strike'>");
-								out.println("<input type='checkbox' id='chk_" + no
+										+ " todo'>");
+								out.println("<span class='block'><input type='checkbox' id='chk_" + no
 										+ "' name='finish' class='chk css-checkbox' checked='checked'>");
 								out.println("<label for='chk_" + no
-										+ "' class='css-label lite-cyan-check'></label>");
+										+ "' class='css-label lite-cyan-check'></label></span>");
+								out.print("<span class='block aaaa strike'>");
 							} else {
 								out.print("<li class='todoLi' id='" + no + "'><div class='d_" + ymd + "_" + i
 										+ " todo'>");
-								out.println("<input type='checkbox' id='chk_" + no
+								out.println("<span class='block'><input type='checkbox' id='chk_" + no
 										+ "' name='finish' class='chk css-checkbox'>");
 								out.println("<label for='chk_" + no
-										+ "' class='css-label lite-cyan-check'></label>");
+										+ "' class='css-label lite-cyan-check'></label></span>");
+								out.print("<span class='block aaaa'>");
 							}
-							out.println(todo.get(ymd).get(i).getTitle());
+							String str1 = todo.get(ymd).get(i).getTitle();
+/* 							if (str1.getBytes().length > 16) {
+								int k = 16;
+								if (str1.length()<16) k=str1.length();
+								while (str1.getBytes().length > 16) {
+									str1 = str1.substring(0, k);
+									k--;
+								}
+								str1 = str1 + "..";
+							} */
+
+							out.print(str1);
+							out.print("</span>");
 							//System.out.print(todo.get(ymd).get(i).getTitle());
 							out.print("</div></li>");
 						}

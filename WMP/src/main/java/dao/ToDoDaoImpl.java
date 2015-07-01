@@ -31,7 +31,7 @@ public class ToDoDaoImpl implements ToDoDao {
 		// 시작주 일요일
 		Calendar fSun = Calendar.getInstance();
 		fSun.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.get(Calendar.DATE));
-		fSun.add(Calendar.DATE, +1 - fSun.get(Calendar.DAY_OF_WEEK));
+		fSun.add(Calendar.DATE, +2 - fSun.get(Calendar.DAY_OF_WEEK));
 		// 마지막주 토요일 : 말일을 구하고 말일의 요일을 이용하여 더함
 		Calendar lSat = Calendar.getInstance();
 		lSat.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.getActualMaximum(Calendar.DATE));
@@ -81,6 +81,7 @@ public class ToDoDaoImpl implements ToDoDao {
 		Calendar lSat = Calendar.getInstance();
 		lSat.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.getActualMaximum(Calendar.DATE));
 		lSat.add(Calendar.DATE, 6-lSat.get(Calendar.DAY_OF_WEEK));
+System.out.println(lSat.get(Calendar.DAY_OF_MONTH));		
 		// todo.setEndTime(todo.getEndDate());
 		todo.setEmail("kheeuk@gmail.com");
 		int ymd;

@@ -8,19 +8,57 @@ body {
 div#todoM {
 	text-align: center;
 }
+
 .bigDate {
 	font-size: 2em;
+}
+
+#before, #after {
+	cursor: pointer;
+}
+
+input {
+	border: none;
+	border-bottom: 2px #008080 solid;
+	background: none;
+}
+
+input[type="button"], input[type="submit"] {
+	border: 2px blue solid;
+	-webkit-box-shadow: 0px 0px 2px 1px rgba(171, 168, 255, 1);
+	-moz-box-shadow: 0px 0px 2px 1px rgba(171, 168, 255, 1);
+	box-shadow: 0px 0px 2px 1px rgba(171, 168, 255, 1);
+}
+
+input[type="button"]:HOVER, input[type="submit"]:HOVER {
+	border: 2px blue solid;
+	-webkit-box-shadow: inset 0px 0px 2px 1px rgba(171, 168, 255, 1);
+	-moz-box-shadow: inset 0px 0px 2px 1px rgba(171, 168, 255, 1);
+	box-shadow: inset 0px 0px 2px 1px rgba(171, 168, 255, 1);
+}
+
+#inputModifyTitle {
+	font-size: 1em;
+	width: 240px;
 }
 
 input.bigDate {
 	border: none;
 	text-align: center;
 }
-#year{
+
+#year {
 	width: 120px;
 }
-#month{
+
+#month {
 	width: 30px;
+}
+
+#year:HOVER, #month:HOVER {
+	-webkit-box-shadow: 0px 0px 14px -2px rgba(38, 0, 255, 0.85);
+	-moz-box-shadow: 0px 0px 14px -2px rgba(38, 0, 255, 0.85);
+	box-shadow: 0px 0px 14px -2px rgba(38, 0, 255, 0.85);
 }
 
 div {
@@ -33,7 +71,8 @@ table {
 	text-align: left;
 	margin: 0px auto;
 	padding: 0px;
-	background-color: #0080c0;
+	background-color: #a4d1ff;
+	border-collapse: collapse;
 }
 
 table.todo_table {
@@ -42,21 +81,31 @@ table.todo_table {
 
 table.cal {
 	width: 710px;
-	height : 80%;
+	height: 80%;
+	border: 2px black solid;
 }
+
+.todo_table tr {
+	background-color: white;
+	height: 45px;
+}
+
 table.cal th {
-	text-align: right;
+	text-align: center;
 	font-size: 20px;
 	font-family: "FIXEDSYS";
-	
-
+	margin: 0px;
+	padding: 0px;
+	border-bottom: 2px solid black;
 	text-shadow: 0 0 2px #fff;
 	-moz-text-shadow: 0 0 2px #fff;
 	-webkit-text-shadow: 0 0 2px #fff;
-
 }
+
 td {
 	background-color: #FFFFFF;
+	margin: 0px;
+	padding: 0px;
 }
 
 td.day {
@@ -64,6 +113,7 @@ td.day {
 	vertical-align: top;
 	padding: 0px;
 	margin: 0px;
+	border: 1px solid black;
 }
 
 div.day {
@@ -72,30 +122,52 @@ div.day {
 	left: 0px;
 	top: 0px;
 	margin: 0px;
-	padding: 2px 0px 3px 8px;
-	
+	padding: 2px 0px 3px 3px;
+	line-height: 18px;
 	background-color: transparent;
+}
+
+span.Month {
+	vertical-align: text-top;
+	font-size: 0.3em;
+}
+
+span.Day {
+	font-weight: 500;
 }
 
 div.todo, div.todoS {
 	margin: 0px;
+	margin-bottom: 2px;
+	width: 92%;
+	height: 25px;
 	padding: 0px;
-	width: 95px;
-	vertical-align: top;
+	vertical-align: middle;
 	font-size: 0.75em;
-	border-radius: 2px;
-	border: 1px solid black;
-	font-weight: bold;
+	border-radius: 8px;
+	font-weight: lighter;
+	white-space: nowrap;
 }
-
+.block {
+	display:inline-block;
+	white-space: nowrap;
+}
+.aaaa {
+	font-weight: bold;
+	width: 70px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 div.todo {
-	background-color: #ee0000;
+	background-color: #ff9b9b;
 	color: black;
+	padding-left: 6px;
 }
 
 div.todoS {
 	color: black;
-	background-color: #00bb00;
+	padding-left: 6px;
+	background-color: #9ff28a;
 }
 /* 리스트에 드래그 빈 영역스타일 */
 .todoPlaceholder {
@@ -108,12 +180,20 @@ div.todoS {
 
 #draggable {
 	border: 1px red solid;
-	width: 100px;
-	height: 100px;
+	height: 90px;
 }
+
 span.dday {
-	background-color: #99ffffff;
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 4px;
+	color: #71b8ff;
+	font-weight: bold;
+	font-size: 0.8em;
+	position: absolute;
+	right: 9px;
+	top: 3px;
 }
+
 #detail {
 	width: 400px;
 	position: absolute;
@@ -131,8 +211,8 @@ span.dday {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
-	max-height: 130px;
-	min-height: 130px;
+	max-height: 110px;
+	min-height: 110px;
 }
 
 div.center {
@@ -140,7 +220,7 @@ div.center {
 	margin: 0 auto;
 }
 
-td:hover {
+td.day:hover {
 	background-color: #ddddff;
 }
 

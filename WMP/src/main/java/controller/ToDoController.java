@@ -126,8 +126,6 @@ public class ToDoController {
 		ToDo todo = ts.detail(id);
 		String str = date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6);
 		str = str + "T" + todo.getEndTime().substring(11, 19);
-		System.out.println(str);
-		System.out.println(todo.getNo());
 		todo.setEndTime(str);
 		result = ts.updateDuration(todo);
 		return "redirect:calendar.html";

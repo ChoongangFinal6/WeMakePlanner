@@ -14,7 +14,6 @@ function inputLoc(locX,locY) {
 </script>
 <div class="popup">
 	<h3>새 일정</h3>
-	${cal}
 	<form action="create.html" method="POST">
 		<input type="hidden" name="email" value="kheeuk@gmail.com" /> 
 		<input type="hidden" name="finish" value="N" />
@@ -30,7 +29,7 @@ function inputLoc(locX,locY) {
 			</tr>
 			<tr>
 				<th>준비기간</th>
-				<td><input type="number" name="duration" >일</td>
+				<td><input type="number" name="duration" min="0" max="500">일</td>
 			</tr>
 			<tr>
 				<th>장소</th>
@@ -40,7 +39,7 @@ function inputLoc(locX,locY) {
 			</tr>
 			<tr>
 				<th>반복</th>
-				<td><input type="number" name="repeat">일</td>
+				<td><input type="number" name="repeat" min="0" max="500">일</td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="입력"></td>
@@ -50,7 +49,6 @@ function inputLoc(locX,locY) {
 	</form>
 </div>
 <!-- 새 일정 눌렀을때 시간문제 -->
-
 <!-- 	private int no;					// 일련번호         
 	private String title, email;    // 제목, 이메일         
 	private int duration;           // 기간     

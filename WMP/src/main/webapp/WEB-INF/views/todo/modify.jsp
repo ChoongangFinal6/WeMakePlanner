@@ -12,15 +12,15 @@ function inputLoc(locX,locY) {
 }
 </script>
 <div class="popup">
-	<h3>${todo.title}</h3>
 	<form action="modify.html" method="post">
+	<h3><input type="text" name="title" required="required" value="${todo.title}" id="inputModifyTitle"/></h3>
 	<input type="hidden" name="email" value="kheeuk@gmail.com" />
 	<input type="hidden" name="no" value="${todo.no }" />
 	<table class='todo_table'>
-		<tr>
+<%-- 		<tr>
 			<th>제목</th>
 			<td><input type="text" name="title" required="required" value="${todo.title}"/></td>
-		</tr>
+		</tr> --%>
 		<tr>
 			<th>마감시간</th>
 			<td><input type="datetime-local" name="endTime"
