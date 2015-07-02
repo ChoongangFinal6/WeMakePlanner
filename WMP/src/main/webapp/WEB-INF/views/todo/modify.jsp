@@ -5,7 +5,7 @@
 $('#searchLoc').bind('click', function() {
 	var loc = $('#location').val();
 	var locArray = loc.split(",");
-	window.open("./map.html?locX="+locArray[0]+"&locY="+locArray[1], "위치찾기", "width=650, height=400");
+	window.open("./map.html?locX="+locArray[0]+"&locY="+locArray[1], "위치찾기", "width=840, height=680,resizable=false");
 });
 function inputLoc(locX,locY) {
 	$('#location').val(locX+","+locY);
@@ -17,32 +17,31 @@ function inputLoc(locX,locY) {
 	<input type="hidden" name="email" value="kheeuk@gmail.com" />
 	<input type="hidden" name="no" value="${todo.no }" />
 	<table class='todo_table'>
-<%-- 		<tr>
-			<th>제목</th>
-			<td><input type="text" name="title" required="required" value="${todo.title}"/></td>
-		</tr> --%>
-		<tr>
-			<th>마감시간</th>
-			<td><input type="datetime-local" name="endTime"
-				required="required" value="${todo.endTime }"><input type="checkbox"></td>
-		</tr>
-		<tr>
-			<th>준비기간</th>
-			<td><input type="number" name="duration" value="${todo.duration }">일</td>
-		</tr>
-		<tr>
-			<th>장소</th>
-			<td><input type="button" value="찾기" id='searchLoc' ><span id="loc">${todo.location }</span>
-				<input type="hidden" name="location" id="location" value="${todo.location}"></td>
-		</tr>
-		<tr>
-			<th>반복</th>
-			<td><input type="number" name="repeat" value="${todo.repeat }">일</td>
-		</tr>
-		<tr>
-			<td><input type="submit" value="수정"></td>
-			<td><input type="button" value="취소" onclick="cancelModify('${todo.no }')"></td>
-		</tr>
+			<tr>
+				<th colspan="2" class='paddingLeft'>마감시간</th>
+			</tr>
+			<tr>
+				<td colspan="2" class='center'><input type="datetime-local" class="text" name="endTime" required="required" value="${todo.endTime }"></td>
+			</tr>
+			<tr>
+				<th width="40%" class='paddingLeft'>장소</th><th class='right'><input type="button" class="text" value="찾기" id='searchLoc'></th>
+			</tr>
+			<tr>
+				<td colspan="2" class='center'>
+				<span id="loc">${todo.location }</span> 
+				<input type="hidden" name="location" class="text" value="," id="location"></td>
+			</tr>
+			<tr>
+				<th class='paddingLeft'>준비기간</th><th class='paddingLeft'>반복</th>
+			</tr>
+			<tr>
+				<td width="50%" class='right'><input type="number" class="text small" name="duration" min="0" max="500" value="${todo.duration }">일</td>
+				<td class='right'><input type="number" class="small text" class="text" name="repeat" min="0" max="500" value="${todo.repeat }">일</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><span class='center'><input type="submit" value="수정" class='fRight text'></span></td>
+			</tr>
 	</table>
 	</Form>
 </div>

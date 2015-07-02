@@ -55,9 +55,9 @@ public class ToDoDaoImpl implements ToDoDao {
 			if (dayStart.size() > 0) {
 				hms.put(ymd, dayStart);
 			}
-			fSun.add(Calendar.DATE, +1);
 			if (fSun.after(lSat))
 				break wt;
+			fSun.add(Calendar.DATE, +1);
 		}
 		// try {
 		// session = getSession();
@@ -66,6 +66,7 @@ public class ToDoDaoImpl implements ToDoDao {
 		// System.out.println(e.getMessage());
 		// } finally { session.close(); }
 		// return list;
+
 		return hms;
 	}
 
@@ -81,7 +82,6 @@ public class ToDoDaoImpl implements ToDoDao {
 		Calendar lSat = Calendar.getInstance();
 		lSat.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.getActualMaximum(Calendar.DATE));
 		lSat.add(Calendar.DATE, 6-lSat.get(Calendar.DAY_OF_WEEK));
-System.out.println(lSat.get(Calendar.DAY_OF_MONTH));		
 		// todo.setEndTime(todo.getEndDate());
 		todo.setEmail("kheeuk@gmail.com");
 		int ymd;
@@ -96,9 +96,9 @@ System.out.println(lSat.get(Calendar.DAY_OF_MONTH));
 			if (dayEnd.size() > 0) {
 				hme.put(ymd, dayEnd);
 			}
-			fSun.add(Calendar.DATE, +1);
 			if (fSun.after(lSat))
 				break wt;
+			fSun.add(Calendar.DATE, +1);
 		}
 		return hme;
 	}
@@ -107,7 +107,6 @@ System.out.println(lSat.get(Calendar.DAY_OF_MONTH));
 	public int insert(ToDo todo) {
 		int result = 0;
 			result = session.insert("create", todo);
-			System.out.println(result);
 		return result;
 	}
 

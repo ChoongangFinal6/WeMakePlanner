@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=90890f0c035d0a05ca5915f1e0ca7195"></script>
+<link href="<c:url value="/resources/css/map.css" />" rel="stylesheet">
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=90890f0c035d0a05ca5915f1e0ca7195&libraries=services"></script>
 <script type="text/javascript">
 	$(function() {
 		var locX = $("#locX").val();
@@ -31,34 +32,65 @@
 		// 지도에 마커를 표시합니다
 		marker.setMap(map);
 
-		// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-		var iwContent = '<div style="padding:5px;">이곳으로 지정</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-		iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
-
-		// 인포윈도우를 생성합니다
-		var infowindow = new daum.maps.InfoWindow({
-			content : iwContent,
-			removable : iwRemoveable
-		});
-
 		// 지도에 클릭 이벤트를 등록합니다
 		// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
 		var resultDiv = document.getElementById('clickLatlng');
-		daum.maps.event.addListener(map, 'click', function(mouseEvent) {
+		var infowindow = new daum.maps.InfoWindow({zindex:1});
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new daum.maps.services.Geocoder();
+		
+		searchAddrFromCoords(map.getCenter(), displayInfo);
+		
+		function searchAddrFromCoords(coords, callback) {
+		    // 좌표로 주소 정보를 요청합니다
+		    geocoder.coord2addr(coords, callback);         
+		}
 
+		function displayInfo(status, result) {
+		    if (status === daum.maps.services.Status.OK) {
+		    	$('#addr').append(result[0].fullName);
+		    }    
+		}
+		function panTo() {
+			// 이동할 위도 경도 위치를 생성합니다
+			var moveLatLon = new daum.maps.LatLng($("#locX").val(), $("#locY")
+					.val());
 
+			// 지도 중심을 부드럽게 이동시킵니다
+			// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+			map.panTo(moveLatLon);
+		}
+
+		// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+		function displayCenterInfo(status, result) {
+		    if (status === daum.maps.services.Status.OK) {
+		        var infoDiv = document.getElementById('centerAddr');
+		        infoDiv.innerHTML = result[0].fullName;
+		    }    
+		}
+		
+		daum.maps.event.addListener(map, 'idle', function() {
+		    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 		});
+		
 		daum.maps.event.addListener(map, 'dblclick', function(mouseEvent) {
 			window.close();
+		});
+		daum.maps.event.addListener(map, 'rightclick', function(mouseEvent) {
+			panTo();
 		});
 	});
 </script>
 </head>
 <body>
 	<div class="mapDetailMain">
-		<div id="map" style="width: 800px; height: 600px;"></div>
+		<div id='addr'>장소 : </div>
+		<div id="map" class="bigMap"></div>
 		<input type="hidden" value="${locX}" id="locX" /> <input type="hidden" value="${locY}" id="locY" />
-		<div id="msg"></div>
+		<div class="map_wrap">
+    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+    <div id="centerAddr"></div>
+</div>
 	</div>
 </body>
 </html>

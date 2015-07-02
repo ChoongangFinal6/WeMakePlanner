@@ -1,9 +1,13 @@
 package controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import model.ToDo;
 
@@ -27,7 +31,6 @@ public class ToDoController {
 	public String calendar(String y, String m, Model model) {
 		Calendar cal = Calendar.getInstance(); // 현재 시스템이 가지고 있는 날짜 데이터 가지고 오기
 		if (y != null && y != "null" && !y.equals("")) {
-			System.out.println(y);
 			cal.set(Calendar.YEAR, Integer.parseInt(y));
 		}
 		if (m != null && m != "null" && !m.equals("")) {
@@ -59,7 +62,6 @@ public class ToDoController {
 	@RequestMapping(value = "create", method = RequestMethod.POST)
 	public String createDo(@ModelAttribute("todo") ToDo todo, BindingResult result,
 			@RequestParam("endTime") String endTime, Model model) {
-		System.out.println(endTime);
 		todo.setEndTime(endTime);
 		int re = ts.insert(todo);
 		return "redirect:calendar.html";
@@ -69,7 +71,6 @@ public class ToDoController {
 	public String detail(@RequestParam("id") String id, Model model) {
 		ToDo todo = ts.detail(id);
 		String[] loc = {};
-		System.out.println(todo.getLocation());
 		if (todo.getLocation() != null && todo.getLocation().contains(",")) {
 			loc = todo.getLocation().split(",");
 		}
@@ -104,9 +105,15 @@ public class ToDoController {
 	}
 
 	@RequestMapping(value = "tgl")
-	public String toggle(@RequestParam("id") String id, Model model) {
+	public String toggle(@RequestParam("id") String id, HttpServletRequest req,HttpServletResponse rep,Model model) throws IOException {
 		int result = ts.toggle(id);
-		return "redirect:calendar.html";
+		
+		rep.setContentType("text/html; charset=utf-8");
+		PrintWriter out = rep.getWriter();		
+		out.print(result);
+		
+		return null;
+		//return "redirect:calendar.html";
 	}
 
 	@RequestMapping(value = "updateEndTime")

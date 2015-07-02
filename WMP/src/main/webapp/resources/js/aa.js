@@ -16,7 +16,12 @@ $(function() {
 			url : './tgl.html',
 			dataType : "html",
 			data : "id=" + id,
-			async : true
+			async : true,
+			success : function(data) {
+				if (data==2) {
+					location.reload();
+				}
+			}
 		});
 	}));
 	var detailI = document.getElementById("detailI");
@@ -207,6 +212,8 @@ function setPopupPosition() {
 
 }
 
+
+//상세보기,추가등의 팝업 열림 + 상세보기 시에 지도기능
 function loadPopup() {
 	// loads popup only if it is disabled
 	if (popupStatus == 0) {
@@ -241,6 +248,7 @@ function loadPopup() {
 	marker.setMap(map);
 	map.setZoomable(false);
 
+
 	function panTo() {
 		// 이동할 위도 경도 위치를 생성합니다
 		var moveLatLon = new daum.maps.LatLng($("#locX").val(), $("#locY")
@@ -251,17 +259,34 @@ function loadPopup() {
 		map.panTo(moveLatLon);
 	}
 
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new daum.maps.services.Geocoder();
+	
+	searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+	
+	function searchAddrFromCoords(coords, callback) {
+	    // 좌표로 주소 정보를 요청합니다
+	    geocoder.coord2addr(coords, callback);         
+	}
+
+	// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+	function displayCenterInfo(status, result) {
+	    if (status === daum.maps.services.Status.OK) {
+	    	$('#addr').text(result[0].fullName);
+	    }    
+	}
+	
 	daum.maps.event.addListener(map, 'click', function(mouseEvent) {
 		var loc = $('#location').val();
 		var locArray = loc.split(",");
 
 		//윈도우 창 오픈+타이틀 적용
 		var win = window.open("./mapDetail.html?locX=" + locArray[0] + "&locY="
-				+ locArray[1], "상세위치(더블클릭하면 닫힙니다)", "width=850, height=700"); // open popup
+				+ locArray[1], "상세위치(더블클릭하면 닫힙니다)", "width=840, height=660,resizable=false"); // open popup
 
 		setTimeout(function() {
 			win.document.title = "상세위치(더블클릭하면 닫힙니다)";
-		},500);
+		},1000);
 
 		
 	});

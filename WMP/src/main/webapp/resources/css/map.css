@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+
+.bigMap {
+	border-radius: 41px 41px 41px 41px;
+	-moz-border-radius: 41px 41px 41px 41px;
+	-webkit-border-radius: 41px 41px 41px 41px;
+	border: 11px solid #ffffff;
+	width: 800px;
+	height: 600px;
+}
+
+.smallMap {
+	border-radius: 12px 12px 12px 12px;
+	-moz-border-radius: 12px 12px 12px 12px;
+	-webkit-border-radius: 12px 12px 12px 12px;
+	border: 1px solid #ffffff;
+
+}
+
+#centerAddr {
+	position: absolute;
+	left: 35px;
+	top: 55px;
+	border-radius: 2px;
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	z-index: 1;
+	padding: 5px;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.map_wrap {
+	position: relative;
+	width: 100%;
+	height: 350px;
+}
+tr,td{
+	background-color: white;
+}
+input[type="button"], input[type="submit"] {
+border-radius: 9px 9px 9px 9px;
+-moz-border-radius: 9px 9px 9px 9px;
+-webkit-border-radius: 9px 9px 9px 9px;
+border: 2px solid #000000;
+background-color: white;
+}
+
+input[type="button"]:HOVER, input[type="submit"]:HOVER {
+border-radius: 9px 9px 9px 9px;
+-moz-border-radius: 9px 9px 9px 9px;
+-webkit-border-radius: 9px 9px 9px 9px;
+border: 2px solid #000000;
+background-color: #8ad2d6;
+}
+.half{
+	width: 48%;
+}

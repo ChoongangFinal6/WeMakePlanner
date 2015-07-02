@@ -9,32 +9,57 @@ div#todoM {
 	text-align: center;
 }
 
-.bigDate {
-	font-size: 2em;
-}
-
 #before, #after {
 	cursor: pointer;
+	border: 2px solid black;
+	width: 20px;
+	border-radius : 15px;
+	height: 20px;
+	margin: 0px;
+	margin-top : -13px;
+	padding: 3px;
+	vertical-align: middle;
+}
+.bigDate {
+	font-size: 30px;
 }
 
-input {
+#before:HOVER, #after:HOVER {
+	background-color: #b5e3e6;
+}
+
+.text {
 	border: none;
 	border-bottom: 2px #008080 solid;
 	background: none;
+	width: 90%;
+	height: 30px;
+	font-size: 15px;
+}
+
+input.small {
+	width: 70%;
 }
 
 input[type="button"], input[type="submit"] {
-	border: 2px blue solid;
-	-webkit-box-shadow: 0px 0px 2px 1px rgba(171, 168, 255, 1);
-	-moz-box-shadow: 0px 0px 2px 1px rgba(171, 168, 255, 1);
-	box-shadow: 0px 0px 2px 1px rgba(171, 168, 255, 1);
+	border-radius: 9px 9px 9px 9px;
+	-moz-border-radius: 9px 9px 9px 9px;
+	-webkit-border-radius: 9px 9px 9px 9px;
+	border: 2px solid #000000;
+	font-family: "고딕체";
+	font-size: 14px;
+	font-weight: bold;
 }
 
 input[type="button"]:HOVER, input[type="submit"]:HOVER {
-	border: 2px blue solid;
-	-webkit-box-shadow: inset 0px 0px 2px 1px rgba(171, 168, 255, 1);
-	-moz-box-shadow: inset 0px 0px 2px 1px rgba(171, 168, 255, 1);
-	box-shadow: inset 0px 0px 2px 1px rgba(171, 168, 255, 1);
+	font-weight: bold;
+	border-radius: 9px 9px 9px 9px;
+	font-family: "고딕체";
+	font-size: 14px;
+	-moz-border-radius: 9px 9px 9px 9px;
+	-webkit-border-radius: 9px 9px 9px 9px;
+	border: 2px solid #000000;
+	background-color: #bde6e8;
 }
 
 #inputModifyTitle {
@@ -71,46 +96,47 @@ table {
 	text-align: left;
 	margin: 0px auto;
 	padding: 0px;
-	background-color: #a4d1ff;
+	background-color: #ddf1f2;
 	border-collapse: collapse;
 }
 
 table.todo_table {
-	width: 380px;
+	width: 330px;
 }
 
 table.cal {
-	width: 710px;
 	height: 80%;
 	border: 2px black solid;
 }
 
 .todo_table tr {
 	background-color: white;
-	height: 45px;
+	height: 40px;
 }
-
+.todo_table th {
+	font-size: 15px;
+}
 table.cal th {
 	text-align: center;
 	font-size: 20px;
 	font-family: "FIXEDSYS";
 	margin: 0px;
-	padding: 0px;
+	padding: 0px; 
+/* 	text-shadow: 0px 0px 4px #d3eeef, 0px 0px 8px #d3eeef, 0px 0px 12px #d3eeef, 0px 0px 16px #d3eeef; */
+/* 	text-shadow: 2px 2px 0px #d3eeef, 0px 0px 0px #ffffff; */
+	text-shadow: -1.5px 0 #d3eeef, 0 1.5px #d3eeef, 1.5px 0 #d3eeef, 0 -1.5px #d3eeef;
 	border-bottom: 2px solid black;
-	text-shadow: 0 0 2px #fff;
-	-moz-text-shadow: 0 0 2px #fff;
-	-webkit-text-shadow: 0 0 2px #fff;
+	background-color: #404040;
 }
 
 td {
-	background-color: #FFFFFF;
 	margin: 0px;
 	padding: 0px;
 }
 
 td.day {
-	width: 100px;
 	vertical-align: top;
+	width: 100px;
 	padding: 0px;
 	margin: 0px;
 	border: 1px solid black;
@@ -127,6 +153,10 @@ div.day {
 	background-color: transparent;
 }
 
+tr {
+	margin-bottom: 20px;
+}
+
 span.Month {
 	vertical-align: text-top;
 	font-size: 0.3em;
@@ -139,7 +169,7 @@ span.Day {
 div.todo, div.todoS {
 	margin: 0px;
 	margin-bottom: 2px;
-	width: 92%;
+	width: 90%;
 	height: 25px;
 	padding: 0px;
 	vertical-align: middle;
@@ -149,25 +179,33 @@ div.todo, div.todoS {
 	white-space: nowrap;
 }
 .block {
-	display:inline-block;
+	display: inline-block;
 	white-space: nowrap;
 }
+
 .aaaa {
 	font-weight: bold;
 	width: 70px;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	text-align: left;
 }
+
 div.todo {
-	background-color: #ff9b9b;
+	border: #ff9b9b 2px solid;
 	color: black;
 	padding-left: 6px;
 }
-
 div.todoS {
 	color: black;
 	padding-left: 6px;
-	background-color: #9ff28a;
+	border: #9ff28a 2px solid;
+}
+div.todo:HOVER {
+	background-color : #ffd0d0;
+}
+div.todoS:HOVER {
+	background-color : #d6facd;
 }
 /* 리스트에 드래그 빈 영역스타일 */
 .todoPlaceholder {
@@ -211,7 +249,6 @@ span.dday {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
-	max-height: 110px;
 	min-height: 110px;
 }
 
@@ -221,7 +258,7 @@ div.center {
 }
 
 td.day:hover {
-	background-color: #ddddff;
+	background-color: #ffffff;
 }
 
 span#xButton {
@@ -239,4 +276,26 @@ span#xButton {
 	vertical-align: super;
 	top: 10px;
 	cursor: pointer;
+}
+
+.fRight {
+	float: right;
+}
+.fLeft {
+	float: left;
+}
+#topYear {
+	height: 40px;
+	vertical-align: bottom;
+	margin-bottom: 15px;
+}
+.center {
+	text-align: center;
+}
+
+.paddingLeft {
+	padding-left: 3%;
+}
+.right {
+	text-align : right;
 }

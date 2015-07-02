@@ -19,16 +19,21 @@
 <link href="<c:url value="/resources/css/styleChk.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=90890f0c035d0a05ca5915f1e0ca7195"></script>
+<link href="<c:url value="/resources/css/map.css" />" rel="stylesheet">
+<script type="text/javascript"
+	src="//apis.daum.net/maps/maps3.js?apikey=90890f0c035d0a05ca5915f1e0ca7195&libraries=services"></script>
 
 </head>
 <body>
 	<div id='todoM'>
-		<div class='center'>
-			<span id="before" class="bigDate" onclick="changeMonth(-1)"><</span> <input type="text" id="year" name="y"
-				class="bigDate" value="${y}"><span class="bigDate">-</span><input type="text" id="month" name="m"
-				value="${m+1 }" class="bigDate"> <span id="after" class="bigDate" onclick="changeMonth(1)">></span>
+		<div class='center' id="topYear">
+			<span id="yearMonth">
+				<img src="<c:url value="/resources/img/bArrow.png" />" id="before" onclick="changeMonth(-1)">
+				<input type="text" id="year" name="y" class="bigDate" value="${y}">
+				<span class="bigDate">-</span>
+				<input type="text" id="month" name="m" value="${m+1 }" class="bigDate">
+				<img src="<c:url value="/resources/img/aArrow.png" />" id="after" onclick="changeMonth(+1)">
+			</span>
 		</div>
 
 		<table class='center cal'>
@@ -73,7 +78,6 @@
 							out.println("<span class='block aaaa'>");
 							out.println(todoS.get(ymd).get(i).getTitle());
 							out.println("</span class='block aaaa'>");
-							//System.out.print(todoS.get(ymd).get(i).getTitle());
 							out.print("</div></li>");
 						}
 					}
@@ -99,19 +103,8 @@
 								out.print("<span class='block aaaa'>");
 							}
 							String str1 = todo.get(ymd).get(i).getTitle();
-/* 							if (str1.getBytes().length > 16) {
-								int k = 16;
-								if (str1.length()<16) k=str1.length();
-								while (str1.getBytes().length > 16) {
-									str1 = str1.substring(0, k);
-									k--;
-								}
-								str1 = str1 + "..";
-							} */
-
 							out.print(str1);
 							out.print("</span>");
-							//System.out.print(todo.get(ymd).get(i).getTitle());
 							out.print("</div></li>");
 						}
 					}
@@ -119,8 +112,9 @@
 					out.println("</td>");
 					if (dDayW == 7)
 						out.println("</tr>");
-					if (day.after(cal) && dDayW == 7)
+					if (day.after(cal) && dDayW == 7) {
 						break wt;
+					}
 					day.add(Calendar.DATE, +1);
 					cnt++;
 				}

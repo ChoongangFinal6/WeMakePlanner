@@ -2,14 +2,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
 <script src="http://malsup.github.com/jquery.form.js"></script>
+
 <script type="text/javascript">
 $('#searchLoc').bind('click', function() {
 	var loc = $('#location').val();
 	var locArray = loc.split(",");
-	window.open("./map.html?locX="+locArray[0]+"&locY="+locArray[1], "위치찾기", "width=650, height=500");
+	var win = window.open("./map.html?locX="+locArray[0]+"&locY="+locArray[1], "위치찾기", "width=840, height=680,resizable=false");
+	setTimeout(function() {
+		win.document.title = "위치 찾기";
+	},1000);
 });
-function inputLoc(locX,locY) {
+function inputLoc(locX,locY,str) {
 	$('#location').val(locX+","+locY);
+	$('#loc').text(str);
 }
 </script>
 <div class="popup">
@@ -19,31 +24,35 @@ function inputLoc(locX,locY) {
 		<input type="hidden" name="finish" value="N" />
 		<table class='todo_table'>
 			<tr>
-				<th>제목</th>
-				<td><input type="text" name="title" required="required" /></td>
+				<th colspan="2" class='paddingLeft'>제목</th>
 			</tr>
 			<tr>
-				<th>마감시간</th>
-				<td><input type="datetime-local" name="endTime" required="required" value='${cal }'><input
-					type="checkbox"></td>
+				<td colspan="2" class='center'><input type="text" class="text" name="title" required="required" /></td>
 			</tr>
 			<tr>
-				<th>준비기간</th>
-				<td><input type="number" name="duration" min="0" max="500">일</td>
+				<th colspan="2" class='paddingLeft'>마감시간</th>
 			</tr>
 			<tr>
-				<th>장소</th>
-				<td><input type="button" value="찾기" id='searchLoc'>
+				<td colspan="2" class='center'><input type="datetime-local" class="text" name="endTime" required="required" value='${cal }'></td>
+			</tr>
+			<tr>
+				<th width="40%" class='paddingLeft'>장소</th><th class='right'><input type="button" class="text" value="찾기" id='searchLoc'></th>
+			</tr>
+			<tr>
+				<td colspan="2" class='center'>
 				<span id="loc"></span> 
-				<input type="hidden" name="location" value="," id="location"></td>
+				<input type="hidden" name="location" class="text" value="," id="location"></td>
 			</tr>
 			<tr>
-				<th>반복</th>
-				<td><input type="number" name="repeat" min="0" max="500">일</td>
+				<th class='paddingLeft'>준비기간</th><th class='paddingLeft'>반복</th>
 			</tr>
 			<tr>
-				<td><input type="submit" value="입력"></td>
+				<td width="50%" class='right'><input type="number" class="text small" name="duration" min="0" max="500">일</td>
+				<td class='right'><input type="number" class="small text" class="text" name="repeat" min="0" max="500">일</td>
+			</tr>
+			<tr>
 				<td></td>
+				<td><span class='center'><input type="submit" value="입력" class='fRight text'></span></td>
 			</tr>
 		</table>
 	</form>
