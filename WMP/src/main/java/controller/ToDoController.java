@@ -2,7 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -148,5 +150,18 @@ public class ToDoController {
 		model.addAttribute("locX", locX);
 		model.addAttribute("locY", locY);
 		return "todo/mapDetail";
+	}
+	@RequestMapping(value = "thisWeek")
+	public String thisWeek(Model model) {
+		ArrayList<ToDo> thisWeek = (ArrayList)ts.thisWeek("kheeuk@gmail.com");
+		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, 7);
+		Date dateAfter = new Date(cal.getTimeInMillis());
+		model.addAttribute("thisWeek", thisWeek);
+		model.addAttribute("date", date);
+		model.addAttribute("dateAfter", dateAfter);
+		
+		return "todo/thisWeek";
 	}
 }

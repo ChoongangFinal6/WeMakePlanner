@@ -55,5 +55,10 @@ public class ToDoServiceImpl implements ToDoService {
 		// TODO Auto-generated method stub
 		return td.updateDuration(todo);
 	}
+	@Override
+	public List<ToDo> thisWeek(String string) {
+		// TODO Auto-generated method stub
+		return td.thisWeek(string);
+	}
 	
 }

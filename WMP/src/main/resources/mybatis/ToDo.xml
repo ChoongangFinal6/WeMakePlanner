@@ -86,4 +86,7 @@
 		#{location,
 		jdbcType=VARCHAR}, #{finish }, #{repeat})
 	</insert>
+	<select id="thisWeek" parameterType="String" resultMap="ToDoResult">
+		select * from todo where email=#{email} and TRUNC(endTime) between  sysdate and sysdate +7
+	</select>
 </mapper>

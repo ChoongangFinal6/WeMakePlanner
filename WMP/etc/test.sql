@@ -10,3 +10,5 @@ select * from todo where email='kheeuk@gmail.com' and TRUNC(endTime-duration) = 
 insert into todo values (todo_no.nextval, 'dfsadaw', 'kheeuk@gmail.com', 0, to_date('2015-06-06T18:06','yyyy-MM-ddThh24:mi'), '0', '0', 0);
 
 no=0,  email=, duration=0, endTime=, location=, finish=false, repeat=0, startTime=null, startDate=null, endDate=null]
+
+select * from todo where email='kheeuk@gmail.com' and TRUNC(endTime) between  sysdate and sysdate +7

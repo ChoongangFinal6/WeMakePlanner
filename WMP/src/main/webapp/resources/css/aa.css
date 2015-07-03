@@ -91,7 +91,11 @@ div {
 	background-color: #FFFFFF;
 	z-index: 1;
 }
-
+.top {
+	margin: 0px auto;
+	min-width: 725px;
+	
+}
 table {
 	text-align: left;
 	margin: 0px auto;
@@ -105,8 +109,10 @@ table.todo_table {
 }
 
 table.cal {
-	height: 80%;
+	height: 725px;
 	border: 2px black solid;
+	min-width: 725px;
+	max-width: 725px;
 }
 
 .todo_table tr {
@@ -202,10 +208,10 @@ div.todoS {
 	border: #9ff28a 2px solid;
 }
 div.todo:HOVER {
-	background-color : #ffd0d0;
+	background-color : #ffe1e1;
 }
 div.todoS:HOVER {
-	background-color : #d6facd;
+	background-color : #e8fce2;
 }
 /* 리스트에 드래그 빈 영역스타일 */
 .todoPlaceholder {
@@ -298,4 +304,18 @@ span#xButton {
 }
 .right {
 	text-align : right;
+}
+
+
+#thisWeek{
+	width:725px;
+	min-width:725px;
+	position: relative;
+	bottom: 0px;
+	right: 0px;
+	padding-right:100px;
+	text-align: right;
+}
+#thisWeek a{
+	text-decoration: none;
 }

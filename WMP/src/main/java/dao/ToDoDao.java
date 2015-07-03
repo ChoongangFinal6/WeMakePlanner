@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -16,4 +17,5 @@ public interface ToDoDao {
 	int toggle(String id);
 	int updateEndTime(ToDo todo);
 	int updateDuration(ToDo todo);
+	List<ToDo> thisWeek(String string);
 }

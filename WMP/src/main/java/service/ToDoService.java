@@ -16,4 +16,5 @@ public interface ToDoService {
 	int toggle(String id);
 	int updateEndTime(ToDo todo);
 	int updateDuration(ToDo todo);
+	List<ToDo> thisWeek(String string);
 }

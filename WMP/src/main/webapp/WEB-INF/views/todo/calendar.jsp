@@ -22,11 +22,10 @@
 <link href="<c:url value="/resources/css/map.css" />" rel="stylesheet">
 <script type="text/javascript"
 	src="//apis.daum.net/maps/maps3.js?apikey=90890f0c035d0a05ca5915f1e0ca7195&libraries=services"></script>
-
 </head>
 <body>
 	<div id='todoM'>
-		<div class='center' id="topYear">
+		<div class='center top' id="topYear">
 			<span id="yearMonth">
 				<img src="<c:url value="/resources/img/bArrow.png" />" id="before" onclick="changeMonth(-1)">
 				<input type="text" id="year" name="y" class="bigDate" value="${y}">
@@ -36,6 +35,7 @@
 			</span>
 		</div>
 
+			<div id='thisWeek'><a href="thisWeek.html">금주의 일정</a></div>
 		<table class='center cal'>
 			<tr height="25">
 				<th><font color="red">SUN</font></th>

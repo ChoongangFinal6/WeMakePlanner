@@ -163,4 +163,9 @@ public class ToDoDaoImpl implements ToDoDao {
 			
 		return result;
 	}
+
+	@Override
+	public List<ToDo> thisWeek(String string) {
+		return (List)session.selectList("thisWeek", string);
+	}
 }
