@@ -109,21 +109,7 @@ public class ToDo {
 	public ToDo() {
 		super();
 	}
-	public ToDo(int no, String title, String email, int duration, String endTime, String location,
-			String finish, int repeat, Timestamp startTime, String startDate, String endDate) {
-		super();
-		this.no = no;
-		this.title = title;
-		this.email = email;
-		this.duration = duration;
-		this.endTime = endTime;
-		this.location = location;
-		this.finish = finish;
-		this.repeat = repeat;
-		this.startTime = startTime;
-		this.startDate = startDate;
-		this.endDate = endDate;
-	}
+
 	@Override
 	public String toString() {
 		return "ToDo [no=" + no + ", title=" + title + ", email=" + email + ", duration=" + duration

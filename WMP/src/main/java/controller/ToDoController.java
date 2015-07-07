@@ -47,6 +47,7 @@ public class ToDoController {
 		model.addAttribute("y", cal.get(Calendar.YEAR));
 		model.addAttribute("m", cal.get(Calendar.MONTH));
 		model.addAttribute("w", cal.get(Calendar.DAY_OF_WEEK));
+		
 		return "todo/calendar";
 	}
 
@@ -58,6 +59,7 @@ public class ToDoController {
 				+ String.format("%02d", cal.get(Calendar.MINUTE)) + ":"
 				+ String.format("%02d", cal.get(Calendar.SECOND));
 		model.addAttribute("cal", str);
+		
 		return "todo/create";
 	}
 
