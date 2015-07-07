@@ -9,11 +9,11 @@
 	<div>
 		<table class='todo_table'>
 			<tr>
-				<td colspan="2"><span class="title">${todo.title}</span> <c:if test="${todo.finish == 'Y' }">
-						<span class="fLeft"><input type="checkbox" checked="checked" onchange="tgl('${todo.no}')"></span>
+				<td colspan="2"><div class="title"> ${todo.title} <c:if test="${todo.finish == 'Y' }">
+						<span class="fLeft bigChk"><img src='<c:url value="/resources/img/chk2.png" />' class="chkImg chkd" onclick="tgl('${todo.no}')"></span>
 					</c:if> <c:if test="${todo.finish == 'N' }">
-						<span class="fLeft"><input type="checkbox" onchange="tgl('${todo.no}')"></span>
-					</c:if></td>
+						<span class="fLeft bigChk"><img src='<c:url value="/resources/img/chk2.png" />' class="chkImg" onclick="tgl('${todo.no}')"></span>
+					</c:if></div></td>
 			</tr>
 			<tr>
 				<th colspan="2">마감시간</th>

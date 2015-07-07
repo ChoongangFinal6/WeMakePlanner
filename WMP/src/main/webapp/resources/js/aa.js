@@ -2,16 +2,22 @@
  * 
  */
 $(function() {
-	$(".chk").bind('click', (function(event) {
+	var imgAddr = $('#imgAddr').attr('src');
+	/*이미지 경로 resources에서 불러놓은걸 배치*/
+	$('.chkImg').each(function() {
+		$(this).attr('src',imgAddr);
+	});
+	$(".chkBlock").bind('click', (function(event) {
+		$(this).find('.chkImg').toggleClass("chkd");
 		event.stopPropagation();
-		var id = $(this).parent().parent().parent().attr('id');
-		$(this).parent().next().toggleClass('strike');
-		$(this).next().toggle(function() {
-			$(this).attr('checked', 'checked');
-		}, function() {
-			$(this).css('display', '');
-			$(this).prop('checked', false);
-		});
+		var id = $(this).parent().parent().attr('id');
+		$(this).next().toggleClass('strike');
+//		$(this).next().toggle(function() {
+//			$(this).attr('checked', 'checked');
+//		}, function() {
+//			$(this).css('display', '');
+//			$(this).prop('checked', false);
+//		});
 		$.ajax({
 			url : './tgl.html',
 			dataType : "html",
@@ -79,7 +85,13 @@ $(function() {
 					data : {
 						"id" : id,
 						"date" : date
+					},
+					success : function(data) {
+						if (parseInt(data)>0) {
+							location.reload();
+						}
 					}
+				
 				});
 			} else if (ui.item.hasClass('todoSLi')) {
 				$.ajax({
@@ -89,7 +101,11 @@ $(function() {
 					data : {
 						"id" : id,
 						"date" : date
+					},
+					success : {
+						
 					}
+				
 				});
 			}
 		}
@@ -197,6 +213,8 @@ function setPopupPosition() {
 	if (popupHeight + _y > windowHeight) {
 		_y = _y - popupHeight;
 	}
+	if (_x< 0) _x = 0;
+	if (_y< 0) _y = 0;
 
 	// centering
 	$("#detail").css({

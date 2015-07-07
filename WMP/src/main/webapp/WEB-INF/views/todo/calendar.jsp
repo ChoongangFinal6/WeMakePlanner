@@ -88,18 +88,12 @@
 							if (list.get(i).getFinish().equals("Y")) {
 								out.print("<li class='todoLi' id='" + no + "'><div class='d_" + ymd + "_" + i
 										+ " todo'>");
-								out.println("<span class='block'><input type='checkbox' id='chk_" + no
-										+ "' name='finish' class='chk css-checkbox' checked='checked'>");
-								out.println("<label for='chk_" + no
-										+ "' class='css-label lite-cyan-check'></label></span>");
+								out.println("<span class='block chkBlock' id='chk_" + no + "'><img class='chkImg chkd'></span>");
 								out.print("<span class='block aaaa strike'>");
 							} else {
 								out.print("<li class='todoLi' id='" + no + "'><div class='d_" + ymd + "_" + i
 										+ " todo'>");
-								out.println("<span class='block'><input type='checkbox' id='chk_" + no
-										+ "' name='finish' class='chk css-checkbox'>");
-								out.println("<label for='chk_" + no
-										+ "' class='css-label lite-cyan-check'></label></span>");
+								out.println("<span class='block chkBlock' id='chk_" + no + "'><img class='chkImg'></span>");
 								out.print("<span class='block aaaa'>");
 							}
 							String str1 = todo.get(ymd).get(i).getTitle();
@@ -126,5 +120,8 @@
 			<span id="xButton">X</span>
 		</div>
 	</div>
+	<img src='<c:url value="/resources/img/chk2.png" />' id='imgAddr'>
+	<img src='/resources/img/chk2.png' >
+	
 </body>
 </html>

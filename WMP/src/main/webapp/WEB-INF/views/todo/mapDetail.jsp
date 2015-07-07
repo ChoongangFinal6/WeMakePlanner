@@ -5,6 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="<c:url value="/resources/css/map.css" />" rel="stylesheet">
+<style>
+</style>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=90890f0c035d0a05ca5915f1e0ca7195&libraries=services"></script>
 <script type="text/javascript">
 	$(function() {
@@ -39,18 +41,22 @@
 		// 주소-좌표 변환 객체를 생성합니다
 		var geocoder = new daum.maps.services.Geocoder();
 		
-		searchAddrFromCoords(map.getCenter(), displayInfo);
+
+
 		
 		function searchAddrFromCoords(coords, callback) {
 		    // 좌표로 주소 정보를 요청합니다
 		    geocoder.coord2addr(coords, callback);         
 		}
+		
 
 		function displayInfo(status, result) {
 		    if (status === daum.maps.services.Status.OK) {
 		    	$('#addr').append(result[0].fullName);
 		    }    
 		}
+		searchAddrFromCoords(map.getCenter(), displayInfo);
+		
 		function panTo() {
 			// 이동할 위도 경도 위치를 생성합니다
 			var moveLatLon = new daum.maps.LatLng($("#locX").val(), $("#locY")
@@ -64,7 +70,7 @@
 		// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
 		function displayCenterInfo(status, result) {
 		    if (status === daum.maps.services.Status.OK) {
-		        var infoDiv = document.getElementById('centerAddr');
+		        var infoDiv = document.getElementById('detailCenterAddr');
 		        infoDiv.innerHTML = result[0].fullName;
 		    }    
 		}
@@ -83,14 +89,11 @@
 </script>
 </head>
 <body>
+    <div id="detailCenterAddr"></div>
 	<div class="mapDetailMain">
 		<div id='addr'>장소 : </div>
 		<div id="map" class="bigMap"></div>
 		<input type="hidden" value="${locX}" id="locX" /> <input type="hidden" value="${locY}" id="locY" />
-		<div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-    <div id="centerAddr"></div>
 </div>
-	</div>
 </body>
 </html>

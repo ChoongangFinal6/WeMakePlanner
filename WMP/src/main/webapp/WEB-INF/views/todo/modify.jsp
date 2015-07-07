@@ -29,7 +29,12 @@ function inputLoc(locX,locY) {
 			<tr>
 				<td colspan="2" class='center'>
 				<span id="loc">${todo.location }</span> 
-				<input type="hidden" name="location" class="text" value="," id="location"></td>
+				<c:if test="${fn:length(todo.location)>6 }">
+				<input type="hidden" name="location" class="text" value="${todo.location }" id="location">
+				</c:if>
+				<c:if test="${fn:length(todo.location)<=6 }">
+				<input type="hidden" name="location" class="text" value="," id="location">
+				</c:if></td>
 			</tr>
 			<tr>
 				<th class='paddingLeft'>준비기간</th><th class='paddingLeft'>반복</th>

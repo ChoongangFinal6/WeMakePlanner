@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.ToDo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import service.ToDoService;
 
@@ -47,7 +49,6 @@ public class ToDoController {
 		model.addAttribute("y", cal.get(Calendar.YEAR));
 		model.addAttribute("m", cal.get(Calendar.MONTH));
 		model.addAttribute("w", cal.get(Calendar.DAY_OF_WEEK));
-		
 		return "todo/calendar";
 	}
 
@@ -121,14 +122,21 @@ public class ToDoController {
 	}
 
 	@RequestMapping(value = "updateEndTime")
-	public String updateET(@RequestParam("id") String id, @RequestParam("date") String date, Model model) {
+	public String updateET(@RequestParam("id") String id, @RequestParam("date") String date, HttpServletRequest req, HttpServletResponse rep, Model model) throws IOException {
 		int result = 0;
 		ToDo todo = ts.detail(id);
 		String str = date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6);
 		str = str + "T" + todo.getEndTime().substring(11, 19);
 		todo.setEndTime(str);
 		result = ts.updateEndTime(todo);
-		return "redirect:calendar.html";
+		
+		
+		rep.setContentType("text/html; charset=utf-8");
+		PrintWriter out = rep.getWriter();		
+		
+		out.print(todo.getDuration());
+		
+		return null;
 	}
 
 	@RequestMapping(value = "updateDuration")

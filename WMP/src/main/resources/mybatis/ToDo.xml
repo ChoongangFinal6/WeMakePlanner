@@ -17,7 +17,7 @@
 	<select id="startAll" parameterType="ToDo" resultMap="ToDoResult">
 		select * from todo where email=#{email} and
 		TRUNC(endTime-duration) =
-		#{startDate} and duration > 0
+		#{startDate} and duration > 0 and finish = 'N'
 	</select>
 	<select id="endAll" parameterType="ToDo" resultMap="ToDoResult">
 		select * from todo where email=#{email} and
