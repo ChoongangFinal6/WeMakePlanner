@@ -13,13 +13,14 @@ div#todoM {
 	cursor: pointer;
 	border: 2px solid black;
 	width: 20px;
-	border-radius : 15px;
+	border-radius: 15px;
 	height: 20px;
 	margin: 0px;
-	margin-top : -13px;
+	margin-top: -13px;
 	padding: 3px;
 	vertical-align: middle;
 }
+
 .bigDate {
 	font-size: 30px;
 }
@@ -91,11 +92,12 @@ div {
 	background-color: #FFFFFF;
 	z-index: 1;
 }
+
 .top {
 	margin: 0px auto;
 	min-width: 725px;
-	
 }
+
 table {
 	text-align: left;
 	margin: 0px auto;
@@ -113,23 +115,26 @@ table.cal {
 	border: 2px black solid;
 	min-width: 725px;
 	max-width: 725px;
+	margin-top: 15px;
 }
 
 .todo_table tr {
 	background-color: white;
 	height: 40px;
 }
+
 .todo_table th {
 	font-size: 15px;
 }
+
 table.cal th {
 	text-align: center;
 	font-size: 20px;
 	font-family: "FIXEDSYS";
 	margin: 0px;
-	padding: 0px; 
-/* 	text-shadow: 0px 0px 4px #d3eeef, 0px 0px 8px #d3eeef, 0px 0px 12px #d3eeef, 0px 0px 16px #d3eeef; */
-/* 	text-shadow: 2px 2px 0px #d3eeef, 0px 0px 0px #ffffff; */
+	padding: 0px;
+	/* 	text-shadow: 0px 0px 4px #d3eeef, 0px 0px 8px #d3eeef, 0px 0px 12px #d3eeef, 0px 0px 16px #d3eeef; */
+	/* 	text-shadow: 2px 2px 0px #d3eeef, 0px 0px 0px #ffffff; */
 	text-shadow: -1.5px 0 #d3eeef, 0 1.5px #d3eeef, 1.5px 0 #d3eeef, 0 -1.5px #d3eeef;
 	border-bottom: 2px solid black;
 	background-color: #404040;
@@ -184,34 +189,41 @@ div.todo, div.todoS {
 	font-weight: lighter;
 	white-space: nowrap;
 }
+
 .block {
 	display: inline-block;
 	white-space: nowrap;
 }
+
 .chkBlock, .bigChk {
 	padding: 0px;
-	margin:0px;
+	margin: 0px;
 	border: 1px solid #d1d1d1;
 	width: 10px;
 	height: 10px;
 	background-color: white;
 	overflow: hidden;
 }
+
 .chkImg {
 	width: 100%;
 	top: -100%;
 	position: relative;
 }
+
 .chkImg:HOVER {
 	top: 0px;
-	opacity : 0.4;
+	opacity: 0.4;
 }
+
 .chkd {
 	top: 0px;
 }
+
 .chkd:HOVER {
-	opacity : 1;
+	opacity: 1;
 }
+
 .aaaa {
 	font-weight: bold;
 	width: 70px;
@@ -225,16 +237,19 @@ div.todo {
 	color: black;
 	padding-left: 6px;
 }
+
 div.todoS {
 	color: black;
 	padding-left: 6px;
 	border: #9ff28a 2px solid;
 }
+
 div.todo:HOVER {
-	background-color : #ffe1e1;
+	background-color: #ffe1e1;
 }
+
 div.todoS:HOVER {
-	background-color : #e8fce2;
+	background-color: #e8fce2;
 }
 /* 리스트에 드래그 빈 영역스타일 */
 .todoPlaceholder {
@@ -311,14 +326,17 @@ span#xButton {
 .fRight {
 	float: right;
 }
+
 .fLeft {
 	float: left;
 }
+
 #topYear {
 	height: 40px;
 	vertical-align: bottom;
-	margin-bottom: 15px;
+	margin-bottom: -10px;
 }
+
 .center {
 	text-align: center;
 }
@@ -326,35 +344,45 @@ span#xButton {
 .paddingLeft {
 	padding-left: 3%;
 }
+
 .right {
-	text-align : right;
+	text-align: right;
 }
 
-
-#thisWeek{
-	width:725px;
-	min-width:725px;
+#thisWeek {
+	margin: 0px 0px 10px 600px;
+	border-radius: 9px 9px 9px 9px;
+	-moz-border-radius: 9px 9px 9px 9px;
+	-webkit-border-radius: 9px 9px 9px 9px;
+	border: 2px solid #000000;
 	position: relative;
 	bottom: 0px;
 	right: 0px;
-	padding-right:100px;
+	padding: 2px 10px 2px 10px;
 	text-align: right;
 }
-#thisWeek a{
+
+#thisWeek:hover {
+	background-color: #b5e3e6;
+}
+
+#thisWeek a {
 	text-decoration: none;
 }
-#imgAddr{
+
+#imgAddr {
 	visibility: hidden;
 }
+
 .title {
 	text-align: center;
 	font-size: 1.2em;
-	margin : 0px;
-	padding : 0px;
-	
+	margin: 0px;
+	padding: 0px 30px 0px 0px;
 }
+
 .bigChk {
 	width: 20px;
-	height : 20px;
+	height: 20px;
 	margin: 2px;
 }

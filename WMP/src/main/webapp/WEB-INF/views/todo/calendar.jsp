@@ -35,7 +35,7 @@
 			</span>
 		</div>
 
-			<div id='thisWeek'><a href="thisWeek.html">금주의 일정</a></div>
+			<span id='thisWeek'><a href="thisWeek.html">금주의 일정</a></span>
 		<table class='center cal'>
 			<tr height="25">
 				<th><font color="red">SUN</font></th>
@@ -72,8 +72,8 @@
 					out.print("<ul class='todoUl' id='" + ymd + "'>");
 					if (todoS.containsKey(ymd)) {
 						for (int i = 0; i < todoS.get(ymd).size(); i++) {
-							out.print("<li class='todoSLi' id='" + todoS.get(ymd).get(i).getNo()
-									+ "'><div class='s_" + ymd + "_" + i + " todoS'>");
+							out.print("<li class='todoSLi "+todoS.get(ymd).get(i).getNo()+"' id='" + todoS.get(ymd).get(i).getNo()
+									+"'><div class='s_" + ymd + "_" + i + " todoS'>");
 							out.println("<span class='dday'>d-" + todoS.get(ymd).get(i).getDuration() + "</span>");
 							out.println("<span class='block aaaa'>");
 							out.println(todoS.get(ymd).get(i).getTitle());
@@ -86,7 +86,7 @@
 						for (int i = 0; i < todo.get(ymd).size(); i++) {
 							int no = todo.get(ymd).get(i).getNo();
 							if (list.get(i).getFinish().equals("Y")) {
-								out.print("<li class='todoLi' id='" + no + "'><div class='d_" + ymd + "_" + i
+								out.print("<li class='todoLi "+no+"' id='" + no + "'><div class='d_" + ymd + "_" + i
 										+ " todo'>");
 								out.println("<span class='block chkBlock' id='chk_" + no + "'><img class='chkImg chkd'></span>");
 								out.print("<span class='block aaaa strike'>");

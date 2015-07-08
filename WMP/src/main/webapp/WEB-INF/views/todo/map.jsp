@@ -98,12 +98,12 @@
 			removeLoc;
 		});
 		$('#locInput').bind('click', function() {
-			window.opener.inputLoc(locX, locY,addr);
+			window.opener.inputLoc(locX, locY, addr);
 			window.close();
 		});
 		$('#locDelete').bind('click', function() {
 			removeLoc;
-			window.opener.inputLoc(locX, locY,addr);
+			window.opener.inputLoc(locX, locY, addr);
 			window.close();
 		});
 	});

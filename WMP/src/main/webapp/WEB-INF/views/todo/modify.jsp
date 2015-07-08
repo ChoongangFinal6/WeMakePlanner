@@ -13,7 +13,9 @@ function inputLoc(locX,locY) {
 </script>
 <div class="popup">
 	<form action="modify.html" method="post">
-	<h3><input type="text" name="title" required="required" value="${todo.title}" id="inputModifyTitle"/></h3>
+	<h3>
+		<input type="text" name="title" required="required" value="${todo.title}" id="inputModifyTitle"/>
+	</h3>
 	<input type="hidden" name="email" value="kheeuk@gmail.com" />
 	<input type="hidden" name="no" value="${todo.no }" />
 	<table class='todo_table'>
@@ -28,24 +30,32 @@ function inputLoc(locX,locY) {
 			</tr>
 			<tr>
 				<td colspan="2" class='center'>
-				<span id="loc">${todo.location }</span> 
-				<c:if test="${fn:length(todo.location)>6 }">
-				<input type="hidden" name="location" class="text" value="${todo.location }" id="location">
-				</c:if>
-				<c:if test="${fn:length(todo.location)<=6 }">
-				<input type="hidden" name="location" class="text" value="," id="location">
-				</c:if></td>
+					<span id="loc">${todo.location }</span> 
+					<c:if test="${fn:length(todo.location)>6 }">
+						<input type="hidden" name="location" class="text" value="${todo.location }" id="location">
+					</c:if>
+					<c:if test="${fn:length(todo.location)<=6 }">
+						<input type="hidden" name="location" class="text" value="," id="location">
+					</c:if>
+				</td>
 			</tr>
 			<tr>
-				<th class='paddingLeft'>준비기간</th><th class='paddingLeft'>반복</th>
+				<th class='paddingLeft'>준비기간</th>
+				<th class='paddingLeft'>반복</th>
 			</tr>
 			<tr>
-				<td width="50%" class='right'><input type="number" class="text small" name="duration" min="0" max="500" value="${todo.duration }">일</td>
-				<td class='right'><input type="number" class="small text" class="text" name="repeat" min="0" max="500" value="${todo.repeat }">일</td>
+				<td width="50%" class='right'>
+					<input type="number" class="text small" name="duration" min="0" max="500" value="${todo.duration }">일
+				</td>
+				<td class='right'>
+					<input type="number" class="small text" class="text" name="repeat" min="0" max="500" value="${todo.repeat }">일
+				</td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span class='center'><input type="submit" value="수정" class='fRight text'></span></td>
+				<td>
+					<span class='center'><input type="submit" value="수정" class='fRight text'></span>
+				</td>
 			</tr>
 	</table>
 	</Form>

@@ -27,16 +27,23 @@ function inputLoc(locX,locY,str) {
 				<th colspan="2" class='paddingLeft'>제목</th>
 			</tr>
 			<tr>
-				<td colspan="2" class='center'><input type="text" class="text" name="title" required="required" /></td>
+				<td colspan="2" class='center'>
+					<input type="text" class="text" name="title" maxlength="20" required="required" />
+				</td>
 			</tr>
 			<tr>
 				<th colspan="2" class='paddingLeft'>마감시간</th>
 			</tr>
 			<tr>
-				<td colspan="2" class='center'><input type="datetime-local" class="text" name="endTime" required="required" value='${cal }'></td>
+				<td colspan="2" class='center'>
+					<input type="datetime-local" class="text" name="endTime" required="required" value='${cal }'>
+				</td>
 			</tr>
 			<tr>
-				<th width="40%" class='paddingLeft'>장소</th><th class='right'><input type="button" class="text" value="찾기" id='searchLoc'></th>
+				<th width="40%" class='paddingLeft'>장소</th>
+				<th class='right'>
+					<input type="button" class="text" value="찾기" id='searchLoc'>
+				</th>
 			</tr>
 			<tr>
 				<td colspan="2" class='center'>
@@ -44,15 +51,24 @@ function inputLoc(locX,locY,str) {
 				<input type="hidden" name="location" class="text" value="," id="location"></td>
 			</tr>
 			<tr>
-				<th class='paddingLeft'>준비기간</th><th class='paddingLeft'>반복</th>
+				<th class='paddingLeft'>준비기간</th>
+				<th class='paddingLeft'>반복</th>
 			</tr>
 			<tr>
-				<td width="50%" class='right'><input type="number" class="text small" name="duration" min="0" max="500">일</td>
-				<td class='right'><input type="number" class="small text" class="text" name="repeat" min="0" max="500">일</td>
+				<td width="50%" class='right'>
+					<input type="number" class="text small" name="duration" min="0" max="500">일
+				</td>
+				<td class='right'>
+					<input type="number" class="small text" class="text" name="repeat" min="0" max="500">일
+				</td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span class='center'><input type="submit" value="입력" class='fRight text'></span></td>
+				<td>
+					<span class='center'>
+						<input type="submit" value="입력" class='fRight text'>
+					</span>
+				</td>
 			</tr>
 		</table>
 	</form>
