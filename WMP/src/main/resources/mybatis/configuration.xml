@@ -3,10 +3,10 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="ToDo" type="model.ToDo" />
+		<typeAlias alias="ToDoDto" type="model.ToDoDto" />
 	</typeAliases>
 	<mappers>
-		<mapper resource="mybatis/ToDo.xml" />
+		<mapper resource="mybatis/ToDoDto.xml" />
 	</mappers>
 </configuration>
 

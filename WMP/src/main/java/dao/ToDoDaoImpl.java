@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-import model.ToDo;
+import model.ToDoDto;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,10 @@ public class ToDoDaoImpl implements ToDoDao {
 	 * 
 	 */
 	@Override
-	public HashMap<Integer, List<ToDo>> startTotal(Calendar fDay) {
-		HashMap<Integer, List<ToDo>> hms = new HashMap<Integer, List<ToDo>>();
-		ToDo todo = new ToDo();
+	public HashMap<Integer, List<ToDoDto>> startTotal(Calendar fDay, String email) {
+		HashMap<Integer, List<ToDoDto>> hms = new HashMap<Integer, List<ToDoDto>>();
+		ToDoDto todo = new ToDoDto();
+		todo.setEmail(email);
 		// 시작주 일요일
 		Calendar fSun = Calendar.getInstance();
 		fSun.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.get(Calendar.DATE));
@@ -35,14 +36,13 @@ public class ToDoDaoImpl implements ToDoDao {
 		// 마지막주 토요일 : 말일을 구하고 말일의 요일을 이용하여 더함
 		Calendar lSat = Calendar.getInstance();
 		lSat.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.getActualMaximum(Calendar.DATE));
-		lSat.add(Calendar.DATE, 6-lSat.get(Calendar.DAY_OF_WEEK));
-		todo.setEmail("kheeuk@gmail.com");
+		lSat.add(Calendar.DATE, 6 - lSat.get(Calendar.DAY_OF_WEEK));
 		int ymd;
 		wt: while (true) {
-			List<ToDo> dayStart = new ArrayList<ToDo>();
+			List<ToDoDto> dayStart = new ArrayList<ToDoDto>();
 			todo.setStartDateFromCal(fSun);
 			todo.setStartTime(new Timestamp(fSun.getTimeInMillis()));
-				dayStart = session.selectList("startAll", todo);
+			dayStart = session.selectList("startAll", todo);
 			// dYear = fSun.get(Calendar.YEAR);
 			// dDate = fSun.get(Calendar.DATE);
 			// dDayW = fSun.get(Calendar.DAY_OF_WEEK);
@@ -66,14 +66,14 @@ public class ToDoDaoImpl implements ToDoDao {
 		// System.out.println(e.getMessage());
 		// } finally { session.close(); }
 		// return list;
-
 		return hms;
 	}
 
 	@Override
-	public HashMap<Integer, List<ToDo>> endTotal(Calendar fDay) {
-		HashMap<Integer, List<ToDo>> hme = new HashMap<Integer, List<ToDo>>();
-		ToDo todo = new ToDo();
+	public HashMap<Integer, List<ToDoDto>> endTotal(Calendar fDay, String email) {
+		HashMap<Integer, List<ToDoDto>> hme = new HashMap<Integer, List<ToDoDto>>();
+		ToDoDto todo = new ToDoDto();
+		todo.setEmail(email);
 		// 시작주 일요일
 		Calendar fSun = Calendar.getInstance();
 		fSun.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.get(Calendar.DATE));
@@ -81,15 +81,14 @@ public class ToDoDaoImpl implements ToDoDao {
 		// 마지막주 토요일 : 말일을 구하고 말일의 요일을 이용하여 더함
 		Calendar lSat = Calendar.getInstance();
 		lSat.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.getActualMaximum(Calendar.DATE));
-		lSat.add(Calendar.DATE, 6-lSat.get(Calendar.DAY_OF_WEEK));
+		lSat.add(Calendar.DATE, 6 - lSat.get(Calendar.DAY_OF_WEEK));
 		// todo.setEndTime(todo.getEndDate());
-		todo.setEmail("kheeuk@gmail.com");
 		int ymd;
 		wt: while (true) {
-			List<ToDo> dayEnd = new ArrayList<ToDo>();
+			List<ToDoDto> dayEnd = new ArrayList<ToDoDto>();
 			todo.setEndDateFromCal(fSun);
 			// todo.setEndTime(new Timestamp(fSun.getTimeInMillis()));
-				dayEnd = session.selectList("endAll", todo);
+			dayEnd = session.selectList("endAll", todo);
 			ymd = Integer.parseInt(String.format("%04d", fSun.get(Calendar.YEAR))
 					+ String.format("%02d", fSun.get(Calendar.MONTH) + 1)
 					+ String.format("%02d", fSun.get(Calendar.DATE)));
@@ -104,68 +103,76 @@ public class ToDoDaoImpl implements ToDoDao {
 	}
 
 	@Override
-	public int insert(ToDo todo) {
+	public int insert(ToDoDto todo) {
 		int result = 0;
-			result = session.insert("create", todo);
+		result = session.insert("create", todo);
 		return result;
 	}
 
 	@Override
-	public ToDo detail(String id) {
-		ToDo todo = null;
-			todo = session.selectOne("detail", id);
+	public ToDoDto detail(String id, String email) {
+		ToDoDto todoParam = new ToDoDto();
+		todoParam.setNo(Integer.parseInt(id));
+		todoParam.setEmail(email);
+		ToDoDto todo = null;
+		todo = session.selectOne("detail", todoParam);
 		return todo;
 	}
 
 	@Override
-	public int del(String id) {
+	public int del(String id, String email) {
+		ToDoDto todoParam = new ToDoDto();
+		todoParam.setNo(Integer.parseInt(id));
+		todoParam.setEmail(email);
 		int result = 0;
-			result = session.delete("delete", id);
+		result = session.delete("delete", todoParam);
 		return result;
 	}
 
 	@Override
-	public int modify(ToDo todo) {
+	public int modify(ToDoDto todo) {
 		int result = 0;
-			result = session.update("update", todo);
+		result = session.update("update", todo);
 		return result;
 	}
 
 	@Override
-	public int toggle(String id) {
+	public int toggle(String id, String email) {
 		int result = 0;
-			String yn = (String)session.selectOne("toggleS", id);
-			if (yn.equals("N")) {
-				result += session.update("toggleY", id);
-				ToDo todo = session.selectOne("detail", id);
-				if (todo.getRepeat()>0) {
-					todo.setFinish("N");
-					result += session.insert("repeat", todo);
-				}
-			} else {
-				result = session.update("toggleN", id);
+		ToDoDto todoParam = new ToDoDto();
+		todoParam.setNo(Integer.parseInt(id));
+		todoParam.setEmail(email);
+		String yn = (String)session.selectOne("toggleS", todoParam);
+		if (yn.equals("N")) {
+			result += session.update("toggleY", todoParam);
+			ToDoDto todo = session.selectOne("detail", todoParam);
+			if (todo.getRepeat() > 0) {
+				todo.setFinish("N");
+				result += session.insert("repeat", todo);
 			}
+		} else {
+			result = session.update("toggleN", todoParam);
+		}
 		return result;
 	}
 
 	@Override
-	public int updateEndTime(ToDo todo) {
+	public int updateEndTime(ToDoDto todo) {
 		int result = 0;
-			result = session.update("updateE", todo);
-			
+		result = session.update("updateE", todo);
 		return result;
 	}
 
 	@Override
-	public int updateDuration(ToDo todo) {
+	public int updateDuration(ToDoDto todo) {
 		int result = 0;
-			result = session.update("updateD", todo);
-			
+		todo.setDuration(session.selectOne("updateD",todo.getNo()));
+		result = session.update("updateD", todo);
 		return result;
 	}
 
 	@Override
-	public List<ToDo> thisWeek(String string) {
+	public List<ToDoDto> thisWeek(String string) {
 		return (List)session.selectList("thisWeek", string);
 	}
 }

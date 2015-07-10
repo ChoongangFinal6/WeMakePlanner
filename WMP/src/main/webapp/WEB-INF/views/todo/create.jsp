@@ -1,8 +1,7 @@
-<%@ include file="aa.jsp"%>
+<%@ include file="calMain.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
 <script src="http://malsup.github.com/jquery.form.js"></script>
-
 <script type="text/javascript">
 $('#searchLoc').bind('click', function() {
 	var loc = $('#location').val();
@@ -20,7 +19,6 @@ function inputLoc(locX,locY,str) {
 <div class="popup">
 	<h3>새 일정</h3>
 	<form action="create.html" method="POST">
-		<input type="hidden" name="email" value="kheeuk@gmail.com" /> 
 		<input type="hidden" name="finish" value="N" />
 		<table class='todo_table'>
 			<tr>

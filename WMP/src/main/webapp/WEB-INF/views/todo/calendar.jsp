@@ -1,9 +1,9 @@
 <%@page import="java.util.*,model.*"%>
-<%@ include file="aa.jsp"%>
+<%@ include file="calMain.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	HashMap<Integer, List<ToDo>> todo = (HashMap<Integer, List<ToDo>>)request.getAttribute("todo");
-	HashMap<Integer, List<ToDo>> todoS = (HashMap<Integer, List<ToDo>>)request.getAttribute("todoS");
+	HashMap<Integer, List<ToDoDto>> todo = (HashMap<Integer, List<ToDoDto>>)request.getAttribute("todo");
+	HashMap<Integer, List<ToDoDto>> todoS = (HashMap<Integer, List<ToDoDto>>)request.getAttribute("todoS");
 	Calendar cal = (Calendar)request.getAttribute("cal");
 	int w = (int)request.getAttribute("w");
 	Calendar day = Calendar.getInstance();
@@ -14,9 +14,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>To-Do List</title>
-<script type="text/javascript" src="<c:url value="/resources/js/aa.js"/>"></script>
-<link href="<c:url value="/resources/css/aa.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/styleChk.css" />" rel="stylesheet">
+<script type="text/javascript" src="<c:url value="/resources/js/calMain.js"/>"></script>
+<link href="<c:url value="/resources/css/calMain.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/popup.css" />" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link href="<c:url value="/resources/css/map.css" />" rel="stylesheet">
@@ -82,7 +81,7 @@
 						}
 					}
 					if (todo.containsKey(ymd)) {
-						List<ToDo> list = todo.get(ymd);
+						List<ToDoDto> list = todo.get(ymd);
 						for (int i = 0; i < todo.get(ymd).size(); i++) {
 							int no = todo.get(ymd).get(i).getNo();
 							if (list.get(i).getFinish().equals("Y")) {
@@ -111,8 +110,7 @@
 					}
 					day.add(Calendar.DATE, +1);
 					cnt++;
-				}
-				;
+				};
 			%>
 		</table>
 		<div id='detail'>
@@ -121,7 +119,5 @@
 		</div>
 	</div>
 	<img src='<c:url value="/resources/img/chk2.png" />' id='imgAddr'>
-	<img src='/resources/img/chk2.png' >
-	
 </body>
 </html>

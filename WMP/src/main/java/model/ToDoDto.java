@@ -10,7 +10,7 @@ import java.util.Date;
  * @author 402-d1
  *	
  */
-public class ToDo {
+public class ToDoDto {
 	private int no;					// 일련번호         
 	private String title, email;    // 제목, 이메일         
 	private int duration;           // 기간     
@@ -106,7 +106,7 @@ public class ToDo {
 	public void setFinishKey(String finishKey) {
 		this.finishKey = finishKey;
 	}
-	public ToDo() {
+	public ToDoDto() {
 		super();
 	}
 

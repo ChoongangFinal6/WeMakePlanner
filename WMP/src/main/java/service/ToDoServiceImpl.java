@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-import model.ToDo;
+import model.ToDoDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,47 +16,47 @@ public class ToDoServiceImpl implements ToDoService {
 	private ToDoDao td;
 	
 	@Override
-	public HashMap<Integer, List<ToDo>> startTotal(Calendar fDay) {
-		return td.startTotal(fDay);
+	public HashMap<Integer, List<ToDoDto>> startTotal(Calendar fDay, String email) {
+		return td.startTotal(fDay, email);
 	}
 	@Override
-	public HashMap<Integer, List<ToDo>> endTotal(Calendar fDay) {
-		return td.endTotal(fDay);
+	public HashMap<Integer, List<ToDoDto>> endTotal(Calendar fDay, String email) {
+		return td.endTotal(fDay, email);
 	}
 	@Override
-	public int insert(ToDo todo) {
+	public int insert(ToDoDto todo) {
 		return td.insert(todo);
 	}
 	@Override
-	public ToDo detail(String id) {
-		return td.detail(id);
+	public ToDoDto detail(String id, String email) {
+		return td.detail(id, email);
 	}
 	@Override
-	public int del(String id) {
-		return td.del(id);
+	public int del(String id, String email) {
+		return td.del(id, email);
 	}
 	@Override
-	public int update(ToDo todo) {
+	public int update(ToDoDto todo) {
 		// TODO Auto-generated method stub
 		return td.modify(todo);
 	}
 	@Override
-	public int toggle(String id) {
+	public int toggle(String id, String email) {
 		// TODO Auto-generated method stub
-		return td.toggle(id);
+		return td.toggle(id, email);
 	}
 	@Override
-	public int updateEndTime(ToDo todo) {
+	public int updateEndTime(ToDoDto todo) {
 		// TODO Auto-generated method stub
 		return td.updateEndTime(todo);
 	}
 	@Override
-	public int updateDuration(ToDo todo) {
+	public int updateDuration(ToDoDto todo) {
 		// TODO Auto-generated method stub
 		return td.updateDuration(todo);
 	}
 	@Override
-	public List<ToDo> thisWeek(String string) {
+	public List<ToDoDto> thisWeek(String string) {
 		// TODO Auto-generated method stub
 		return td.thisWeek(string);
 	}

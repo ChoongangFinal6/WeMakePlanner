@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="aa.jsp"%>
+<%@ include file="calMain.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +47,11 @@
 					</div>
 				</div>
 			</c:forEach>
+			<c:if test="${fn:length(thisWeek) < 1  }">
+				<div style="text-align: center;margin-top: 100px;font-size: 1em;">
+				금주의 일정이 없습니다.
+				</div>
+			</c:if>
 		</div>
 	</div>
 </body>

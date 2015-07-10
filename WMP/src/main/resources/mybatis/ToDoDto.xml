@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ToDoDto">
+	<!-- Use type aliases to avoid typing the full classname every time. -->
+	<resultMap id="ToDoDtoResult" type="ToDoDto">
+		<result property="no" column="no" />
+		<result property="title" column="title" />
+		<result property="email" column="email" />
+		<result property="duration" column="duration" />
+		<result property="endTime" column="endTime" />
+		<result property="location" column="location" />
+		<result property="finish" column="finish" />
+		<result property="repeat" column="repeat" />
+	</resultMap>
+	<!-- Select with no parameters using the result map for Account class. -->
+	<select id="startAll" parameterType="ToDoDto" resultMap="ToDoDtoResult">
+		select * from tododto
+		where email=#{email} and
+		TRUNC(endTime-duration) =#{startDate} and
+		duration > 0 and finish = 'N'
+	</select>
+	<select id="endAll" parameterType="ToDoDto" resultMap="ToDoDtoResult">
+		select * from tododto where email=#{email} and
+		TRUNC(endTime) = #{endDate }
+	</select>
+	<insert id="create" parameterType="ToDoDto">
+		insert into tododto values (todo_no.nextval, #{title}, #{email},
+		#{duration},
+		to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss'),
+		#{location}, #{finish },
+		#{repeat})
+	</insert>
+	<select id="detail" parameterType="ToDoDto" resultType="ToDoDto">
+		select * from tododto where no = #{no,
+		jdbcType=INTEGER} and email = #{email, jdbcType=VARCHAR}
+	</select>
+	<delete id="delete" parameterType="ToDoDto">
+		delete from tododto where no = #{no, jdbcType=INTEGER} and email =
+		#{email, jdbcType=VARCHAR}
+	</delete>
+	<update id="update" parameterType="ToDoDto">
+		update tododto set title=#{title}, duration=#{duration},
+		endTime=to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss'),
+		location=#{location}, repeat=${repeat}
+		where no=#{no}
+	</update>
+	<select id="toggleS" parameterType="ToDoDto" resultType="String">
+		select finish from tododto where no = #{no,
+		jdbcType=INTEGER} and email = #{email, jdbcType=VARCHAR}
+	</select>
+	<update id="toggleY" parameterType="ToDoDto">
+		update tododto set finish = 'Y' where no = #{no, jdbcType=INTEGER}
+		and email = #{email, jdbcType=VARCHAR}
+	</update>
+	<update id="toggleN" parameterType="ToDoDto">
+		update tododto set finish = 'N' where no = #{no, jdbcType=INTEGER}
+		and email = #{email, jdbcType=VARCHAR}
+	</update>
+	<update id="updateE" parameterType="ToDoDto">
+		update tododto set endTime=to_date(replace(#{endTime
+		},'T',''),'yyyy-MM-dd hh24:mi:ss') where no=#{no}
+	</update>
+	<update id="updateD" parameterType="ToDoDto">
+	<!-- 	<selectKey resultType="integer" keyProperty="duration" order="BEFORE">
+			select
+			endtime-to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss') as "duration"
+			from tododto where no = #{no}
+		</selectKey> -->
+		update tododto set duration=#{duration} where no=#{no}
+	</update>
+	<select id="selectDuration" resultType="integer" parameterType="integer">
+		select endtime-to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss') as "duration"
+		from tododto where no = #{no}
+	</select>
+	<insert id="repeat" parameterType="ToDoDto">
+		insert into tododto values (todo_no.nextval, #{title}, #{email},
+		#{duration},
+		to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss')+#{repeat},
+		#{location,
+		jdbcType=VARCHAR}, #{finish }, #{repeat})
+	</insert>
+	<select id="thisWeek" parameterType="String" resultMap="ToDoDtoResult">
+		select * from tododto where email=#{email} and
+		TRUNC(endTime) between sysdate and sysdate +7
+	</select>
+</mapper>

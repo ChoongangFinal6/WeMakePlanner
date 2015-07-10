@@ -1,21 +1,29 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-import model.ToDo;
+import model.ToDoDto;
 
 public interface ToDoDao {
-	HashMap<Integer, List<ToDo>> startTotal(Calendar fDay);
-	HashMap<Integer, List<ToDo>> endTotal(Calendar fDay);
-	int insert(ToDo todo);
-	ToDo detail(String id);
-	int del(String id);
-	int modify(ToDo todo);
-	int toggle(String id);
-	int updateEndTime(ToDo todo);
-	int updateDuration(ToDo todo);
-	List<ToDo> thisWeek(String string);
+	HashMap<Integer, List<ToDoDto>> startTotal(Calendar fDay, String email);
+
+	HashMap<Integer, List<ToDoDto>> endTotal(Calendar fDay, String email);
+
+	int insert(ToDoDto todo);
+
+	ToDoDto detail(String id, String email);
+
+	int del(String id, String email);
+
+	int modify(ToDoDto todo);
+
+	int toggle(String id, String email);
+
+	int updateEndTime(ToDoDto todo);
+
+	int updateDuration(ToDoDto todo);
+
+	List<ToDoDto> thisWeek(String string);
 }

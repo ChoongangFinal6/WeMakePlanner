@@ -1,11 +1,10 @@
-<%@ include file="aa.jsp"%>
+<%@ include file="calMain.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script type="text/javascript">
-	$(function() {
-	});
 </script>
 <div class="popup">
-	<input type="hidden" id="locX" value="${locX}"> <input type="hidden" id="locY" value="${locY}">
+	<input type="hidden" id="locX" value="${locX}"> 
+	<input type="hidden" id="locY" value="${locY}">
 	<div>
 		<table class='todo_table'>
 			<tr>

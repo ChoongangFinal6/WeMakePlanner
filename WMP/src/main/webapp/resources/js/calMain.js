@@ -32,7 +32,7 @@ $(function() {
 		$.ajax({
 			url : './detail.html',
 			dataType : "html",
-			data : "id=" + no,
+			data : {"id":no},
 			async : true,
 			success : function(data) {
 				// $('#detailI').html(data);

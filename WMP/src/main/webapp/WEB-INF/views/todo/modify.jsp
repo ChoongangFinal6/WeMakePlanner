@@ -1,4 +1,4 @@
-<%@ include file="aa.jsp"%>
+<%@ include file="calMain.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <script type="text/javascript">
@@ -16,7 +16,6 @@ function inputLoc(locX,locY) {
 	<h3>
 		<input type="text" name="title" required="required" value="${todo.title}" id="inputModifyTitle"/>
 	</h3>
-	<input type="hidden" name="email" value="kheeuk@gmail.com" />
 	<input type="hidden" name="no" value="${todo.no }" />
 	<table class='todo_table'>
 			<tr>
