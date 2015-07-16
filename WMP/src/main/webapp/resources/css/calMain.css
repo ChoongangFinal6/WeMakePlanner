@@ -360,12 +360,14 @@ span#xButton {
 	right: 0px;
 	padding: 2px 10px 2px 10px;
 	text-align: right;
+	width : 100px;
+	cursor : pointer;
 }
-
+/* 
 #thisWeek:hover {
 	background-color: #b5e3e6;
 }
-
+ */
 #thisWeek a {
 	text-decoration: none;
 }

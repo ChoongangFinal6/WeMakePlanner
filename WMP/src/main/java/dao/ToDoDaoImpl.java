@@ -166,7 +166,8 @@ public class ToDoDaoImpl implements ToDoDao {
 	@Override
 	public int updateDuration(ToDoDto todo) {
 		int result = 0;
-		todo.setDuration(session.selectOne("updateD",todo.getNo()));
+		System.out.println(todo.toString());
+		todo.setDuration(session.selectOne("selectDuration",todo));
 		result = session.update("updateD", todo);
 		return result;
 	}

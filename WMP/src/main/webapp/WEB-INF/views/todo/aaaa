@@ -1,0 +1,118 @@
+
+
+
+
+
+
+<script type="text/javascript" src="/wmp/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/wmp/resources/js/jquery-ui.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>금주의 일정</title>
+<link href="/wmp/resources/css/thisWeek.css" rel="stylesheet">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=90890f0c035d0a05ca5915f1e0ca7195&libraries=services"></script>
+<script type="text/javascript" src="/wmp/resources/js/tw.js"></script>
+</head>
+</head>
+<body>
+	<div id="thisWeek">
+		
+		<div class='top'>
+			<span class='topTitle'>한 주의 일정</span>
+			<span class='topDate'>~2015년 07월 21일
+			</span>
+			<br>
+			<div id="expand">
+				<a id="expandText">펼치기</a>
+			</div>
+		</div>
+		
+		<div id="main">
+			
+				<div class='item'>
+					<div class='header'>
+						<span class='title'>
+							늦잠
+						</span> 
+						<span class='dday'>
+							
+						</span>
+					</div>
+					<div class='main'>
+						<span id="endTime100">
+							2015-07-15 10:20:04 
+						</span>
+						<br>
+						
+						<span id="repeat100">반복 : 0일 마다</span>
+					</div>
+				</div>
+			
+				<div class='item'>
+					<div class='header'>
+						<span class='title'>
+							밥
+						</span> 
+						<span class='dday'>
+							D-1
+						</span>
+					</div>
+					<div class='main'>
+						<span id="endTime101">
+							2015-07-16 10:20:25 
+						</span>
+						<br>
+						
+						<span id="repeat101">반복 : 0일 마다</span>
+					</div>
+				</div>
+			
+				<div class='item'>
+					<div class='header'>
+						<span class='title'>
+							ㅁㄴㅇㄹ
+						</span> 
+						<span class='dday'>
+							
+						</span>
+					</div>
+					<div class='main'>
+						<span id="endTime102">
+							2015-07-17 10:22:14 
+						</span>
+						<br>
+						
+						<span id="repeat102">반복 : 1일 마다</span>
+					</div>
+				</div>
+			
+				<div class='item'>
+					<div class='header'>
+						<span class='title'>
+							ㄴㅇㅁㄹ
+						</span> 
+						<span class='dday'>
+							
+						</span>
+					</div>
+					<div class='main'>
+						<span id="endTime103">
+							2015-07-18 10:22:20 
+						</span>
+						<br>
+						
+						<span id="repeat103">반복 : 0일 마다</span>
+					</div>
+				</div>
+			
+			
+		</div>
+	</div>
+</body>
+</html>

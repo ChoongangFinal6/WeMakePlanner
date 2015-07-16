@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import model.ToDoDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import service.ToDoService;
 
@@ -56,7 +56,8 @@ public class ToDoController {
 	}
 
 	@RequestMapping(value = "create", method = RequestMethod.GET)
-	public String createForm(@ModelAttribute("todo") ToDoDto todo, BindingResult result, String date, Model model) {
+	public String createForm(@ModelAttribute("todo") ToDoDto todo, BindingResult result, String date,
+			Model model) {
 		Calendar cal = Calendar.getInstance();
 		String str = date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6) + "T"
 				+ String.format("%02d", cal.get(Calendar.HOUR_OF_DAY)) + ":"
@@ -129,7 +130,8 @@ public class ToDoController {
 
 	@RequestMapping(value = "updateEndTime")
 	public String updateET(@RequestParam("id") String id, @RequestParam("date") String date,
-			HttpServletRequest req, HttpServletResponse rep, Model model, HttpSession session) throws IOException {
+			HttpServletRequest req, HttpServletResponse rep, Model model, HttpSession session)
+			throws IOException {
 		String email = session.getAttribute("email").toString();
 		int result = 0;
 		ToDoDto todo = ts.detail(id, email);
@@ -173,7 +175,7 @@ public class ToDoController {
 	@RequestMapping(value = "thisWeek")
 	public String thisWeek(Model model, HttpSession session) {
 		String email = session.getAttribute("email").toString();
-		ArrayList<ToDoDto> thisWeek = (ArrayList)ts.thisWeek(email);
+		ArrayList<ToDoDto> thisWeek = (ArrayList<ToDoDto>)ts.thisWeek(email);
 		Date date = new Date();
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, 7);
@@ -182,5 +184,25 @@ public class ToDoController {
 		model.addAttribute("date", date);
 		model.addAttribute("dateAfter", dateAfter);
 		return "todo/thisWeek";
+	}
+
+	@RequestMapping(value = "thisWeek1")
+	public String thisWeek1(HttpSession session, HttpServletResponse rep) throws IOException {
+		//결과코드
+		int resultCode = 0; 
+		String email = session.getAttribute("email").toString();
+		ArrayList<ToDoDto> thisWeek = (ArrayList<ToDoDto>)ts.thisWeek(email);
+		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, 7);
+		Date dateAfter = new Date(cal.getTimeInMillis());
+		String result = ts.makeMail(dateAfter, thisWeek);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+		String dateString = sdf.format(dateAfter).toString();
+		result = URLEncoder.encode(result,"UTF-8");
+		String str = "이번주일정(" + dateString;
+		str = URLEncoder.encode(str,"UTF-8");
+		
+		return "redirect:http://211.183.2.67:8181/mailProject/emMailSend.do?id=ttt@choongang.com&sendText=" + result + "&sendTitle=" +str+ ")&sendAddr=ttt@choongang.com";
 	}
 }

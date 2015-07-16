@@ -67,6 +67,13 @@
 					</c:if>
 				</td>
 			</tr>
+			<c:if test="${todo.duration >0 }">
+			<tr>
+				<th colspan="2">
+					<span>${todo.duration}일 전에 준비!</span>
+				</th>
+			</tr>
+			</c:if>
 			<tr>
 				<td colspan="2">
 					<input type="button" value="수정" onclick="modify('${todo.no}')" class='text half'>
