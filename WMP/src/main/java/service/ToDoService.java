@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import model.CalWithToDo;
 import model.ToDoDto;
 
 public interface ToDoService {
@@ -26,4 +27,6 @@ public interface ToDoService {
 	int updateDuration(ToDoDto todo);
 
 	List<ToDoDto> thisWeek(String string);
+
+	CalWithToDo makeCal(Calendar day, HashMap<Integer, List<ToDoDto>> todo, HashMap<Integer, List<ToDoDto>> todoS);
 }
