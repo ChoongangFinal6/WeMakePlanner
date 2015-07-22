@@ -1,6 +1,8 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,4 +31,6 @@ public interface ToDoService {
 	List<ToDoDto> thisWeek(String string);
 
 	CalWithToDo makeCal(Calendar day, HashMap<Integer, List<ToDoDto>> todo, HashMap<Integer, List<ToDoDto>> todoS);
+	
+	String makeMail(Date dateAfter, ArrayList<ToDoDto> thisWeek);
 }

@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 /* thisweek 위한 css */
-body {
+body.thisWeekBody {
 	width:80%;
 	max-width : 640px;
 	min-width : 450px;

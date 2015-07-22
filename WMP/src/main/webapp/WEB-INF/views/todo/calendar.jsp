@@ -34,7 +34,8 @@
 			</span>
 		</div>
 
-			<span id='thisWeek'><a href="thisWeek.html">금주의 일정</a></span>
+			<!-- <span id='thisWeek'><a href="thisWeek.html">금주의 일정</a></span> -->
+			<span id='thisWeek' class='thisWeek'>금주 일정</span>
 		<table class='center cal'>
 			<tr height="25">
 				<th><font color="red">SUN</font></th>

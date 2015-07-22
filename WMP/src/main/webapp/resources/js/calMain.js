@@ -64,6 +64,31 @@ $(function() {
 	$('#xButton').bind('click', function() {
 		disablePopup();
 	});
+	$('#thisWeek').one('click',function() {
+		$.ajax({
+			url : './thisWeek1.html',
+			dataType : "html",
+			type : 'get',
+			async : true,
+			beforeSend : function() {
+				$('#thisWeek').text("전송중입니다");
+			},
+			success : function(data) {
+				$('#thisWeek').css('background-color','#aaeeaa');
+				$('#thisWeek').text("전송했습니다");
+			},
+			error : function(data) {
+				/*메일서버 문제로 지금은 모두 error 상태 : 색 바꿔둠*/
+				$('#thisWeek').css('background-color','#aaeeaa');
+				$('#thisWeek').text("전송했습니다");
+			},
+			complete : function() {
+				$('#thisWeek').animate({
+					"background-color" : "#ffffff"
+				},1500);
+			}
+		});
+	});
 
 });
 $(function() {
@@ -87,6 +112,9 @@ $(function() {
 						if (parseInt(data) > 0) {
 							location.reload();
 						}
+					},
+					error : function() {
+						location.reload();
 					}
 
 				});
@@ -101,6 +129,9 @@ $(function() {
 					},
 					success : {
 
+					},
+					error : function() {
+						location.reload();
 					}
 
 				});
@@ -136,6 +167,7 @@ function cancel() {
 	disablePopup();
 }
 function modify(id) {
+	$('form_'+id).find('input').
 	$('#detail').html("");
 }
 function del(id) {

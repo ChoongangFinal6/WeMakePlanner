@@ -18,11 +18,11 @@
 		select * from tododto
 		where email=#{email} and
 		TRUNC(endTime-duration) =#{startDate} and
-		duration > 0 and finish = 'N'
+		duration > 0 and finish = 'N' order by endtime
 	</select>
 	<select id="endAll" parameterType="ToDoDto" resultMap="ToDoDtoResult">
 		select * from tododto where email=#{email} and
-		TRUNC(endTime) = #{endDate }
+		TRUNC(endTime) = #{endDate } order by endtime
 	</select>
 	<insert id="create" parameterType="ToDoDto">
 		insert into tododto values (todo_no.nextval, #{title}, #{email},
@@ -69,7 +69,7 @@
 		</selectKey> -->
 		update tododto set duration=#{duration} where no=#{no}
 	</update>
-	<select id="selectDuration" resultType="integer" parameterType="integer">
+	<select id="selectDuration" resultType="integer" parameterType="ToDoDto">
 		select endtime-to_date(replace(#{endTime },'T',' '),'yyyy-MM-dd hh24:mi:ss') as "duration"
 		from tododto where no = #{no}
 	</select>
