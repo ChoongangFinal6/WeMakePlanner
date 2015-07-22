@@ -6,6 +6,7 @@ select * from todo;
 select * from todo where email='kheeuk@gmail.com' and TRUNC(endTime) = TO_DATE('20150618','yyyymmdd');
 
 select * from todo where email='kheeuk@gmail.com' and TRUNC(endTime-duration) = '2015-06-18';
+select * from tododto;
 
 insert into todo values (todo_no.nextval, 'dfsadaw', 'kheeuk@gmail.com', 0, to_date('2015-06-06T18:06','yyyy-MM-ddThh24:mi'), '0', '0', 0);
 

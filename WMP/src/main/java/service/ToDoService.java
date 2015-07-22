@@ -10,9 +10,9 @@ import model.CalWithToDo;
 import model.ToDoDto;
 
 public interface ToDoService {
-	HashMap<Integer, List<ToDoDto>> startTotal(Calendar fDay, String email);
+	HashMap<String, List<ToDoDto>> startTotal(Calendar fDay, String email);
 
-	HashMap<Integer, List<ToDoDto>> endTotal(Calendar fDay, String email);
+	HashMap<String, List<ToDoDto>> endTotal(Calendar fDay, String email);
 
 	int insert(ToDoDto todo);
 
@@ -30,7 +30,7 @@ public interface ToDoService {
 
 	List<ToDoDto> thisWeek(String string);
 
-	CalWithToDo makeCal(Calendar day, HashMap<Integer, List<ToDoDto>> todo, HashMap<Integer, List<ToDoDto>> todoS);
+	ArrayList<CalWithToDo> makeCal(Calendar firstSunDay, Calendar lastSatDay, HashMap<String, List<ToDoDto>> todo, HashMap<String, List<ToDoDto>> todoS);
 	
 	String makeMail(Date dateAfter, ArrayList<ToDoDto> thisWeek);
 }

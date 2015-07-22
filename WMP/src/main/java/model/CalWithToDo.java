@@ -31,5 +31,8 @@ public class CalWithToDo {
 	public void setTodo(List<ToDoDto> todo) {
 		this.todo = todo;
 	}
+	public CalWithToDo() {
+		super();
+	}
 	
 }

@@ -92,6 +92,17 @@ $(function() {
 
 });
 $(function() {
+	$('.Month').each(function() {
+		if (parseInt($(this).text().substring(0,2)) == $('#month').val()) {
+			$(this).next().css('font-weight','bold');
+			$(this).text("");
+		}
+		else {
+			$(this).text("");
+//			$(this).parent().css('background-color','#dddddd');
+			$(this).parent().css('opacity','0.3');
+		}
+	});
 	var id = "";
 	var date = "";
 	$('.todoUl').sortable({

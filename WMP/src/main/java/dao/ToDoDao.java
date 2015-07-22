@@ -7,9 +7,9 @@ import java.util.List;
 import model.ToDoDto;
 
 public interface ToDoDao {
-	HashMap<Integer, List<ToDoDto>> startTotal(Calendar fDay, String email);
+	HashMap<String, List<ToDoDto>> startTotal(Calendar fDay, String email);
 
-	HashMap<Integer, List<ToDoDto>> endTotal(Calendar fDay, String email);
+	HashMap<String, List<ToDoDto>> endTotal(Calendar fDay, String email);
 
 	int insert(ToDoDto todo);
 

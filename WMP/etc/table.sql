@@ -1,8 +1,8 @@
 -- todo
-DROP TABLE todo;
+DROP TABLE tododto;
 
 -- todo
-CREATE TABLE todo (
+CREATE TABLE tododto (
 	no       INTEGER       NOT NULL, -- 일련번호
 	title    VARCHAR2(255) NOT NULL, -- 제목
 	email    VARCHAR2(100) NOT NULL, -- 이메일/아이디
@@ -14,7 +14,7 @@ CREATE TABLE todo (
 );
 
 -- todo
-ALTER TABLE todo
+ALTER TABLE tododto
 	ADD
 		CONSTRAINT PK_todo -- todo 기본키
 		PRIMARY KEY (

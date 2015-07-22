@@ -25,8 +25,8 @@ public class ToDoDaoImpl implements ToDoDao {
 	 * 
 	 */
 	@Override
-	public HashMap<Integer, List<ToDoDto>> startTotal(Calendar fDay, String email) {
-		HashMap<Integer, List<ToDoDto>> hms = new HashMap<Integer, List<ToDoDto>>();
+	public HashMap<String, List<ToDoDto>> startTotal(Calendar fDay, String email) {
+		HashMap<String, List<ToDoDto>> hms = new HashMap<String, List<ToDoDto>>();
 		ToDoDto todo = new ToDoDto();
 		todo.setEmail(email);
 		// 시작주 일요일
@@ -37,21 +37,15 @@ public class ToDoDaoImpl implements ToDoDao {
 		Calendar lSat = Calendar.getInstance();
 		lSat.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.getActualMaximum(Calendar.DATE));
 		lSat.add(Calendar.DATE, 6 - lSat.get(Calendar.DAY_OF_WEEK));
-		int ymd;
+		String ymd;
 		wt: while (true) {
 			List<ToDoDto> dayStart = new ArrayList<ToDoDto>();
 			todo.setStartDateFromCal(fSun);
 			todo.setStartTime(new Timestamp(fSun.getTimeInMillis()));
 			dayStart = session.selectList("startAll", todo);
-			// dYear = fSun.get(Calendar.YEAR);
-			// dDate = fSun.get(Calendar.DATE);
-			// dDayW = fSun.get(Calendar.DAY_OF_WEEK);
-			// dMonth = fSun.get(Calendar.MONTH) + 1;
-			// dDay = fSun.get(Calendar.DAY_OF_MONTH);
-			ymd = Integer.parseInt(String.format("%04d", fSun.get(Calendar.YEAR))
+			ymd = String.format("%04d", fSun.get(Calendar.YEAR))
 					+ String.format("%02d", fSun.get(Calendar.MONTH) + 1)
-					+ String.format("%02d", fSun.get(Calendar.DATE)));
-			// System.out.println(dayStart.size()+ "ymd : "+ymd);
+					+ String.format("%02d", fSun.get(Calendar.DATE));
 			if (dayStart.size() > 0) {
 				hms.put(ymd, dayStart);
 			}
@@ -59,19 +53,12 @@ public class ToDoDaoImpl implements ToDoDao {
 				break wt;
 			fSun.add(Calendar.DATE, +1);
 		}
-		// try {
-		// session = getSession();
-		// list = session.selectList("listAll",board);
-		// } catch (Exception e) {
-		// System.out.println(e.getMessage());
-		// } finally { session.close(); }
-		// return list;
 		return hms;
 	}
 
 	@Override
-	public HashMap<Integer, List<ToDoDto>> endTotal(Calendar fDay, String email) {
-		HashMap<Integer, List<ToDoDto>> hme = new HashMap<Integer, List<ToDoDto>>();
+	public HashMap<String, List<ToDoDto>> endTotal(Calendar fDay, String email) {
+		HashMap<String, List<ToDoDto>> hme = new HashMap<String, List<ToDoDto>>();
 		ToDoDto todo = new ToDoDto();
 		todo.setEmail(email);
 		// 시작주 일요일
@@ -83,15 +70,15 @@ public class ToDoDaoImpl implements ToDoDao {
 		lSat.set(fDay.get(Calendar.YEAR), fDay.get(Calendar.MONTH), fDay.getActualMaximum(Calendar.DATE));
 		lSat.add(Calendar.DATE, 6 - lSat.get(Calendar.DAY_OF_WEEK));
 		// todo.setEndTime(todo.getEndDate());
-		int ymd;
+		String ymd;
 		wt: while (true) {
 			List<ToDoDto> dayEnd = new ArrayList<ToDoDto>();
 			todo.setEndDateFromCal(fSun);
 			// todo.setEndTime(new Timestamp(fSun.getTimeInMillis()));
 			dayEnd = session.selectList("endAll", todo);
-			ymd = Integer.parseInt(String.format("%04d", fSun.get(Calendar.YEAR))
+			ymd = String.format("%04d", fSun.get(Calendar.YEAR))
 					+ String.format("%02d", fSun.get(Calendar.MONTH) + 1)
-					+ String.format("%02d", fSun.get(Calendar.DATE)));
+					+ String.format("%02d", fSun.get(Calendar.DATE));
 			if (dayEnd.size() > 0) {
 				hme.put(ymd, dayEnd);
 			}
